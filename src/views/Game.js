@@ -102,7 +102,11 @@ export default function ({match, history}) {
 
     useEffect(() => {
         axios.get(`game/${game.id}`).then(({data}) => {
-            setGame(data);
+            const {currentRound, ...game} = data;
+            setGame(game);
+            if (currentRound) {
+                setRound(currentRound);
+            }
         }).catch(err => {
             if(err.response.status === 404) {
                 setGameExists(false);
