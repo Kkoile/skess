@@ -13,7 +13,8 @@ router.post('/createGame', async (req, res, next) => {
 });
 
 router.get('/game/:id', async (req, res, next) => {
-  const game = await Game.getGame(req.params.id);
+  const userId = req.headers['x-user'];
+  const game = await Game.getGame(req.params.id, userId);
   if (!game) {
     return res.status(404).send('Game not found');
   }
