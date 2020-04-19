@@ -1,0 +1,18 @@
+@Import '~antd/dist/antd.css';
+
+.GameEndScreen {
+  height: 100vh;
+  background-color: #61dafb;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.GameEndScreen-header {
+  font-size: 64px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}

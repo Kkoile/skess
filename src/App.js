@@ -1,26 +1,45 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
-function App() {
+import routes from './routes'
+import {AppContextProvider} from "./contexts/AppContext";
+import axios from 'axios';
+
+if (process.env.NODE_ENV === 'development') {
+    axios.defaults.baseURL = 'http://localhost:5000/';
+}
+
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <Router>
+          <AppContextProvider>
+              <div>
+                  <Switch>
+                      {routes.map(route => {
+                          return (
+                              <RouteWrapper
+                                  exact
+                                  key={route.path}
+                                  path={route.path}
+                                  component={route.component}
+                                  label={route.label}
+                              />
+                          )
+                      })}
+                  </Switch>
+              </div>
+          </AppContextProvider>
+      </Router>
   );
 }
 
-export default App;
+const RouteWrapper = ({ component: Component, label, ...rest }) => {
+    return (
+        <Route
+            {...rest}
+            render={props => (
+                <Component {...props} />
+            )}
+        />
+    );
+};

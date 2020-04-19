@@ -1,0 +1,24 @@
+@import '~antd/dist/antd.css';
+
+.Lobby {
+  height: 100vh;
+  background-color: #61dafb;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.Lobby-header {
+  font-size: 32px
+}
+
+.Lobby-buttons {
+  display: flex;
+  flex-direction: column;
+}
+
+.Lobby-button {
+  margin: 10px;
+}
+
