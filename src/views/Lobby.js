@@ -12,7 +12,7 @@ export default function Lobby({history}) {
     const [gameId, setGameId] = useState('');
 
     const onCreateNewGameClicked = async () => {
-        const {data} = await axios.post('createGame');
+        const {data} = await axios.post('api/createGame');
         history.push(`/game/${data.id}`);
     }
 

@@ -12,7 +12,7 @@ export default function ({match, history}) {
     const [game, setGame] = useState({id: match.params.id, host: {}, player: [], options: {language: 'en', timeToDraw: 60}, isRunning: false});
     const [round, setRound] = useState(null);
     const [doesGameExist, setGameExists] = useState(undefined);
-    const [socket] = useState(socketIOClient('http://localhost:5000'));
+    const [socket] = useState(socketIOClient({path: '/api/socket.io'}));
 
     const onReturnToHomeClicked = () => {
         history.replace('/lobby')
@@ -21,7 +21,7 @@ export default function ({match, history}) {
     const onStartGamePressed = async () => {
         setLoading(true);
         try {
-            await axios.post(`game/${game.id}/start`, null, {params: {...game.options}});
+            await axios.post(`/api/game/${game.id}/start`, null, {params: {...game.options}});
             setGame({...game, isRunning: true});
         } catch (err) {
             alert(err.message)
@@ -31,7 +31,7 @@ export default function ({match, history}) {
 
     const onDrawingEnded = async (image) => {
         try {
-            await axios.post(`game/${game.id}/submitRound`, { image });
+            await axios.post(`/api/game/${game.id}/submitRound`, { image });
         } catch (err) {
             alert(err.message)
         }
@@ -39,14 +39,14 @@ export default function ({match, history}) {
 
     const submitGuess = async (guess) => {
         try {
-            await axios.post(`game/${game.id}/submitRound`, { guess });
+            await axios.post(`/api/game/${game.id}/submitRound`, { guess });
         } catch (err) {
             alert(err.message)
         }
     };
 
     const onPlayAgainClicked = async () => {
-        const {data} = await axios.post('createGame', null, {params: {previousGame: game.id}});
+        const {data} = await axios.post('api/createGame', null, {params: {previousGame: game.id}});
         history.replace(`/game/${data.id}`);
     };
 
@@ -101,7 +101,7 @@ export default function ({match, history}) {
     }, [socket, game.id]);
 
     useEffect(() => {
-        axios.get(`game/${game.id}`).then(({data}) => {
+        axios.get(`/api/game/${game.id}`).then(({data}) => {
             const {currentRound, ...game} = data;
             setGame(game);
             if (currentRound) {
