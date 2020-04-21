@@ -4,15 +4,13 @@ services:
   skess-backend:
     build:
       context: .
-    image: skess-backend
+    image: docker-registry.kkoile.de/skess-backend
     container_name: skess-backend
     restart: unless-stopped
     env_file: .env
     environment:
       - REDIS_HOST=skess-db
       - REDIS_PORT=$REDIS_PORT
-    ports:
-      - "5000:5000"
     volumes:
       - .:/home/node/app/skess
       - node_modules:/home/node/app/skess/node_modules
