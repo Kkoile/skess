@@ -5,12 +5,13 @@ import GameLobby from "./GameLobby";
 import axios from 'axios';
 import GameBoard from "./GameBoard";
 import GameEndScreen from "./GameEndScreen";
-import {Button} from "antd";
+import {Button, Modal} from "antd";
 
 export default function ({match, history}) {
     const [state] = useContext(AppContext);
     const [isLoading, setLoading] = useState(true);
     const [game, setGame] = useState({id: match.params.id, host: {}, player: [], options: {language: 'en', timeToDraw: 60}, isRunning: false});
+    const [wordsToChoose, setWordsToChoose] = useState(null);
     const [round, setRound] = useState(null);
     const [doesGameExist, setGameExists] = useState(undefined);
     const [socket] = useState(socketIOClient({path: '/api/socket.io/'}));
@@ -30,6 +31,11 @@ export default function ({match, history}) {
         setLoading(false);
     };
 
+    const onWordChosen = async (word) => {
+        setWordsToChoose({...wordsToChoose, chosenWord: word});
+        await axios.post(`/api/game/${game.id}/chooseWord`, { word })
+    };
+
     const onDrawingEnded = async (image) => {
         try {
             await axios.post(`/api/game/${game.id}/submitRound`, { image });
@@ -47,7 +53,7 @@ export default function ({match, history}) {
     };
 
     const onPlayAgainClicked = async () => {
-        const {data} = await axios.post('api/createGame', null, {params: {previousGame: game.id}});
+        const {data} = await axios.post('/api/createGame', null, {params: {previousGame: game.id}});
         history.replace(`/game/${data.id}`);
     };
 
@@ -76,8 +82,12 @@ export default function ({match, history}) {
             socket.on('gameOptions', (options) => {
                 setGame(game => {return {...game, options}})
             });
+            socket.on('wordsToChoose', (wordsToChoose) => {
+                setWordsToChoose(wordsToChoose);
+            });
             socket.on('nextRound', (round) => {
                 setRound(round)
+                setWordsToChoose(null);
                 setGame(game => {return {...game, isRunning: true}})
             });
             socket.on('gameEnded', (game) => {
@@ -103,11 +113,10 @@ export default function ({match, history}) {
 
     useEffect(() => {
         axios.get(`/api/game/${game.id}`).then(({data}) => {
-            const {currentRound, ...game} = data;
+            const {currentRound, wordsToChoose, ...game} = data;
             setGame(game);
-            if (currentRound) {
-                setRound(currentRound);
-            }
+            setRound(currentRound);
+            setWordsToChoose(wordsToChoose);
         }).catch(err => {
             if(err.response.status === 404) {
                 setGameExists(false);
@@ -132,12 +141,35 @@ export default function ({match, history}) {
         )
     }
 
-    if (game.isRunning) {
-        return <GameBoard timeToDraw={game.options.timeToDraw} round={round} onDrawingEnded={onDrawingEnded} submitGuess={submitGuess}/>
-    }
-
     if (game.finished) {
         return <GameEndScreen game={game} onPlayAgainClicked={onPlayAgainClicked}/>
+    }
+
+    if (wordsToChoose) {
+        const renderWords = wordsToChoose.words.map(word => {
+            return <Button onClick={() => onWordChosen(word)}>{word}</Button>
+        })
+        return (
+            <Modal visible title={'Choose Word'} footer={[]}>
+                {!wordsToChoose.chosenWord && (
+                    <div>
+                        <p>Choose one of the following words:</p>
+                        <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-around'}}>
+                            {renderWords}
+                        </div>
+                    </div>
+                )}
+                {!!wordsToChoose.chosenWord && (
+                    <div>
+                        <p>You chose {wordsToChoose.chosenWord}. Waiting for the others to chose a word</p>
+                    </div>
+                )}
+            </Modal>
+        )
+    }
+
+    if (game.isRunning && round) {
+        return <GameBoard timeToDraw={game.options.timeToDraw} round={round} onDrawingEnded={onDrawingEnded} submitGuess={submitGuess}/>
     }
 
     return <GameLobby
