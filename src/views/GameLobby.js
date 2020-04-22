@@ -60,8 +60,8 @@ export default function GameLobby({game, onStartGamePressed, onDrawTimeOptionCha
             }
             {(game.host === user.id) && (
                 <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
-                    {game.player.length < 3 && <div>At least 3 people required to play a game</div>}
-                    <Button type={'primary'} size={'large'} disabled={game.player.length < 3} onClick={onStartGamePressed}>Start Game</Button>
+                    {game.player.length < 3 && <div>At least 2 people required to play a game</div>}
+                    <Button type={'primary'} size={'large'} disabled={game.player.length < 2} onClick={onStartGamePressed}>Start Game</Button>
                 </div>
             )}
         </div>

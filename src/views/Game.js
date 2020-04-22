@@ -67,6 +67,7 @@ export default function ({match, history}) {
 
     useEffect(() => {
         setGame({id: match.params.id, host: {}, player: [], options: {language: 'en', timeToDraw: 60}, isRunning: false})
+        setWordsToChoose(null);
     }, [match])
 
     useEffect(() => {
@@ -147,7 +148,7 @@ export default function ({match, history}) {
 
     if (wordsToChoose) {
         const renderWords = wordsToChoose.words.map(word => {
-            return <Button onClick={() => onWordChosen(word)}>{word}</Button>
+            return <Button key={word} onClick={() => onWordChosen(word)}>{word}</Button>
         })
         return (
             <Modal visible title={'Choose Word'} footer={[]}>

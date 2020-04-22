@@ -11,11 +11,11 @@ const Initializer = () => {
       return (
           <Router>
             <Switch>
-              {routes.map(route => {
+              {routes.map((route, i) => {
                 return (
                     <RouteWrapper
                         exact
-                        key={route.path}
+                        key={i}
                         path={route.path}
                         component={route.component}
                         label={route.label}

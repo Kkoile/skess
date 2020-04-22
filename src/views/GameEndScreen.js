@@ -123,7 +123,7 @@ export default function GameEndScreen({game, onPlayAgainClicked}) {
             <Collapse style={{width: '80vw'}} accordion={true} onChange={onPanelChange}>
                 {panelEntries}
             </Collapse>
-            <Button type={'primary'} size={'large'} onClick={onPlayAgainClicked}>Play Again</Button>
+            <Button style={{marginTop: '1rem'}} type={'primary'} size={'large'} onClick={onPlayAgainClicked}>Play Again</Button>
         </div>
     );
 }

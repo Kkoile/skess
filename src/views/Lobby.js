@@ -50,7 +50,7 @@ export default function Lobby({history}) {
             <Button type={'primary'} key={'submit'} onClick={handleJoinGame}>Join</Button>
         ]}>
             <p>Enter the id of the game:</p>
-            <Input autoFocus={true} value={gameId} onChange={(event) => setGameId(event.target.value)}/>
+            <Input autoFocus={true} onPressEnter={handleJoinGame} value={gameId} onChange={(event) => setGameId(event.target.value)}/>
         </Modal>
     </div>
   );
