@@ -5,6 +5,7 @@ import GameLobby from "./GameLobby";
 import axios from 'axios';
 import GameBoard from "./GameBoard";
 import GameEndScreen from "./GameEndScreen";
+import {Button} from "antd";
 
 export default function ({match, history}) {
     const [state] = useContext(AppContext);
@@ -15,7 +16,7 @@ export default function ({match, history}) {
     const [socket] = useState(socketIOClient({path: '/api/socket.io'}));
 
     const onReturnToHomeClicked = () => {
-        history.replace('/lobby')
+        history.replace('/')
     };
 
     const onStartGamePressed = async () => {
@@ -124,9 +125,9 @@ export default function ({match, history}) {
 
     if (doesGameExist === false) {
         return (
-            <div>
-                Game with id '{game.id}' does not exist.
-                <div onClick={onReturnToHomeClicked}>Return to Home</div>
+            <div style={{backgroundColor: 'primary', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
+                <h2>Game with id '{game.id}' does not exist.</h2>
+                <Button type={'primary'} onClick={onReturnToHomeClicked}>Return to Home</Button>
             </div>
         )
     }

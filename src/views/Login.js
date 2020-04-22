@@ -5,7 +5,7 @@ import * as randomHash from 'random-hash';
 import {AppContext} from "../contexts/AppContext";
 import {Button, Input} from "antd";
 
-export default function Login({history}) {
+export default function Login() {
   const [state, setState] = useContext(AppContext);
   const [name, setName] = useState(`Random Player ${Math.floor(Math.random()*1000)}`);
   const [id] = useState(randomHash.generateHash());
@@ -14,7 +14,6 @@ export default function Login({history}) {
     setState({...state, user: {id, name}});
     localStorage.setItem('userId', id);
     localStorage.setItem('userName', name);
-    history.replace("/lobby");
   };
 
   return (

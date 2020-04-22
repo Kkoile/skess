@@ -30,10 +30,9 @@ export default function Lobby({history}) {
     }
 
     const onLogoutClicked = () => {
-        setState({...state, user: {id: null, name: null}});
         localStorage.removeItem('userId');
         localStorage.removeItem('userName');
-        history.replace("/");
+        setState({...state, user: {id: null, name: null}});
     }
 
   return (
