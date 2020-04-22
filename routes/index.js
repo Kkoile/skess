@@ -53,4 +53,14 @@ router.post('/game/:id/submitRound', async (req, res, next) => {
   }
 });
 
+router.post('/game/:id/clickThroughGameEndScreen', async (req, res, next) => {
+  try {
+    await Game.clickThroughGameEndScreen(req.params.id, req.body);
+    res.sendStatus(200);
+  } catch(err) {
+    console.error(err)
+    res.status(400).send(err.message);
+  }
+});
+
 module.exports = router;
