@@ -13,7 +13,7 @@ export default function ({match, history}) {
     const [game, setGame] = useState({id: match.params.id, host: {}, player: [], options: {language: 'en', timeToDraw: 60}, isRunning: false});
     const [round, setRound] = useState(null);
     const [doesGameExist, setGameExists] = useState(undefined);
-    const [socket] = useState(socketIOClient({path: '/api/socket.io'}));
+    const [socket] = useState(socketIOClient({path: '/api/socket.io/'}));
 
     const onReturnToHomeClicked = () => {
         history.replace('/')
