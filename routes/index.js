@@ -31,6 +31,17 @@ router.post('/game/:id/start', async (req, res, next) => {
   }
 });
 
+router.post('/game/:id/chooseWord', async (req, res, next) => {
+  try {
+    const userId = req.headers['x-user'];
+    await Game.chooseWord(req.params.id, userId, req.body.word);
+    res.sendStatus(200);
+  } catch(err) {
+    console.error(err)
+    res.status(400).send(err.message);
+  }
+});
+
 router.post('/game/:id/submitRound', async (req, res, next) => {
   try {
     const userId = req.headers['x-user'];
