@@ -1,15 +1,15 @@
-import React, {createRef, useEffect, useRef, useState} from 'react';
+import React, {createRef, useContext, useEffect, useRef, useState} from 'react';
 import './GameEndScreen.css';
 import {FaChevronRight, FaChevronLeft} from "react-icons/fa";
 import {Button, Carousel, Collapse} from "antd";
+import {AppContext} from "../contexts/AppContext";
 const { Panel } = Collapse;
 
-export default function GameEndScreen({game, onPlayAgainClicked}) {
+export default function GameEndScreen({game, endScreenState, onPlayAgainClicked, onGameEndScreenStateChanged}) {
 
-    const [guessIsShowing, setGuessIsShowing] = useState(false);
+    const [{user}] = useContext(AppContext);
+
     const [transformedGame, setTransformedGame] = useState(null);
-    const [carouselIndex, setCarouselIndex] = useState(0);
-    const [panelIndex, setPanelIndex] = useState(undefined);
     const carouselRefs = useRef([]);
 
     if (transformedGame && carouselRefs.current.length !== transformedGame.words.length) {
@@ -17,28 +17,31 @@ export default function GameEndScreen({game, onPlayAgainClicked}) {
     }
 
     const getCarouselRef = () => {
-        return carouselRefs.current[panelIndex] ? carouselRefs.current[panelIndex].current : null;
+        return carouselRefs.current[endScreenState.panel] ? carouselRefs.current[endScreenState.panel].current : null;
     }
 
     const onCarouselPreviousClicked = () => {
-        getCarouselRef().prev();
+        onGameEndScreenStateChanged({...endScreenState, carouselIndex: endScreenState.carouselIndex - 1});
     };
 
     const onCarouselNextClicked = () => {
-        if (guessIsShowing || carouselIndex === 0) {
-            setGuessIsShowing(false);
-            getCarouselRef().next();
+        if (endScreenState.guessIsShowing || endScreenState.carouselIndex === 0) {
+            onGameEndScreenStateChanged({...endScreenState, guessIsShowing: false, carouselIndex: endScreenState.carouselIndex + 1});
         } else {
-            setGuessIsShowing(true);
+            onGameEndScreenStateChanged({...endScreenState, guessIsShowing: true});
         }
     };
 
     const onPanelChange = (index) => {
-        setPanelIndex(index)
-        setGuessIsShowing(false);
-        setCarouselIndex(0);
-        getCarouselRef() && getCarouselRef().goTo(0, true);
+        if (game.host !== user.id) {
+            return;
+        }
+        onGameEndScreenStateChanged({panel: index, guessIsShowing: false, carouselIndex: 0});
     };
+
+    useEffect(() => {
+        getCarouselRef() && getCarouselRef().goTo(endScreenState.carouselIndex, true);
+    }, [carouselRefs.current, endScreenState]);
 
     useEffect(() => {
         const words = game.words.map(word => {
@@ -77,7 +80,7 @@ export default function GameEndScreen({game, onPlayAgainClicked}) {
                                     Drawn by: <b>{round.player.name}</b>
                                 </div>
                                 <img style={{maxWidth: '100%', maxHeight: '100%'}} src={round.image}/>
-                                {guessIsShowing && (
+                                {endScreenState.guessIsShowing && (
                                     <div style={{position: 'absolute', top: '0.5rem', display: 'flex', justifyContent: 'center', alignItems: 'center', height: '3rem', paddingLeft: '10rem', paddingRight: '10rem', backgroundColor: 'rgba(30,120,120,0.7)'}}>
                                         {round.guessedBy} guessed: <h1 style={{marginBottom: 0, marginLeft: 8}}>{round.guess}</h1>
                                     </div>
@@ -89,14 +92,14 @@ export default function GameEndScreen({game, onPlayAgainClicked}) {
             )
         });
         return (
-            <Panel header={word.player.name} key={index} >
+            <Panel header={word.player.name} key={index}>
                 <div style={{width: '100%', position: 'relative'}}>
-                    <Carousel ref={carouselRefs.current[index]} style={{height: '50vh', width: '100%'}} dots={false} afterChange={setCarouselIndex}>
+                    <Carousel ref={carouselRefs.current[index]} style={{height: '50vh', width: '100%'}} dots={false}>
                         {carouselEntries}
                     </Carousel>
                     <Button
                         style={{width: '4rem', height: '4rem', position: 'absolute', top: '50%', left: '1rem'}}
-                        disabled={carouselIndex < 1}
+                        disabled={endScreenState.carouselIndex < 1 || game.host !== user.id}
                         type={'ghosted'}
                         shape={'round'}
                         icon={<FaChevronLeft />}
@@ -104,7 +107,7 @@ export default function GameEndScreen({game, onPlayAgainClicked}) {
                     />
                     <Button
                         style={{width: '4rem', height: '4rem', position: 'absolute', top: '50%', right: '1rem'}}
-                        disabled={carouselIndex > (transformedGame.words[0].rounds.length - 2) && guessIsShowing}
+                        disabled={endScreenState.carouselIndex > (transformedGame.words[0].rounds.length - 2) && endScreenState.guessIsShowing || game.host !== user.id}
                         type={'ghosted'}
                         shape={'round'}
                         icon={<FaChevronRight />}
@@ -120,7 +123,7 @@ export default function GameEndScreen({game, onPlayAgainClicked}) {
             <div className={'GameEndScreen-header'}>
                 Game Ended
             </div>
-            <Collapse style={{width: '80vw'}} accordion={true} onChange={onPanelChange}>
+            <Collapse style={{width: '80vw'}} accordion={true} onChange={onPanelChange} disabled={game.host !== user.id} activeKey={endScreenState.panel}>
                 {panelEntries}
             </Collapse>
             <Button style={{marginTop: '1rem'}} type={'primary'} size={'large'} onClick={onPlayAgainClicked}>Play Again</Button>

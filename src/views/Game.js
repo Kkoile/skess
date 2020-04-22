@@ -13,6 +13,7 @@ export default function ({match, history}) {
     const [game, setGame] = useState({id: match.params.id, host: {}, player: [], options: {language: 'en', timeToDraw: 60}, isRunning: false});
     const [wordsToChoose, setWordsToChoose] = useState(null);
     const [round, setRound] = useState(null);
+    const [endScreenState, setGameEndScreen] = useState({panel: 0, carouselIndex: 0, guessIsShowing: false});
     const [doesGameExist, setGameExists] = useState(undefined);
     const [socket] = useState(socketIOClient({path: '/api/socket.io/'}));
 
@@ -65,6 +66,11 @@ export default function ({match, history}) {
         setGame({...game, options: {...game.options, language: value}})
     }
 
+    const onGameEndScreenStateChanged = async (state) => {
+        await axios.post(`/api/game/${game.id}/clickThroughGameEndScreen`, state);
+        setGameEndScreen(state);
+    }
+
     useEffect(() => {
         setGame({id: match.params.id, host: {}, player: [], options: {language: 'en', timeToDraw: 60}, isRunning: false})
         setWordsToChoose(null);
@@ -92,7 +98,12 @@ export default function ({match, history}) {
                 setGame(game => {return {...game, isRunning: true}})
             });
             socket.on('gameEnded', (game) => {
-                setGame(game);
+                const {endScreenState, ...rest} = game;
+                setGameEndScreen(endScreenState);
+                setGame(rest);
+            });
+            socket.on('endScreenStateChanged', (state) => {
+                setGameEndScreen(state);
             });
         }
         return () => {
@@ -114,10 +125,11 @@ export default function ({match, history}) {
 
     useEffect(() => {
         axios.get(`/api/game/${game.id}`).then(({data}) => {
-            const {currentRound, wordsToChoose, ...game} = data;
+            const {currentRound, wordsToChoose, endScreenState, ...game} = data;
             setGame(game);
             setRound(currentRound);
             setWordsToChoose(wordsToChoose);
+            setGameEndScreen(endScreenState);
         }).catch(err => {
             if(err.response.status === 404) {
                 setGameExists(false);
@@ -143,7 +155,7 @@ export default function ({match, history}) {
     }
 
     if (game.finished) {
-        return <GameEndScreen game={game} onPlayAgainClicked={onPlayAgainClicked}/>
+        return <GameEndScreen game={game} endScreenState={endScreenState} onGameEndScreenStateChanged={onGameEndScreenStateChanged} onPlayAgainClicked={onPlayAgainClicked}/>
     }
 
     if (wordsToChoose) {
