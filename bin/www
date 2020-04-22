@@ -33,8 +33,9 @@ server.on('listening', onListening);
  * Web Socket
  */
 
-var io = require('socket.io')(server);
-require('../routes/io')(io);
+const io = require('socket.io');
+const socket = io.listen(server);
+require('../routes/io')(socket);
 
 /**
  * Normalize a port into a number, string, or false.
