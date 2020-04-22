@@ -55,6 +55,9 @@ export default function GameBoard({timeToDraw, round, onDrawingEnded, submitGues
                         <div className={'GameBoard-titles'}>
                             <h2>Draw the following word</h2>
                             <h1>{round.word}</h1>
+                            {round.playerBefore && (
+                                <h2>{round.playerBefore.name} guessed this word</h2>
+                            )}
                         </div>
                     </div>
                     <DrawingBoard onDrawBoardChanged={setImage}/>
@@ -72,7 +75,7 @@ export default function GameBoard({timeToDraw, round, onDrawingEnded, submitGues
                 <div>
                     <div className={'GameBoard-header'}>
                         <div className={'GameBoard-titles'}>
-                            <h1>Now Guess</h1>
+                            <h1>Now guess what {round.playerBefore.name} drew</h1>
                             <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center', width: '100%', marginBottom: '1rem'}}>
                                 <Input style={{height: '4rem'}} onPressEnter={onSubmitGuessClicked} value={guess} autoFocus onChange={(event) => setGuess(event.target.value)}/>
                                 <Button style={{marginLeft: '1rem', height: '4rem'}} type={'primary'} onClick={onSubmitGuessClicked}>Submit</Button>
