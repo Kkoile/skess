@@ -21,7 +21,7 @@ export default function DrawingBoard({onDrawBoardChanged}) {
         )
     });
 
-    const colors = ['yellow', 'orange', 'red', 'lightblue', 'blue', 'lightgreen', 'green', 'brown', 'grey', 'black', 'white'];
+    const colors = ['black', 'yellow', 'orange', 'red', 'lightblue', 'blue', 'lightgreen', 'green', 'brown', 'grey', 'white'];
     const renderColors = colors.map(color => {
        return (
            <div key={color} className={'DrawingBoard-color'} onClick={() => setColor(color)}>

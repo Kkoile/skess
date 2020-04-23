@@ -85,7 +85,7 @@ export default function GameBoard({timeToDraw, round, onDrawingEnded, submitGues
                             }
                         </div>
                     </div>
-                    <div style={{width: '80vh', height: '80vh', borderStyle: 'solid', borderWidth: 1}}>
+                    <div style={{width: '100%', borderStyle: 'solid', borderWidth: 1}}>
                         <img height={'100%'} width={'100%'} src={round.image}/>
                     </div>
                 </div>

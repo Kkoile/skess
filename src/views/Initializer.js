@@ -3,6 +3,7 @@ import { AppContext } from "../contexts/AppContext";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import routes from "../routes";
 import Login from "./Login";
+import Layout from "../layout/Layout";
 
 const Initializer = () => {
   const [{ user }] = useContext(AppContext);
@@ -26,7 +27,7 @@ const Initializer = () => {
           </Router>
       )
     } else {
-      return <Login />
+      return <Layout><Login /></Layout>
     }
 
 };
@@ -36,7 +37,9 @@ const RouteWrapper = ({ component: Component, label, ...rest }) => {
       <Route
           {...rest}
           render={props => (
-              <Component {...props} />
+              <Layout>
+                <Component {...props} />
+              </Layout>
           )}
       />
   );

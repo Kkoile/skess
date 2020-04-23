@@ -1,0 +1,43 @@
+@Import '~antd/dist/antd.css';
+@Import './colors.css';
+
+.layout-main {
+    background-color: var(--primary-background-color);
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.layout-content {
+    height: 100%;
+    width: 100%;
+}
+
+.layout-footer {
+    background-color: var(--secondary-background-color);
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.layout-inner-footer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0.5rem;
+}
+.layout-inner-footer > p {
+    margin: 0;
+}
+
+.layout-impressum-modal-content {
+    height: 80vh;
+    overflow-x: hidden;
+    overflow-x: auto;
+}

@@ -1,8 +1,7 @@
 @Import '~antd/dist/antd.css';
 
 .GameEndScreen {
-  height: 100vh;
-  background-color: #61dafb;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
