@@ -26,7 +26,7 @@ export default function GameLobby({game, onStartGamePressed, onDrawTimeOptionCha
                 <div className={'GameLobby-urlArea'}>
                     Send this link to your friends:
                     <div className={'GameLobby-url'}>
-                        <h2 style={{marginBottom: 0}}>{url}</h2>
+                        <p style={{marginBottom: 0}}>{url}</p>
                         <Tooltip title={'copy'}>
                             <Button
                                 onClick={copyUrl}
