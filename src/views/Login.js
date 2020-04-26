@@ -14,8 +14,8 @@ export default function Login() {
   const onPlayClicked = async () => {
     const {data} = await axios.post('/api/user', {id, name})
     setState({...state, user: data});
-    localStorage.setItem('userId', id);
-    localStorage.setItem('userName', name);
+    localStorage.setItem('x-userId', id);
+    localStorage.setItem('x-userName', name);
   };
 
   return (

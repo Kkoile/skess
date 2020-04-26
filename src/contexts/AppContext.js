@@ -4,8 +4,8 @@ import axios from "axios";
 export const AppContext = createContext(undefined);
 
 export const AppContextProvider = props => {
-    const userName = localStorage.getItem("userName");
-    const userId = localStorage.getItem("userId");
+    const userName = localStorage.getItem("x-userName");
+    const userId = localStorage.getItem("x-userId");
     const [state, setState] = useState({
         user: {
             name: userName || null,
