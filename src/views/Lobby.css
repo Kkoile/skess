@@ -8,15 +8,31 @@
   align-items: center;
 }
 
-.Lobby-header {
-  font-size: 32px
-}
-
-.Lobby-buttons {
+.Lobby-JoinGameArea {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 3rem;
 }
 
-.Lobby-button {
-  margin: 10px;
+.Lobby-JoinGameInput {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.Lobby-JoinGameInputInput {
+  height: 3rem;
+  border-radius: 10px 0 0 10px;
+}
+
+.Lobby-JoinGameInputButton {
+  height: 3rem;
+  background-color: #244651;
+  border: none;
+  border-radius: 0 10px 10px 0;
+  color: white;
+  font-family: sans-serif;
 }

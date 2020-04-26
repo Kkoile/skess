@@ -12,6 +12,7 @@
     "clipboard-copy": "^3.1.0",
     "random-hash": "^4.0.1",
     "react": "^16.13.1",
+    "react-circular-progressbar": "^2.0.3",
     "react-dom": "^16.13.1",
     "react-icons": "^3.9.0",
     "react-router-dom": "^5.1.2",
@@ -21,7 +22,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts --max_old_space_size=8192 build",
+    "build": "react-scripts --expose-gc --max_old_space_size=16384 build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

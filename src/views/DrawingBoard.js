@@ -6,8 +6,8 @@ import {Button} from "antd";
 
 export default function DrawingBoard({onDrawBoardChanged}) {
 
-    const [width, setWidth] = useState(3);
-    const [color, setColor] = useState('black');
+    const [selectedWidth, setSelectedWidth] = useState(3);
+    const [selectedColor, setSelectedColor] = useState('black');
     const [isEraser, setIsEraser] = useState(false);
     const [sketchField, setSketchField] = useState(null);
 
@@ -15,16 +15,20 @@ export default function DrawingBoard({onDrawBoardChanged}) {
     const renderBrushes = brushWidths.map(width => {
         const renderWidth = 2 * width;
         return (
-            <div key={width} style={{width: renderWidth + 16}} className={'DrawingBoard-brushButton'} onClick={() => setWidth(width)}>
+            <div key={width} style={{width: renderWidth + 16, backgroundColor: width === selectedWidth ? '#40a9ff' : 'transparent'}} className={'DrawingBoard-brushButton'} onClick={() => setSelectedWidth(width)}>
                 <div style={{width: renderWidth, height: renderWidth, backgroundColor: 'black', borderRadius: renderWidth}}/>
             </div>
         )
     });
 
     const colors = ['black', 'yellow', 'orange', 'red', 'lightblue', 'blue', 'lightgreen', 'green', 'brown', 'grey', 'white'];
+    const onColorClicked = (color) => {
+        setSelectedColor(color);
+        setIsEraser(false);
+    }
     const renderColors = colors.map(color => {
        return (
-           <div key={color} className={'DrawingBoard-color'} onClick={() => setColor(color)}>
+           <div key={color} style={{backgroundColor: color === selectedColor ? '#40a9ff' : 'transparent'}} className={'DrawingBoard-color'} onClick={() => onColorClicked(color)}>
                <FaSplotch color={color} size={'2rem'}/>
            </div>
        )
@@ -40,13 +44,15 @@ export default function DrawingBoard({onDrawBoardChanged}) {
                     height={'100%'}
                     tool={Tools.Pencil}
                     onChange={() => onDrawBoardChanged && onDrawBoardChanged(sketchField.toDataURL())}
-                    lineColor={isEraser ? 'white' : color}
-                    lineWidth={width}
+                    lineColor={isEraser ? 'white' : selectedColor}
+                    lineWidth={selectedWidth}
                 />
             </div>
              <div className={'DrawingBoard-brushArea'}>
-                 <Button type={'ghost'} style={{border: 'none'}} onClick={() => setIsEraser(true)} icon={<FaEraser />} />
-                 <Button type={'ghost'} style={{border: 'none'}} onClick={() => setIsEraser(false)} icon={<FaPaintBrush />} />
+                 <div style={{display: 'flex', flexDirection: 'row'}}>
+                     <Button type={'ghost'} style={{border: 'none', backgroundColor: isEraser ? '#40a9ff' : 'transparent'}} onClick={() => setIsEraser(true)} icon={<FaEraser />} />
+                     <Button type={'ghost'} style={{border: 'none', backgroundColor: !isEraser ? '#40a9ff' : 'transparent'}} onClick={() => setIsEraser(false)} icon={<FaPaintBrush />} />
+                 </div>
                  {renderBrushes}
              </div>
              <div className={'DrawingBoard-colorArea'}>

@@ -1,0 +1,87 @@
+@Import '~antd/dist/antd.css';
+
+.PartyLobby {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.PartyLobby-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.PartyLobby-copyButton {
+  background-color: transparent;
+  border: none;
+  color: white;
+  margin-bottom: 0.5rem;
+}
+
+.PartyLobby-playerArea {
+  min-width: 20rem;
+  max-width: 48rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.PartyLobby-playerList {
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.PartyLobby-playerItem {
+  margin: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.PartyLobby-playerItemName {
+  width: 7rem;
+  flex-wrap: wrap;
+}
+
+.PartyLobby-options {
+  display: flex;
+  flex-direction: row;
+}
+
+.PartyLobby-option {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem;
+}
+
+.ant-select-arrow {
+  background-color: #ec5b56;
+  top: 0;
+  right: 0;
+  margin-top: 0;
+  width: 2rem;
+  height: 2rem;
+  color: white;
+  font-size: 18px;
+}
+
+.ant-input-number-handler-wrap {
+  background-color: #ec5b56;
+  border: none;
+  color: white;
+}
+
+.ant-input-number-handler {
+  background-color: #ec5b56;
+  border: none;
+  color: white;
+  font-size: 18px;
+}

@@ -27,7 +27,7 @@ export default function ({children}) {
             <div className={'layout-footer'}>
                 <div className={'layout-inner-footer'}>
                     <Button type={'link'} onClick={() => setIsImpressumShowing(true)}>Impressum</Button>
-                    <p>Made with ♥ by Kkoile</p>
+                    <p style={{color: '#e6e6e6', fontSize: '12px', fontWeight: 'normal'}}>Made with ♥ by Kkoile</p>
                 </div>
             </div>
         </div>

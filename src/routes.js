@@ -1,6 +1,9 @@
+import React from 'react';
 import Lobby from "./views/Lobby";
-import Game from "./views/Game";
-import Impressum from "./views/Impressum";
+import {PartyContextProvider} from "./contexts/PartyContext";
+import PartyManager from "./views/PartyManager";
+import {GameContextProvider} from "./contexts/GameContext";
+import GameManager from "./views/GameManager";
 
 const routes = [
     {
@@ -9,14 +12,27 @@ const routes = [
         label: 'Lobby'
     },
     {
-        path: '/impressum',
-        component: Impressum,
-        label: 'Impressum'
+        path: '/party/:id',
+        component: (props) => {
+            return (
+                <PartyContextProvider id={props.match.params.id} {...props} >
+                    <PartyManager {...props} />
+                </PartyContextProvider>
+                )
+        },
+        label: 'Party'
     },
     {
-        path: '/game/:id',
-        component: Game,
-        label: 'Game'
+        path: '/party/:partyId/game/:gameId',
+        component: (props) => {
+            return (
+                <PartyContextProvider id={props.match.params.partyId} {...props}>
+                    <GameContextProvider id={props.match.params.gameId} {...props}>
+                        <GameManager {...props} />
+                    </GameContextProvider>
+                </PartyContextProvider>
+            )
+        }
     },
     {
         component: ({history}) => {

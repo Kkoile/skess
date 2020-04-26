@@ -1,6 +1,6 @@
 @Import '~antd/dist/antd.css';
 
-.GameBoard {
+.DrawingRound {
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -8,22 +8,28 @@
   align-items: center;
 }
 
-.GameBoard-header {
+.DrawingRound-header {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
 }
 
-.GameBoard-countdown {
+.DrawingRound-countdown {
+  width: 5rem;
+  align-self: flex-end;
+  margin-bottom: 2rem;
+}
+
+.DrawingRound-titles {
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.GameBoard-titles {
-  width: 100%;
+.DrawingRound-TimeIsUp {
   display: flex;
   flex-direction: column;
   justify-content: center;

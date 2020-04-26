@@ -1,57 +1,40 @@
 import React, {useContext, useState} from 'react';
 import './Lobby.css';
-import axios from 'axios';
 import {Button, Input, Modal} from "antd";
 import {AppContext} from "../contexts/AppContext";
+import {PartyContext} from "../contexts/PartyContext";
+import PrimaryButton from "../components/PrimaryButton";
 
 export default function Lobby({history}) {
 
-    const [state, setState] = useContext(AppContext);
+    const [state] = useContext(AppContext);
+    const {createNewParty} = useContext(PartyContext);
     const {user} = state;
-    const [showGameIdInput, setShowGameIdInput] = useState(false);
-    const [gameId, setGameId] = useState('');
+    const [partyId, setPartyId] = useState('');
 
     const onCreateNewGameClicked = async () => {
-        const {data} = await axios.post('api/createGame');
-        history.push(`/game/${data.id}`);
+        const party = await createNewParty();
+        history.push(`/party/${party.id}`);
     }
 
     const onJoinGameClicked = () => {
-        setGameId('');
-        setShowGameIdInput(true);
-    }
-
-    const handleCancelJoinGame = () => {
-        setShowGameIdInput(false);
-    }
-
-    const handleJoinGame = () => {
-        history.push(`game/${gameId}`);
-    }
-
-    const onLogoutClicked = () => {
-        localStorage.removeItem('userId');
-        localStorage.removeItem('userName');
-        setState({...state, user: {id: null, name: null}});
+        history.push(`/party/${partyId}`);
     }
 
   return (
     <div className="Lobby" >
         <div className={'Lobby-header'}>
-            <h1>Welcome {user.name}</h1>
+            <h1>Welcome, <u>{user.name}</u></h1>
         </div>
-        <div className={'Lobby-buttons'}>
-          <Button className={'Lobby-button'} size={'large'} type={'primary'} onClick={onCreateNewGameClicked}>Create new Game</Button>
-          <Button className={'Lobby-button'} size={'large'} onClick={onJoinGameClicked}>Join Game</Button>
-          <Button className={'Lobby-button'} size={'small'} type={'danger'} onClick={onLogoutClicked}>Logout</Button>
-        </div>
-        <Modal visible={showGameIdInput} title={'Join Game'} footer={[
-            <Button key={'back'} onClick={handleCancelJoinGame}>Cancel</Button>,
-            <Button type={'primary'} key={'submit'} onClick={handleJoinGame}>Join</Button>
-        ]}>
-            <p>Enter the id of the game:</p>
-            <Input autoFocus={true} onPressEnter={handleJoinGame} value={gameId} onChange={(event) => setGameId(event.target.value)}/>
-        </Modal>
+          <PrimaryButton value={'Create new Game'} style={{ height: '3rem', padding: '0.5rem 1rem', borderRadius: '10px'}} onClick={onCreateNewGameClicked} />
+
+          <div className={'Lobby-JoinGameArea'}>
+            <p style={{margin: 0}}>Or join a game</p>
+              <div className={'Lobby-JoinGameInput'}>
+                  <Input className={'Lobby-JoinGameInputInput'} placeholder={'Enter Game ID'} onPressEnter={onJoinGameClicked} value={partyId} onChange={(event) => setPartyId(event.target.value)}/>
+                <Button className={'Lobby-JoinGameInputButton'} size={'large'} onClick={onJoinGameClicked}>GO</Button>
+              </div>
+          </div>
     </div>
   );
 }

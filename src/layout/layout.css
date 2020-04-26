@@ -1,6 +1,27 @@
 @Import '~antd/dist/antd.css';
 @Import './colors.css';
 
+h1 {
+    color: white;
+    font-size: 50px;
+    font-weight: bold;
+    font-family: sans-serif;
+    text-align: center;
+}
+h2 {
+    color: white;
+    font-weight: bold;
+    font-family: sans-serif;
+    text-align: center;
+}
+
+p {
+    color: white;
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: 20px;
+}
+
 .layout-main {
     background-color: var(--primary-background-color);
     height: 100vh;
