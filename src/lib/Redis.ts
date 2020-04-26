@@ -1,8 +1,8 @@
-const ConfigService = require("./ConfigService");
-const promisify = require('util').promisify;
+import ConfigService from "./ConfigService";
+import {promisify} from "util";
+import * as redis from 'redis';
 
-const redis = require('redis');
-const redisAdapter = require('socket.io-redis');
+import redisAdapter = require('socket.io-redis');
 const configuration = ConfigService.getRedisConfiguration();
 
 const client = redis.createClient(configuration);
@@ -27,9 +27,9 @@ const deleteItem = async (key) => {
     return await clientDeleteItem(key);
 }
 
-module.exports = {
+export default {
     getItem,
     setItem,
     deleteItem,
     getRedisAdapter
-}
+};

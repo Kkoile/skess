@@ -11,7 +11,7 @@ const getWebSocketConfiguration = () => {
     }
 }
 
-module.exports = {
+export default {
     getRedisConfiguration,
     getWebSocketConfiguration
-}
+};
