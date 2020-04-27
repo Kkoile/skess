@@ -4,6 +4,7 @@ import {FaChevronRight, FaChevronLeft} from "react-icons/fa";
 import {GameContext} from "../contexts/GameContext";
 import Avatar from "../components/Avatar";
 import PrimaryButton from "../components/PrimaryButton";
+import {useTranslation} from "react-i18next";
 
 export default function GameEndScreen({history}) {
 
@@ -12,6 +13,7 @@ export default function GameEndScreen({history}) {
     const [currentRoundsPerWord, setCurrentRoundsPerWord] = useState({word: null, rounds: []});
     const [roundIndex, setRoundIndex] = useState(0);
     const [guessIsShowing, setGuessIsShowing] = useState(false);
+    const {t} = useTranslation('game');
 
     const onPlayAgainClicked = () => {
         history.replace(`/party/${game.partyId}`);
@@ -76,8 +78,8 @@ export default function GameEndScreen({history}) {
     return (
         <div className={'GameEndScreen'}>
             <div className={'GameEndScreen-header'}>
-                <h1>Game ended! Here are the results</h1>
-                <PrimaryButton style={{borderRadius: '10px', marginBottom: '1rem', marginLeft: '2rem'}} value={'Play Again'} onClick={onPlayAgainClicked} />
+                <h1>{t('gameEndTitle')}</h1>
+                <PrimaryButton style={{borderRadius: '10px', marginBottom: '1rem', marginLeft: '2rem'}} value={t('gameEndPlayAgainButton')} onClick={onPlayAgainClicked} />
             </div>
             <div className={'GameEndScreen-playerList'}>
                 {renderRoundsPerWord}
@@ -86,7 +88,7 @@ export default function GameEndScreen({history}) {
                 <div className={'GameEndScreen-resultArea'}>
                     {guessIsShowing &&
                         <div className={'GameEndScreen-guessBlock'}>
-                            <p className={'GameEndScreen-guess'}>{currentRound.guessedBy} guessed: <u>{currentRound.guess}</u></p>
+                            <p className={'GameEndScreen-guess'}>{t('gameEndGuessText', {userName: currentRound.guessedBy})} <u>{currentRound.guess}</u></p>
                         </div>
                     }
                     <div

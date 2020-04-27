@@ -6,11 +6,13 @@ import PrimaryButton from "../components/PrimaryButton";
 import TimeIsUpView from "./TimeIsUpView";
 import {buildStyles, CircularProgressbar} from "react-circular-progressbar";
 import 'react-circular-progressbar/dist/styles.css';
+import {useTranslation} from "react-i18next";
 
 export default function DrawingRound() {
     const {game, submitImage, getNameOfPlayer} = useContext(GameContext);
     const [countdown, setCountdown] = useState(game.options.timeToDraw);
     const [image, setImage] = useState(null);
+    const {t} = useTranslation('game');
 
     const {currentRound, options} = game;
 
@@ -59,10 +61,10 @@ export default function DrawingRound() {
                         />
                     </div>
                     <div className={'DrawingRound-titles'}>
-                        <h1 style={{margin: 0}}>Draw the following word</h1>
+                        <h1 style={{margin: 0}}>{t('drawingTitle')}</h1>
                         <PrimaryButton style={{marginBottom: '2rem'}} value={currentRound.word}/>
                         {currentRound.previousPlayerId && (
-                            <h2>{getNameOfPlayer(currentRound.previousPlayerId)} guessed this word</h2>
+                            <h2>{t('drawingRoundGuessOfPlayer', {userName: getNameOfPlayer(currentRound.previousPlayerId)})}</h2>
                         )}
                     </div>
                 </div>

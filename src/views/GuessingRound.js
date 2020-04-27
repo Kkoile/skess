@@ -2,10 +2,12 @@ import React, {useContext, useEffect, useState} from 'react';
 import {Input} from "antd";
 import {GameContext} from "../contexts/GameContext";
 import PrimaryButton from "../components/PrimaryButton";
+import {useTranslation} from "react-i18next";
 
 export default function GuessingRound() {
     const {game, submitGuess, getNameOfPlayer} = useContext(GameContext);
     const [guess, setGuess] = useState('');
+    const {t} = useTranslation('game')
 
     const {currentRound} = game;
 
@@ -22,7 +24,7 @@ export default function GuessingRound() {
             <div style={{height: '100%', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                 <div className={'GameBoard-header'}>
                     <div className={'GameBoard-titles'}>
-                        <h1>Now guess what <u>{getNameOfPlayer(currentRound.previousPlayerId)}</u> drew</h1>
+                        <h1>{t('guessingTitle', {userName: getNameOfPlayer(currentRound.previousPlayerId)})}</h1>
                     </div>
                 </div>
                 <div style={{flex: '1 1 auto', maxWidth: '100%', maxHeight: '100%'}}>

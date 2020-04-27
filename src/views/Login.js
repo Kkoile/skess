@@ -5,11 +5,13 @@ import * as randomHash from 'random-hash';
 import {AppContext} from "../contexts/AppContext";
 import {Button, Input} from "antd";
 import axios from 'axios';
+import {useTranslation} from "react-i18next";
 
 export default function Login() {
   const [state, setState] = useContext(AppContext);
   const [name, setName] = useState(`Random Player ${Math.floor(Math.random()*1000)}`);
   const [id] = useState(randomHash.generateHash());
+  const {t} = useTranslation('login');
 
   const onPlayClicked = async () => {
     const {data} = await axios.post('/api/user', {id, name})
@@ -24,10 +26,10 @@ export default function Login() {
         <img src={logo} className="Login-logo" alt="logo" />
         <div style={{display: 'flex', flexDirection: 'row', alignItems: 'flex-end'}}>
           <div style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', fontSize: 20}}>
-            User Name:
+            {t('userName')}:
             <Input style={{height: '3rem'}} autoFocus onPressEnter={onPlayClicked} value={name} onChange={(evt) => setName(evt.target.value)}/>
           </div>
-          <Button style={{height: '3rem', marginLeft: '1rem'}} type={'primary'} onClick={onPlayClicked}>Play</Button>
+          <Button style={{height: '3rem', marginLeft: '1rem'}} type={'primary'} onClick={onPlayClicked}>{t('play')}</Button>
         </div>
       </header>
     </div>

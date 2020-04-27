@@ -7,11 +7,13 @@ import copy from "clipboard-copy";
 import {PartyContext} from "../contexts/PartyContext";
 import PrimaryButton from "../components/PrimaryButton";
 import Avatar from "../components/Avatar";
+import {useTranslation} from "react-i18next";
 
 export default function PartyLobby() {
 
     const [{user, supportedLanguages}] = useContext(AppContext);
     const {party, updatePartyOption, startNewGame, joinActiveGame} = useContext(PartyContext);
+    const {t} = useTranslation('partyLobby');
 
     const url = `${window.location.href}`;
     const copyUrl = async () => {
@@ -47,7 +49,7 @@ export default function PartyLobby() {
     return (
         <div className="PartyLobby">
             <div className={'PartyLobby-header'}>
-                <h1>Game Lobby: <u>{party.id}</u></h1>
+                <h1>{t('title')} <u>{party.id}</u></h1>
                 <Tooltip title={'copy'}>
                     <Button
                         size={'large'}
@@ -59,18 +61,18 @@ export default function PartyLobby() {
             </div>
             <div className={'PartyLobby-options'}>
                 <div className={'PartyLobby-option'}>
-                    <h2>Language</h2>
+                    <h2>{t('languageOptionLabel')}</h2>
                     <Select style={{width: '10rem', borderRadius: '20px'}} value={party.options.language} onChange={onLanguageOptionChanged} disabled={party.hostId !== user.id}>
                         {renderSupportedLanguages}
                     </Select>
                 </div>
                 <div className={'PartyLobby-option'}>
-                    <h2>Time to Draw</h2>
+                    <h2>{t('timeOptionLabel')}</h2>
                     <InputNumber style={{width: '10rem'}} value={party.options.timeToDraw} onChange={onDrawTimeOptionChanged} disabled={party.hostId !== user.id}/>
                 </div>
             </div>
             <div className={'PartyLobby-playerArea'}>
-                <h3>Player ({party.player.length})</h3>
+                <h3>{t('playerTitle')} ({party.player.length})</h3>
                 <div className={'PartyLobby-playerList'}>
                     {renderPlayer}
                 </div>
@@ -78,14 +80,14 @@ export default function PartyLobby() {
             <div style={{display: 'flex', flexDirection: 'row', alignItems: 'flex-end'}}>
                 {(party.hostId === user.id) && (
                     <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
-                        {party.player.length < 2 && <div>At least 2 people required to play a game</div>}
-                        <PrimaryButton style={{padding: '0.5rem 1rem', borderRadius: '10px'}} disabled={party.player.length < 2} onClick={startNewGame} value={'Start Game'} />
+                        {party.player.length < 2 && <div>{t('notEnoughPlayerInfoText')}</div>}
+                        <PrimaryButton style={{padding: '0.5rem 1rem', borderRadius: '10px'}} disabled={party.player.length < 2} onClick={startNewGame} value={t('startGameButton')} />
                     </div>
                 )}
                 {party.activeGame && (
-                    <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
-                        <div>There is an ongoing game</div>
-                        <PrimaryButton style={{padding: '0.5rem 1rem', borderRadius: '10px'}} onClick={joinActiveGame} value={'Join Game'} />
+                    <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginLeft: '1rem'}}>
+                        <div>{t('joinGameInfoText')}</div>
+                        <PrimaryButton style={{padding: '0.5rem 1rem', borderRadius: '10px'}} onClick={joinActiveGame} value={t('joinGameButton')} />
                     </div>
                 )}
             </div>
