@@ -15,6 +15,7 @@ export default function ({children}) {
             <Modal
                 visible={isImpressumShowing}
                 width={'60vw'}
+                style={{top: '0rem', marginTop: '1rem', marginBottom: '1rem'}}
                 onCancel={() => setIsImpressumShowing(false)}
                 footer={[
                     <Button type={'primary'} key={'ok'} onClick={() => setIsImpressumShowing(false)}>OK</Button>
