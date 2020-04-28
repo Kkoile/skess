@@ -1,16 +1,27 @@
 import React, {useContext} from "react";
 import { AppContext } from "../contexts/AppContext";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Router, Route, Switch } from "react-router-dom";
 import routes from "../routes";
 import Login from "./Login";
 import Layout from "../layout/Layout";
+import PiwikReactRouter from 'piwik-react-router';
+import history from "../history";
 
 const Initializer = () => {
   const [{ user }] = useContext(AppContext);
 
+  let historyToUse = history;
+  if (process.env.NODE_ENV && process.env.NODE_ENV !== 'development') {
+      const matomo = PiwikReactRouter({
+        url: 'https://analytics.kkoile.de/',
+        siteId: 1
+      });
+      historyToUse = matomo.connectToHistory(history);
+  }
+
     if (user.id && user.name) {
       return (
-          <Router>
+          <Router history={historyToUse}>
             <Switch>
               {routes.map((route, i) => {
                 return (
