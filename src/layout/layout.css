@@ -31,6 +31,14 @@ p {
 
 }
 
+.layout-logo {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 8rem;
+    height: auto;
+}
+
 .layout-content {
     height: 100%;
     width: 100%;

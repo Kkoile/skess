@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import './layout.css';
 import {Button, Modal} from "antd";
 import Impressum from "../views/Impressum";
+import logo from '../assets/logo.svg';
 
 export default function ({children}) {
 
@@ -9,6 +10,7 @@ export default function ({children}) {
 
     return (
         <div className={'layout-main'}>
+            <img className={'layout-logo'} src={logo}></img>
             <div className={'layout-content'}>
                 {children}
             </div>
