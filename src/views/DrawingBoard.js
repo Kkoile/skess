@@ -21,7 +21,7 @@ export default function DrawingBoard({onDrawBoardChanged}) {
         )
     });
 
-    const colors = ['black', 'yellow', 'orange', 'red', 'lightblue', 'blue', 'lightgreen', 'green', 'brown', 'grey', 'white'];
+    const colors = ['black', 'yellow', 'orange', 'red', '#f7dad8', 'lightblue', 'blue', 'lightgreen', 'green', 'brown', 'grey', 'white'];
     const onColorClicked = (color) => {
         setSelectedColor(color);
         setIsEraser(false);
