@@ -7,14 +7,51 @@ import TimeIsUpView from "./TimeIsUpView";
 import {buildStyles, CircularProgressbar} from "react-circular-progressbar";
 import 'react-circular-progressbar/dist/styles.css';
 import {useTranslation} from "react-i18next";
+import {useSpring, animated} from 'react-spring'
+
+const OVERLAY_DURATION = 2;
 
 export default function DrawingRound() {
     const {game, submitImage, getNameOfPlayer} = useContext(GameContext);
     const [countdown, setCountdown] = useState(game.options.timeToDraw);
     const [image, setImage] = useState(null);
     const {t} = useTranslation('game');
+    const [zoomWord, setZoomWord] = useState(true);
+    const wordTransition = useSpring({
+        config: {
+            mass: 1,
+            tension: 500,
+            friction: 80
+        },
+        from: {
+            opacity: 1
+        },
+        to: async next => {
+            if (zoomWord) {
+                await next({
+                    opacity: 1
+                })
+            } else {
+                await next({
+                    opacity: 0
+                })
+                await next({
+                    display: 'none'
+                })
+            }
+        }
+    });
 
     const {currentRound, options} = game;
+
+    useEffect(() => {
+        const timeoutId = setTimeout(() => {
+            setZoomWord(false);
+        }, OVERLAY_DURATION * 1000)
+        return () => {
+            clearTimeout(timeoutId);
+        }
+    }, []);
 
     useEffect(() => {
         if (currentRound && countdown < 1) {
@@ -24,7 +61,7 @@ export default function DrawingRound() {
 
     useEffect(() => {
         if (currentRound && currentRound.drawing) {
-            setCountdown(options.timeToDraw);
+            setCountdown(options.timeToDraw + OVERLAY_DURATION);
             const intervalId = setInterval(() => {
                 setCountdown(currentNumber => currentNumber > 0 ? currentNumber - 1 : 0);
             }, 1000);
@@ -70,6 +107,14 @@ export default function DrawingRound() {
                 </div>
                 <DrawingBoard onDrawBoardChanged={setImage}/>
             </div>
+            <animated.div style={wordTransition} className={'DrawingRound-wordAnimated'} >
+                <div className={'overlay'} />
+                <h1>{t('drawingTitle')}</h1>
+                <PrimaryButton value={currentRound.word}/>
+                {currentRound.previousPlayerId && (
+                    <h2>{t('drawingRoundGuessOfPlayer', {userName: getNameOfPlayer(currentRound.previousPlayerId)})}</h2>
+                )}
+            </animated.div>
         </div>
     );
 }
