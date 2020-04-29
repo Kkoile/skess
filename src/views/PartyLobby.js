@@ -22,7 +22,7 @@ export default function PartyLobby({history}) {
     }
 
     const renderSupportedLanguages = supportedLanguages.map(supportedLanguage => {
-        return <Select.Option key={supportedLanguage} value={supportedLanguage}>{supportedLanguage}</Select.Option>
+        return <Select.Option key={supportedLanguage} value={supportedLanguage}>{t(supportedLanguage)}</Select.Option>
     })
 
     const onDrawTimeOptionChanged = (value) => {
