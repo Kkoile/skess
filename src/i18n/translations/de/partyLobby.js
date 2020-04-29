@@ -7,5 +7,6 @@ export default {
     startGameButton: 'Starte das Spiel',
     joinGameInfoText: 'Es gibt ein laufendes Spiel',
     joinGameButton: 'Gehe zum Spiel',
-    leaveParty: 'Verlassen'
+    leaveParty: 'Verlassen',
+    waitingForHost: 'Der einladende Spieler wird das Spiel starten...'
 }

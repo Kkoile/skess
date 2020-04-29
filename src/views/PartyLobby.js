@@ -91,6 +91,9 @@ export default function PartyLobby({history}) {
                         <PrimaryButton style={{padding: '0.5rem 1rem', borderRadius: '10px'}} disabled={party.player.length < 2} onClick={startNewGame} value={t('startGameButton')} />
                     </div>
                 )}
+                {(party.hostId !== user.id) && (
+                    <p>{t('waitingForHost')}</p>
+                )}
                 {party.activeGame && (
                     <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginLeft: '1rem'}}>
                         <div>{t('joinGameInfoText')}</div>

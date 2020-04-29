@@ -7,5 +7,6 @@ export default {
     startGameButton: 'Start Game',
     joinGameInfoText: 'There is an ongoing game',
     joinGameButton: 'Join Game',
-    leaveParty: 'Leave'
+    leaveParty: 'Leave',
+    waitingForHost: 'The host will start the game...'
 }
