@@ -8,6 +8,12 @@
   align-items: center;
 }
 
+.PartyLobby-leaveButton {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+}
+
 .PartyLobby-header {
   display: flex;
   flex-direction: row;

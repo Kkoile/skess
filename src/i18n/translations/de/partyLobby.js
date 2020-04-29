@@ -6,5 +6,6 @@ export default {
     notEnoughPlayerInfoText: 'Mindestens zwei Spieler müssen mitmachen',
     startGameButton: 'Starte das Spiel',
     joinGameInfoText: 'Es gibt ein laufendes Spiel',
-    joinGameButton: 'Gehe zum Spiel'
+    joinGameButton: 'Gehe zum Spiel',
+    leaveParty: 'Verlassen'
 }

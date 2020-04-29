@@ -9,7 +9,7 @@ import PrimaryButton from "../components/PrimaryButton";
 import Avatar from "../components/Avatar";
 import {useTranslation} from "react-i18next";
 
-export default function PartyLobby() {
+export default function PartyLobby({history}) {
 
     const [{user, supportedLanguages}] = useContext(AppContext);
     const {party, updatePartyOption, startNewGame, joinActiveGame} = useContext(PartyContext);
@@ -31,6 +31,10 @@ export default function PartyLobby() {
         }
     };
 
+    const onLeavePartyClicked = () => {
+        history.push('/');
+    };
+
     const onLanguageOptionChanged = (value) => {
         updatePartyOption({...party.options, language: value});
     }
@@ -50,6 +54,7 @@ export default function PartyLobby() {
 
     return (
         <div className="PartyLobby">
+            <Button type={'danger'} className={'PartyLobby-leaveButton'} onClick={onLeavePartyClicked}>{t('leaveParty')}</Button>
             <div className={'PartyLobby-header'}>
                 <h1>{t('title')} <u>{party.id}</u></h1>
                 <Tooltip title={'copy'}>
