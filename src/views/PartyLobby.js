@@ -26,7 +26,9 @@ export default function PartyLobby() {
     })
 
     const onDrawTimeOptionChanged = (value) => {
-        updatePartyOption({...party.options, timeToDraw: value});
+        if (value > 0) {
+            updatePartyOption({...party.options, timeToDraw: value});
+        }
     };
 
     const onLanguageOptionChanged = (value) => {
