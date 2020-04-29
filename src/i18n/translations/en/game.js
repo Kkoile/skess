@@ -1,7 +1,10 @@
 export default {
     chooseWordTitle: 'Choose one Word',
     chosenWordTitle: 'You Chose',
+    evenNumberOfPlayersInfoText: 'You will have to draw this word next',
+    oddNumberOfPlayersInfoText: 'Because there is an odd number of players, you will get a different word to draw',
     chosenWordWaitingText: 'Waiting for others to choose a word',
+    oddNumberOfPlayersChosenInfoText: 'Remember: You will get a different word to draw',
     drawingTitle: 'Draw the following word',
     drawingRoundGuessOfPlayer: '{{userName}} guessed this word',
     timeIsUpTitle: 'Time is up!',

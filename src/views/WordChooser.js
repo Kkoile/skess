@@ -33,6 +33,7 @@ export default function WordChooser () {
                     <img src={chosenWordRight} />
                 </div>
                 <p>{t('chosenWordWaitingText')}</p>
+                {game.player.length % 2 === 1 && <p>{t('oddNumberOfPlayersChosenInfoText')}</p>}
             </div>
         )
     }
@@ -42,6 +43,8 @@ export default function WordChooser () {
             <div className={'WordChooser-buttonArea'}>
                 {renderWordsToChoose}
             </div>
+            {game.player.length % 2 === 0 && <h2>{t('evenNumberOfPlayersInfoText')}</h2>}
+            {game.player.length % 2 === 1 && <h2>{t('oddNumberOfPlayersInfoText')}</h2>}
         </div>
     )
 

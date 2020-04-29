@@ -9,7 +9,7 @@ import 'react-circular-progressbar/dist/styles.css';
 import {useTranslation} from "react-i18next";
 import {useSpring, animated} from 'react-spring'
 
-const OVERLAY_DURATION = 2;
+const OVERLAY_DURATION = 4;
 
 export default function DrawingRound() {
     const {game, submitImage, getNameOfPlayer} = useContext(GameContext);
