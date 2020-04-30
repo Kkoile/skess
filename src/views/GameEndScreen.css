@@ -9,7 +9,6 @@
 }
 
 .GameEndScreen-header {
-  font-size: 64px;
   display: flex;
   flex-direction: row;
   justify-content: center;

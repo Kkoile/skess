@@ -3,4 +3,8 @@
     background-color: #ec5b56;
     box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.2), 0 2px 5px 0 rgba(0, 0, 0, 0.19);
     text-align: center;
+    color: white;
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: 1.5rem;
 }

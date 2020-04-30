@@ -109,8 +109,8 @@ export default function DrawingRound() {
             </div>
             <animated.div style={wordTransition} className={'DrawingRound-wordAnimated'} >
                 <div className={'overlay'} />
-                <h1>{t('drawingTitle')}</h1>
-                <PrimaryButton value={currentRound.word}/>
+                <h2>{t('drawingTitle')}</h2>
+                <PrimaryButton style={{fontSize: '3rem'}} value={currentRound.word}/>
                 {currentRound.previousPlayerId && (
                     <h2>{t('drawingRoundGuessOfPlayer', {userName: getNameOfPlayer(currentRound.previousPlayerId)})}</h2>
                 )}

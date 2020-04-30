@@ -16,6 +16,7 @@ const Initializer = () => {
         url: 'https://analytics.kkoile.de/',
         siteId: 1
       });
+      matomo.push(['disableCookies']);
       historyToUse = matomo.connectToHistory(history);
   }
 

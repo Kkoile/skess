@@ -3,7 +3,7 @@
 
 h1 {
     color: white;
-    font-size: 50px;
+    font-size: 3rem;
     font-weight: bold;
     font-family: sans-serif;
     text-align: center;
@@ -19,7 +19,7 @@ p {
     color: white;
     font-family: sans-serif;
     font-weight: bold;
-    font-size: 20px;
+    font-size: 1rem;
 }
 
 .layout-main {

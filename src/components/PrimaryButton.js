@@ -31,7 +31,7 @@ export default function PrimaryButton({style = {}, value, onClick, disabled}) {
             onMouseOver={() => setHover(true)}
             onMouseOut={() => setHover(false)}
         >
-            <p style={{margin: 0}}>{value}</p>
+            {value}
         </div>
     )
 }
