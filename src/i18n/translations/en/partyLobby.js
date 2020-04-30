@@ -2,6 +2,7 @@ export default {
     title: 'Game Lobby:',
     languageOptionLabel: 'Language',
     timeOptionLabel: 'Time to Draw',
+    seconds: 'seconds',
     playerTitle: 'Player',
     notEnoughPlayerInfoText: 'At least 2 people required to play a game',
     startGameButton: 'Start Game',

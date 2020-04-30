@@ -75,7 +75,10 @@ export default function PartyLobby({history}) {
                 </div>
                 <div className={'PartyLobby-option'}>
                     <h2>{t('timeOptionLabel')}</h2>
-                    <InputNumber style={{width: '10rem'}} value={party.options.timeToDraw} onChange={onDrawTimeOptionChanged} disabled={party.hostId !== user.id}/>
+                    <div className={'PartyLobby-timeOptionSeconds'}>
+                        <InputNumber style={{width: '4rem'}} value={party.options.timeToDraw} onChange={onDrawTimeOptionChanged} disabled={party.hostId !== user.id}/>
+                        <p style={{marginBottom: 0, marginLeft: '0.5rem'}}>{t('seconds')}</p>
+                    </div>
                 </div>
             </div>
             <div className={'PartyLobby-playerArea'}>

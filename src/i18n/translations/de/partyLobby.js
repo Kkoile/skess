@@ -2,6 +2,7 @@ export default {
     title: 'Spiele Lobby:',
     languageOptionLabel: 'Sprache',
     timeOptionLabel: 'Zeit zum Malen',
+    seconds: 'Sekunden',
     playerTitle: 'Spieler',
     notEnoughPlayerInfoText: 'Mindestens zwei Spieler müssen mitmachen',
     startGameButton: 'Starte das Spiel',
