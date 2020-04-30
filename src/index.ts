@@ -33,7 +33,7 @@ server.on('listening', onListening);
  */
 
 const io = require('socket.io');
-const socket = io.listen(server);
+const socket = io.listen(server, {cookie: false});
 routes(socket);
 
 /**
