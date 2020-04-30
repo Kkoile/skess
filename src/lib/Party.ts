@@ -1,13 +1,13 @@
 import Redis from "./Redis";
-import * as randomHash from 'random-hash';
 import {Party} from "../types/party.type";
 import {Player} from "../types/player.type";
 import Notifier from "./Notifier";
 import Game from "./Game";
+import CodeGenerator from "./CodeGenerator";
 
 
 const createNewParty = async (userId) => {
-    const id = randomHash.generateHash();
+    const id = await CodeGenerator.generateCode('en');
     const party: Party = {id, hostId: userId, player: [], games: [], activeGame: null, options: {language: 'en', timeToDraw: 60}};
     await Redis.setItem(party.id, party);
     return party;

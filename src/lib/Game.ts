@@ -1,43 +1,14 @@
-import randomHash = require('random-hash');
-import * as path from 'path';
-import * as fs from 'fs';
-import {promisify} from 'util';
 import Redis from "./Redis";
 import {Game, GamePlayer, Round, RoundsPerWord} from "../types/game.type";
 import {Party} from "../types/party.type";
 import Notifier from "./Notifier";
-
-const readFile = promisify(fs.readFile);
-
-let wordList = {};
-
-const getWordList = async (language) => {
-    if (!wordList[language]) {
-        const pathToFile = path.join(__dirname, '..', '..', 'assets', `words_${language}.txt`);
-        if (!fs.existsSync(pathToFile)) {
-            throw new Error('Language does not exist')
-        }
-        const words = await readFile(pathToFile, 'utf8');
-        wordList[language] = words.split('\r\n');
-    }
-    return wordList[language];
-};
-
-const _getRandomWords = async (language: string, numberOfWords: number) => {
-    const wordList = await getWordList(language);
-    const words = [];
-    for (let i=0;i<numberOfWords;i++) {
-        const index = Math.floor(Math.random() * wordList.length);
-        words.push(wordList[index]);
-    }
-    return words
-};
+import CodeGenerator from "./CodeGenerator";
 
 const createNewGame = async (partyId) => {
     const party: Party = await Redis.getItem(partyId);
-    const id = randomHash.generateHash();
+    const id = await CodeGenerator.generateCode(party.options.language);
     const NUMBER_OF_WORDS_PER_PLAYER = 3;
-    const randomWords = await _getRandomWords(party.options.language, party.player.length * NUMBER_OF_WORDS_PER_PLAYER);
+    const randomWords = await CodeGenerator.getRandomWords(party.options.language, party.player.length * NUMBER_OF_WORDS_PER_PLAYER);
     const playerWithWordsToChoose: Array<GamePlayer> = party.player.map((player, i) => {
         return {...player, position: i, wordsToChose: randomWords.slice(i * NUMBER_OF_WORDS_PER_PLAYER, i * NUMBER_OF_WORDS_PER_PLAYER + NUMBER_OF_WORDS_PER_PLAYER), chosenWord: null}
     });
