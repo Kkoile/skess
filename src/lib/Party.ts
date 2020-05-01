@@ -68,11 +68,24 @@ const updateOptions = async (partyId, options) => {
     await sendNewPartyState(party);
 };
 
+const updateUser = async (user: Player) => {
+    for (const {partyId} of user.activeParties) {
+        const party: Party = await Redis.getItem(partyId);
+        const partyUser = party.player.find(player => player.id === user.id);
+        if (partyUser) {
+            partyUser.name = user.name;
+            await Redis.setItem(party.id, party);
+            await sendNewPartyState(party);
+        }
+    }
+};
+
 export default {
     createNewParty,
     createNewGame,
     getParty,
     enterParty,
     leaveParty,
-    updateOptions
+    updateOptions,
+    updateUser
 }
