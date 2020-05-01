@@ -2,6 +2,8 @@ version: '3'
 
 services:
   skess-frontend:
+    build:
+      context: frontend
     image: docker-registry.kkoile.de/skess-frontend
     container_name: skess-frontend
     ports:
