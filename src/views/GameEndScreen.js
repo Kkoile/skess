@@ -8,11 +8,8 @@ import {useTranslation} from "react-i18next";
 
 export default function GameEndScreen({history}) {
 
-    const {game, getNameOfPlayer} = useContext(GameContext);
-    const [selectedPlayer, setSelectedPlayer] = useState(game.allRounds[0].playerId);
+    const {game, getNameOfPlayer, updateEndScreenState} = useContext(GameContext);
     const [currentRoundsPerWord, setCurrentRoundsPerWord] = useState({word: null, rounds: []});
-    const [roundIndex, setRoundIndex] = useState(0);
-    const [guessIsShowing, setGuessIsShowing] = useState(false);
     const {t} = useTranslation('game');
 
     const onPlayAgainClicked = () => {
@@ -20,32 +17,28 @@ export default function GameEndScreen({history}) {
     }
 
     const onPlayerClicked = (playerId) => {
-        setGuessIsShowing(false);
-        setRoundIndex(0);
-        setSelectedPlayer(playerId);
+        updateEndScreenState({playerId, roundIndex: 0, isGuessShowing: false});
     }
 
     const onPreviousClicked = () => {
-        if (roundIndex > 0) {
-            setRoundIndex(roundIndex - 1);
-            setGuessIsShowing(false);
+        if (game.endScreenState.roundIndex > 0) {
+            updateEndScreenState({playerId: game.endScreenState.playerId, roundIndex: game.endScreenState.roundIndex - 1, isGuessShowing: false})
         }
     }
 
     const onNextClicked = () => {
-        if ((roundIndex >= currentRoundsPerWord.rounds.length - 1 && guessIsShowing)) {
+        if ((game.endScreenState.roundIndex >= currentRoundsPerWord.rounds.length - 1 && game.endScreenState.isGuessShowing)) {
             return;
         }
-        if (guessIsShowing) {
-            setGuessIsShowing(false);
-            setRoundIndex(roundIndex + 1);
+        if (game.endScreenState.isGuessShowing) {
+            updateEndScreenState({playerId: game.endScreenState.playerId, roundIndex: game.endScreenState.roundIndex + 1, isGuessShowing: false})
         } else {
-            setGuessIsShowing(true);
+            updateEndScreenState({playerId: game.endScreenState.playerId, roundIndex: game.endScreenState.roundIndex, isGuessShowing: true})
         }
     }
 
     useEffect(() => {
-        const roundsPerWord = game.allRounds.find(roundsPerWord => roundsPerWord.playerId === selectedPlayer);
+        const roundsPerWord = game.allRounds.find(roundsPerWord => roundsPerWord.playerId === game.endScreenState.playerId);
         const rounds = [];
         let index = 0;
         roundsPerWord.rounds.forEach((round, i) => {
@@ -61,19 +54,19 @@ export default function GameEndScreen({history}) {
             }
         })
         setCurrentRoundsPerWord({word: roundsPerWord.word, rounds});
-    }, [game, getNameOfPlayer, selectedPlayer]);
+    }, [game, getNameOfPlayer]);
 
     const renderRoundsPerWord = game.allRounds.map(roundsPerWord => {
         return (
             <div key={roundsPerWord.playerId} className={'GameEndScreen-playerItem'} onClick={() => onPlayerClicked(roundsPerWord.playerId)}>
                 <Avatar value={getNameOfPlayer(roundsPerWord.playerId)} />
                 <h2 className={'GameEndScreen-playerItemName'}>{getNameOfPlayer(roundsPerWord.playerId)}</h2>
-                <div style={{width: '100%', height: '0.5rem', backgroundColor: selectedPlayer === roundsPerWord.playerId ? 'white' : 'transparent'}}/>
+                <div style={{width: '100%', height: '0.5rem', backgroundColor: game.endScreenState.playerId === roundsPerWord.playerId ? 'white' : 'transparent'}}/>
             </div>
         )
     })
 
-    const currentRound = currentRoundsPerWord.rounds[roundIndex];
+    const currentRound = currentRoundsPerWord.rounds[game.endScreenState.roundIndex];
 
     return (
         <div className={'GameEndScreen'}>
@@ -86,22 +79,22 @@ export default function GameEndScreen({history}) {
             </div>
             {!!currentRound &&
                 <div className={'GameEndScreen-resultArea'}>
-                    {guessIsShowing &&
+                    {game.endScreenState.isGuessShowing &&
                         <div className={'GameEndScreen-guessBlock'}>
                             <p className={'GameEndScreen-guess'}>{t('gameEndGuessText', {userName: currentRound.guessedBy})} <u>{currentRound.guess}</u></p>
                         </div>
                     }
                     <div
-                        className={'GameEndScreen-previousButton ' + (roundIndex < 1 ? '' : 'GameEndScreen-previousButtonEnabled')}
+                        className={'GameEndScreen-previousButton ' + (game.endScreenState.roundIndex < 1 ? '' : 'GameEndScreen-previousButtonEnabled')}
                         onClick={onPreviousClicked}
                     >
-                        <FaChevronLeft size={'6rem'} color={roundIndex < 1 ? 'lightgrey' : 'white'}/>
+                        <FaChevronLeft size={'6rem'} color={game.endScreenState.roundIndex < 1 ? 'lightgrey' : 'white'}/>
                     </div>
                     <div
-                        className={'GameEndScreen-nextButton ' + ((roundIndex >= currentRoundsPerWord.rounds.length - 1 && guessIsShowing) ? '' : 'GameEndScreen-nextButtonEnabled')}
+                        className={'GameEndScreen-nextButton ' + ((game.endScreenState.roundIndex >= currentRoundsPerWord.rounds.length - 1 && game.endScreenState.isGuessShowing) ? '' : 'GameEndScreen-nextButtonEnabled')}
                         onClick={onNextClicked}
                     >
-                        <FaChevronRight size={'6rem'} color={(roundIndex >= currentRoundsPerWord.rounds.length - 1 && guessIsShowing) ? 'lightgrey' : 'white'}/>
+                        <FaChevronRight size={'6rem'} color={(game.endScreenState.roundIndex >= currentRoundsPerWord.rounds.length - 1 && game.endScreenState.isGuessShowing) ? 'lightgrey' : 'white'}/>
                     </div>
                     <img className={'GameEndScreen-image'} src={currentRound.image}/>
                     <PrimaryButton style={{width: '75%', position: 'absolute', bottom: '-2rem', textAlign: 'center'}} value={currentRoundsPerWord.word}/>

@@ -1,13 +1,16 @@
 import React, {useState, createContext, useEffect, useContext} from 'react';
 import axios from 'axios';
 import {PartyContext} from "./PartyContext";
+import {AppContext} from "./AppContext";
 
 const initialState = {id: null, partyId: null, player: [], status: 'LOADING', options: {}, allRounds: [], numberOfRounds: -1, currentRoundIndex: -1};
 
 export const GameContext = createContext(undefined);
 
 export const GameContextProvider = ({id, ...props}) => {
-    const {isSocketConnected, socket} = useContext(PartyContext);
+    const {isSocketConnected, socket, party} = useContext(PartyContext);
+    const {state} = useContext(AppContext);
+    const {user} = state;
 
     const [game, setGame] = useState(initialState);
 
@@ -44,6 +47,13 @@ export const GameContextProvider = ({id, ...props}) => {
         return player.name
     }
 
+    const updateEndScreenState = async (endScreenState) => {
+        setGame(game => ({...game, endScreenState}))
+        if (party.hostId === user.id) {
+            await axios.post(`/api/game/${game.id}/updateEndScreenState`, endScreenState);
+        }
+    }
+
     useEffect(() => {
         if (isSocketConnected && id) {
             loadGame(id);
@@ -59,7 +69,7 @@ export const GameContextProvider = ({id, ...props}) => {
     }, [socket]);
 
     return (
-        <GameContext.Provider value={{game, chooseWord, submitImage, submitGuess, getNameOfPlayer}}>
+        <GameContext.Provider value={{game, chooseWord, submitImage, submitGuess, getNameOfPlayer, updateEndScreenState}}>
             {props.children}
         </GameContext.Provider>
     );
