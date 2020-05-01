@@ -7,12 +7,14 @@ const io = require('socket.io-emitter')(ConfigService.getRedisConfiguration());
 
 const notifyPlayer = async (userId: string, partyId: string, event: string, payload: any) => {
     const user: Player = await Redis.getItem(userId);
-    const party = user.activeParties.find(party => party.partyId === partyId);
-    if (party && party.socketId) {
-        io.to(party.socketId).emit(event, payload);
-    } else {
-        console.error('could not find active party')
-    }
+    const parties = user.activeParties.filter(party => party.partyId === partyId);
+    parties.forEach(party => {
+        if (party && party.socketId) {
+            io.to(party.socketId).emit(event, payload);
+        } else {
+            console.error('could not find active party')
+        }
+    })
 };
 
 const notifyPlayersOfGame = async (id: string, event: string, payload: any) => {
