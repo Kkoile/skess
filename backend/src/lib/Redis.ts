@@ -1,6 +1,6 @@
 import ConfigService from "./ConfigService";
 import {promisify} from "util";
-import * as redis from 'redis';
+import * as redis from 'lib/Redis';
 
 import redisAdapter = require('socket.io-redis');
 const configuration = ConfigService.getRedisConfiguration();

@@ -3,7 +3,7 @@ version: '3'
 services:
   skess-backend:
     build:
-      context: .
+      context: ..
     image: docker-registry.kkoile.de/skess-backend
     container_name: skess-backend
     restart: unless-stopped
