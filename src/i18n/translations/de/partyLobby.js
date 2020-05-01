@@ -13,6 +13,9 @@ export default {
     joinGameButton: 'Gehe zum Spiel',
     leaveParty: 'Verlassen',
     waitingForHost: 'Der einladende Spieler wird das Spiel starten...',
+    previousGamesTitle: 'Alle Spiele',
+    showResults: 'Ergebnisse',
+    goToGame: 'Zum Spiel',
     en: 'Englisch',
     de: 'Deutsch'
 }

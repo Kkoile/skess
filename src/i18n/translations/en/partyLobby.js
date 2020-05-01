@@ -13,6 +13,9 @@ export default {
     joinGameButton: 'Join Game',
     leaveParty: 'Leave',
     waitingForHost: 'The host will start the game...',
+    previousGamesTitle: 'All Games',
+    showResults: 'Results',
+    goToGame: 'Go to Game',
     en: 'English',
     de: 'German'
 }

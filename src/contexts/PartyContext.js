@@ -35,8 +35,8 @@ export const PartyContextProvider = ({id, ...props}) => {
         props.history.push(`/party/${id}/game/${data}`);
     };
 
-    const joinActiveGame = async () => {
-        props.history.push(`/party/${id}/game/${party.activeGame}`);
+    const goToGame = async (gameId) => {
+        props.history.push(`/party/${id}/game/${gameId}`);
     };
 
     useEffect(() => {
@@ -69,7 +69,7 @@ export const PartyContextProvider = ({id, ...props}) => {
     }, [socket, id, props.history])
 
     return (
-        <PartyContext.Provider value={{party, createNewParty, updatePartyOption, startNewGame, joinActiveGame, isSocketConnected, socket}}>
+        <PartyContext.Provider value={{party, createNewParty, updatePartyOption, startNewGame, goToGame, isSocketConnected, socket}}>
             {props.children}
         </PartyContext.Provider>
     );
