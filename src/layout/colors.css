@@ -1,0 +1,9 @@
+/* Define a variable at the top level of the cascade */
+:root {
+    --primary-background-color: #3ec1d3;
+    --secondary-background-color: #184853;
+    --primary-text-color: #f6f7d7;
+    --primary-color: #ff9a00;
+    --secondary-color: #ff165d;
+    --primary-button-color: #ec5b56;
+}

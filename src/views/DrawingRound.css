@@ -1,0 +1,59 @@
+@Import '~antd/dist/antd.css';
+
+.DrawingRound {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.DrawingRound-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.DrawingRound-countdown {
+  width: 5rem;
+  align-self: flex-end;
+  margin-bottom: 2rem;
+}
+
+.DrawingRound-titles {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.DrawingRound-wordAnimated {
+  position: fixed;
+  min-height: 16rem;
+  width: 60vw;
+  top: calc(50% - 8rem);
+  left: calc(50% - 30vw);
+  z-index: 10;
+  background-color: #000000;
+  padding: 2rem 1rem;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: lightgrey;
+  opacity: 0.7;
+  z-index: -1;
+}
+
+.DrawingRound-TimeIsUp {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

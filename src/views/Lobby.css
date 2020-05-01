@@ -1,0 +1,66 @@
+@import '~antd/dist/antd.css';
+
+.Lobby {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.Lobby-header {
+  display: flex;
+  flex-direction: row;
+  height: 5rem;
+}
+
+.Lobby-nameInput {
+  font-size: 3rem;
+  color: white;
+  background-color: transparent;
+  border: none;
+  font-weight: bold;
+  font-family: sans-serif;
+}
+
+.Lobby-nameInput:focus {
+  border: none;
+}
+
+.Lobby-editNameButton {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.Lobby-editNameButton:hover {
+  cursor: pointer;
+}
+
+.Lobby-JoinGameArea {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 3rem;
+}
+
+.Lobby-JoinGameInput {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.Lobby-JoinGameInputInput {
+  height: 3rem;
+  border-radius: 10px 0 0 10px;
+}
+
+.Lobby-JoinGameInputButton {
+  height: 3rem;
+  background-color: #244651;
+  border: none;
+  border-radius: 0 10px 10px 0;
+  color: white;
+  font-family: sans-serif;
+}

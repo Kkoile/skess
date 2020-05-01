@@ -1,0 +1,52 @@
+{
+  "name": "telestrations",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@ant-design/icons": "^4.0.6",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.5.0",
+    "@testing-library/user-event": "^7.2.1",
+    "antd": "^4.1.3",
+    "axios": "^0.19.2",
+    "clipboard-copy": "^3.1.0",
+    "i18next": "^19.4.3",
+    "i18next-browser-languagedetector": "^4.1.1",
+    "piwik-react-router": "^0.12.1",
+    "random-hash": "^4.0.1",
+    "react": "^16.13.1",
+    "react-circular-progressbar": "^2.0.3",
+    "react-dom": "^16.13.1",
+    "react-i18next": "^11.3.5",
+    "react-icons": "^3.9.0",
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "3.4.1",
+    "react-sketch": "^0.5.1",
+    "react-spring": "^8.0.27",
+    "socket.io-client": "^2.3.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts --expose-gc --max_old_space_size=16384 build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "http-proxy-middleware": "^1.0.3"
+  }
+}
