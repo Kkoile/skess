@@ -1,0 +1,40 @@
+version: '3'
+
+services:
+  skess-backend:
+    build:
+      context: .
+    image: docker-registry.kkoile.de/skess-backend
+    container_name: skess-backend
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      - REDIS_HOST=skess-db
+      - REDIS_PORT=$REDIS_PORT
+    volumes:
+      - .:/home/node/app/skess
+      - node_modules:/home/node/app/skess/node_modules
+    links:
+      - skess-db
+    networks:
+      - app-network
+    command: ./bin/wait-for.sh skess-db:$REDIS_PORT -- npm start
+
+  skess-db:
+    image: redis:alpine
+    container_name: skess-db
+    restart: unless-stopped
+    env_file: .env
+    command: --port ${REDIS_PORT}
+    volumes:
+      - dbdata:/data/skess-db
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  dbdata:
+  node_modules:

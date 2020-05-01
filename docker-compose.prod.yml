@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  skess-frontend:
+    image: docker-registry.kkoile.de/skess-frontend
+    container_name: skess-frontend
+    ports:
+      - 4043:443
+    networks:
+      - app-network
+    depends_on:
+      - skess-backend
