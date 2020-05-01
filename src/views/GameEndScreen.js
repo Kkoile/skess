@@ -1,4 +1,4 @@
-import React, {createRef, useContext, useEffect, useRef, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import './GameEndScreen.css';
 import {FaChevronRight, FaChevronLeft} from "react-icons/fa";
 import {GameContext} from "../contexts/GameContext";

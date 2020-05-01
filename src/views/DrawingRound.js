@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useEffect, useRef, useState} from 'react';
 import './DrawingRound.css';
 import DrawingBoard from "./DrawingBoard";
 import {GameContext} from "../contexts/GameContext";
@@ -14,8 +14,8 @@ const OVERLAY_DURATION = 4;
 export default function DrawingRound() {
     const {game, submitImage, getNameOfPlayer} = useContext(GameContext);
     const [countdown, setCountdown] = useState(game.options.timeToDraw);
-    const [image, setImage] = useState(null);
     const {t} = useTranslation('game');
+    const drawingBoard = useRef();
     const [zoomWord, setZoomWord] = useState(true);
     const wordTransition = useSpring({
         config: {
@@ -54,10 +54,11 @@ export default function DrawingRound() {
     }, []);
 
     useEffect(() => {
-        if (currentRound && countdown < 1) {
+        if (currentRound && !currentRound.submitted && countdown < 1) {
+            const image = drawingBoard.current.getFinalImage();
             submitImage(image);
         }
-    }, [currentRound, countdown, image, submitImage]);
+    }, [currentRound, countdown, submitImage]);
 
     useEffect(() => {
         if (currentRound && currentRound.drawing) {
@@ -75,7 +76,7 @@ export default function DrawingRound() {
         return <div>Waiting for the round...</div>
     }
 
-    if (currentRound.submitted || countdown <= 0) {
+    if (currentRound.submitted) {
         return <TimeIsUpView/>
     }
 
@@ -105,7 +106,7 @@ export default function DrawingRound() {
                         )}
                     </div>
                 </div>
-                <DrawingBoard onDrawBoardChanged={setImage}/>
+                <DrawingBoard ref={drawingBoard}/>
             </div>
             <animated.div style={wordTransition} className={'DrawingRound-wordAnimated'} >
                 <div className={'overlay'} />

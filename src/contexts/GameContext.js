@@ -23,6 +23,7 @@ export const GameContextProvider = ({id, ...props}) => {
 
     const submitImage = async (image) => {
         try {
+            setGame((game) => {return{...game, currentRound: {...game.currentRound, submitted: true}}});
             await axios.post(`/api/game/${game.id}/submitRound`, { image });
         } catch (err) {
             alert(err.message)

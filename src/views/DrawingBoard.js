@@ -1,15 +1,23 @@
-import React, {useState} from 'react';
+import React, {forwardRef, useImperativeHandle, useState} from 'react';
 import './DrawingBoard.css';
 import {SketchField, Tools} from 'react-sketch';
 import {FaPaintBrush, FaEraser, FaSplotch} from 'react-icons/fa'
 import {Button} from "antd";
 
-export default function DrawingBoard({onDrawBoardChanged}) {
+const DrawingBoard = forwardRef((props, ref) => {
 
     const [selectedWidth, setSelectedWidth] = useState(3);
     const [selectedColor, setSelectedColor] = useState('black');
     const [isEraser, setIsEraser] = useState(false);
     const [sketchField, setSketchField] = useState(null);
+
+    useImperativeHandle(ref, () => {
+        return {
+            getFinalImage() {
+                return sketchField.toDataURL()
+            }
+        }
+    });
 
     const brushWidths = [2,3,5,10,20,30];
     const renderBrushes = brushWidths.map(width => {
@@ -43,7 +51,6 @@ export default function DrawingBoard({onDrawBoardChanged}) {
                     width={'100%'}
                     height={'100%'}
                     tool={Tools.Pencil}
-                    onChange={() => onDrawBoardChanged && onDrawBoardChanged(sketchField.toDataURL())}
                     lineColor={isEraser ? 'white' : selectedColor}
                     lineWidth={selectedWidth}
                 />
@@ -60,4 +67,6 @@ export default function DrawingBoard({onDrawBoardChanged}) {
              </div>
         </div>
     );
-}
+});
+
+export default DrawingBoard;
