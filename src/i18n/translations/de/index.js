@@ -1,10 +1,10 @@
-import login from './login';
+import general from './general';
 import lobby from "./lobby";
 import partyLobby from "./partyLobby";
 import game from "./game";
 
 export default {
-    login,
+    general,
     lobby,
     partyLobby,
     game

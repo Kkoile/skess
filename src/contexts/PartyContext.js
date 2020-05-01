@@ -8,7 +8,8 @@ const initialState = {id: null, hostId: null, player: [], games: [], activeGame:
 export const PartyContext = createContext(undefined);
 
 export const PartyContextProvider = ({id, ...props}) => {
-    const [{user}] = useContext(AppContext);
+    const {state} = useContext(AppContext);
+    const {user} = state;
     const [party, setParty] = useState(initialState);
     const [socket] = useState(socketIOClient({path: '/api/socket.io/'}));
     const [isSocketConnected, setIsSocketConnected] = useState(false);

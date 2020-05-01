@@ -8,7 +8,6 @@ import PiwikReactRouter from 'piwik-react-router';
 import history from "../history";
 
 const Initializer = () => {
-  const [{ user }] = useContext(AppContext);
 
   let historyToUse = history;
   if (process.env.NODE_ENV && process.env.NODE_ENV !== 'development') {
@@ -20,27 +19,23 @@ const Initializer = () => {
       historyToUse = matomo.connectToHistory(history);
   }
 
-    if (user.id && user.name) {
-      return (
-          <Router history={historyToUse}>
-            <Switch>
-              {routes.map((route, i) => {
-                return (
-                    <RouteWrapper
-                        exact
-                        key={i}
-                        path={route.path}
-                        component={route.component}
-                        label={route.label}
-                    />
-                )
-              })}
-            </Switch>
-          </Router>
-      )
-    } else {
-      return <Layout><Login /></Layout>
-    }
+  return (
+      <Router history={historyToUse}>
+        <Switch>
+          {routes.map((route, i) => {
+            return (
+                <RouteWrapper
+                    exact
+                    key={i}
+                    path={route.path}
+                    component={route.component}
+                    label={route.label}
+                />
+            )
+          })}
+        </Switch>
+      </Router>
+  )
 
 };
 

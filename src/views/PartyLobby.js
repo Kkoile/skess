@@ -1,18 +1,21 @@
-import React, {useContext} from 'react';
+import React, {useContext, useRef} from 'react';
 import './PartyLobby.css';
 import {AppContext} from "../contexts/AppContext";
-import {message, Button, List, Tooltip, Select, InputNumber} from "antd";
+import {message, Button, Tooltip, Select, InputNumber, Input} from "antd";
 import {CopyOutlined} from '@ant-design/icons'
 import copy from "clipboard-copy";
 import {PartyContext} from "../contexts/PartyContext";
 import PrimaryButton from "../components/PrimaryButton";
 import Avatar from "../components/Avatar";
 import {useTranslation} from "react-i18next";
+import Pencil from "../assets/pencil.svg";
 
 export default function PartyLobby({history}) {
 
-    const [{user, supportedLanguages}] = useContext(AppContext);
+    const {state, changeName} = useContext(AppContext);
+    const {user, supportedLanguages} = state;
     const {party, updatePartyOption, startNewGame, joinActiveGame} = useContext(PartyContext);
+    const nameInput = useRef(null);
     const {t} = useTranslation('partyLobby');
 
     const url = `${window.location.href}`;
@@ -35,6 +38,14 @@ export default function PartyLobby({history}) {
         history.push('/');
     };
 
+    const onNameChanged = (event) => {
+        changeName(event.target.value);
+    }
+
+    const onChangeNameClicked = () => {
+        nameInput.current.focus();
+    }
+
     const onLanguageOptionChanged = (value) => {
         updatePartyOption({...party.options, language: value});
     }
@@ -56,14 +67,20 @@ export default function PartyLobby({history}) {
         <div className="PartyLobby">
             <Button type={'danger'} className={'PartyLobby-leaveButton'} onClick={onLeavePartyClicked}>{t('leaveParty')}</Button>
             <div className={'PartyLobby-header'}>
-                <h1>{t('title')} <u>{party.id}</u></h1>
-                <Tooltip title={'copy'}>
+                <h2>{t('title')} </h2><h1><u>{party.id}</u></h1>
+                <Tooltip title={t('copy')}>
                     <Button
                         size={'large'}
                         onClick={copyUrl}
                         type={'ghost'}
                         className={'PartyLobby-copyButton'}
                         icon={<CopyOutlined />}/>
+                </Tooltip>
+            </div>
+            <div className={'PartyLobby-nameArea'}>
+                <h2>{t('youAreUser')}</h2><Input className={'PartyLobby-nameInput'} style={{textAlign: 'right', width: 'auto', maxWidth: `${(user.name.length + 1) * 2}rem`}} ref={nameInput} value={user.name} onChange={onNameChanged} />
+                <Tooltip title={t('changeName')}>
+                    <img className={'PartyLobby-editNameButton'} onClick={onChangeNameClicked} src={Pencil} />
                 </Tooltip>
             </div>
             <div className={'PartyLobby-options'}>

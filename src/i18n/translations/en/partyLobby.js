@@ -1,5 +1,8 @@
 export default {
     title: 'Game Lobby:',
+    copy: 'copy URL',
+    changeName: 'change name',
+    youAreUser: 'Youe name:',
     languageOptionLabel: 'Language',
     timeOptionLabel: 'Time to Draw',
     seconds: 'seconds',
