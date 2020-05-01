@@ -3,6 +3,7 @@ import {Game, GamePlayer, Round, RoundsPerWord} from "../types/game.type";
 import {Party} from "../types/party.type";
 import Notifier from "./Notifier";
 import CodeGenerator from "./CodeGenerator";
+import PartyHandler from "./Party";
 
 const createNewGame = async (partyId) => {
     const party: Party = await Redis.getItem(partyId);
@@ -156,6 +157,7 @@ const endGame = async (game) => {
     game.status = 'FINISHED';
     await Redis.setItem(game.id, game);
     await sendUsersNewGameState(game);
+    await PartyHandler.endGame(game.partyId);
 }
 
 export default {

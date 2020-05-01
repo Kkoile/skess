@@ -17,10 +17,18 @@ const createNewGame = async (partyId) => {
     const gameId = await Game.createNewGame(partyId);
     const party: Party = await Redis.getItem(partyId);
     party.activeGame = gameId;
+    party.games.push(gameId);
     await Redis.setItem(party.id, party);
     await sendNewPartyState(party);
     await Notifier.notifyPlayersOfParty(party.id, 'GAME_STARTED', gameId);
     return gameId;
+};
+
+const endGame = async (partyId) => {
+    const party: Party = await Redis.getItem(partyId);
+    party.activeGame = null;
+    await Redis.setItem(party.id, party);
+    await sendNewPartyState(party);
 };
 
 const getParty = async (partyId) => {
@@ -36,6 +44,7 @@ const transformToPayload = (party: Party) => {
         const {id, name, ...rest} = player
         return {id, name};
     });
+    party.games = party.games.reverse();
     return party;
 }
 
@@ -83,6 +92,7 @@ const updateUser = async (user: Player) => {
 export default {
     createNewParty,
     createNewGame,
+    endGame,
     getParty,
     enterParty,
     leaveParty,
