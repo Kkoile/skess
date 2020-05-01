@@ -43,6 +43,12 @@ export interface Options {
     timeToDraw: number;
 }
 
+export interface EndScreenState {
+    playerId: string;
+    roundIndex: number;
+    isGuessShowing: boolean;
+}
+
 export type GameIdentifier = string;
 
 export interface Game {
@@ -54,4 +60,5 @@ export interface Game {
     numberOfRounds: number;
     currentRoundIndex: number;
     options: Options;
+    endScreenState: EndScreenState;
 }

@@ -1,5 +1,5 @@
 import Redis from "./Redis";
-import {Game, GamePlayer, Round, RoundsPerWord} from "../types/game.type";
+import {EndScreenState, Game, GamePlayer, Round, RoundsPerWord} from "../types/game.type";
 import {Party} from "../types/party.type";
 import Notifier from "./Notifier";
 import CodeGenerator from "./CodeGenerator";
@@ -13,7 +13,7 @@ const createNewGame = async (partyId) => {
     const playerWithWordsToChoose: Array<GamePlayer> = party.player.map((player, i) => {
         return {...player, position: i, wordsToChose: randomWords.slice(i * NUMBER_OF_WORDS_PER_PLAYER, i * NUMBER_OF_WORDS_PER_PLAYER + NUMBER_OF_WORDS_PER_PLAYER), chosenWord: null}
     });
-    const game: Game = {id, partyId, player: playerWithWordsToChoose, status: 'CHOOSING_WORD', options: party.options, allRounds: [], numberOfRounds: -1, currentRoundIndex: -1}
+    const game: Game = {id, partyId, player: playerWithWordsToChoose, status: 'CHOOSING_WORD', options: party.options, allRounds: [], numberOfRounds: -1, currentRoundIndex: -1, endScreenState: {playerId: playerWithWordsToChoose[0].id, roundIndex: 0, isGuessShowing: false}}
     await Redis.setItem(game.id, game);
     await sendUsersNewGameState(game);
     return game.id;
@@ -158,11 +158,19 @@ const endGame = async (game) => {
     await Redis.setItem(game.id, game);
     await sendUsersNewGameState(game);
     await PartyHandler.endGame(game.partyId);
-}
+};
+
+const updateEndScreenState = async (id: string, endScreenState: EndScreenState) => {
+    const game: Game = await Redis.getItem(id);
+    game.endScreenState = endScreenState;
+    await Redis.setItem(game.id, game);
+    await sendUsersNewGameState(game);
+};
 
 export default {
     createNewGame,
     getGame,
     chooseWord,
     submitRound,
+    updateEndScreenState
 };

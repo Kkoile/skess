@@ -35,4 +35,14 @@ router.post('/:id/submitRound', async (req, res, next) => {
   }
 });
 
+router.post('/:id/updateEndScreenState', async (req, res, next) => {
+  try {
+    await Game.updateEndScreenState(req.params.id, req.body);
+    res.sendStatus(200);
+  } catch(err) {
+    console.error(err)
+    res.status(400).send(err.message);
+  }
+});
+
 export default router;
