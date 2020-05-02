@@ -12,7 +12,7 @@ const getWordList = async (language) => {
             throw new Error('Language does not exist')
         }
         const words = await readFile(pathToFile, 'utf8');
-        wordList[language] = words.split('\r\n');
+        wordList[language] = words.split('\n');
     }
     return wordList[language];
 };

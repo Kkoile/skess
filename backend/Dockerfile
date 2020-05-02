@@ -4,7 +4,7 @@ WORKDIR /home/node/app
 COPY package*.json ./
 USER node
 RUN npm ci --silent
-COPY --chown=node:node .. .
+COPY --chown=node:node . .
 RUN npm run build
 EXPOSE 5000
 CMD [ "npm", "start" ]

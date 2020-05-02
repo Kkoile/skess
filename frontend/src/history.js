@@ -1,2 +1,2 @@
-import {createBrowserHistory} from 'frontend/src/history';
+import {createBrowserHistory} from 'history';
 export default createBrowserHistory();

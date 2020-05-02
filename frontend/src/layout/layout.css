@@ -1,5 +1,5 @@
 @Import '~antd/dist/antd.css';
-@Import 'src/layout/colors.css';
+@Import './colors.css';
 
 h1 {
     color: white;

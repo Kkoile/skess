@@ -11,9 +11,6 @@ services:
     environment:
       - REDIS_HOST=skess-db
       - REDIS_PORT=$REDIS_PORT
-    volumes:
-      - .:/home/node/app/skess
-      - node_modules:/home/node/app/skess/node_modules
     links:
       - skess-db
     networks:
@@ -30,6 +27,17 @@ services:
       - dbdata:/data/skess-db
     networks:
       - app-network
+  skess-frontend:
+    build:
+      context: frontend
+    image: docker-registry.kkoile.de/skess-frontend
+    container_name: skess-frontend
+    ports:
+      - 4043:443
+    networks:
+      - app-network
+    depends_on:
+      - skess-backend
 
 networks:
   app-network:
@@ -37,4 +45,3 @@ networks:
 
 volumes:
   dbdata:
-  node_modules:
