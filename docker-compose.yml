@@ -44,4 +44,4 @@ networks:
     driver: bridge
 
 volumes:
-  dbdata:
+  dbdata: $PWD/db
