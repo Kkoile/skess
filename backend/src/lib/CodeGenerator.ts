@@ -32,7 +32,7 @@ const getRandomWords = async (language: string, numberOfWords: number, maxLength
 
 const generateCode = async (language = 'en') => {
     const words = await getRandomWords(language, 2, 5);
-    return words.join('-');
+    return words.map(word => {return word.toLowerCase()}).join('-');
 }
 
 export default {

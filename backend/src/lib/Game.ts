@@ -6,14 +6,14 @@ import CodeGenerator from "./CodeGenerator";
 import PartyHandler from "./Party";
 
 const createNewGame = async (partyId) => {
-    const party: Party = await Redis.getItem(partyId);
+    const party: Party = await Redis.getItem(partyId.toLowerCase());
     const id = await CodeGenerator.generateCode(party.options.language);
     const NUMBER_OF_WORDS_PER_PLAYER = 3;
     const randomWords = await CodeGenerator.getRandomWords(party.options.language, party.player.length * NUMBER_OF_WORDS_PER_PLAYER);
     const playerWithWordsToChoose: Array<GamePlayer> = party.player.map((player, i) => {
         return {...player, position: i, wordsToChose: randomWords.slice(i * NUMBER_OF_WORDS_PER_PLAYER, i * NUMBER_OF_WORDS_PER_PLAYER + NUMBER_OF_WORDS_PER_PLAYER), chosenWord: null}
     });
-    const game: Game = {id, partyId, player: playerWithWordsToChoose, status: 'CHOOSING_WORD', options: party.options, allRounds: [], numberOfRounds: -1, currentRoundIndex: -1, endScreenState: {playerId: playerWithWordsToChoose[0].id, roundIndex: 0, isGuessShowing: false}}
+    const game: Game = {id, partyId: partyId.toLowerCase(), player: playerWithWordsToChoose, status: 'CHOOSING_WORD', options: party.options, allRounds: [], numberOfRounds: -1, currentRoundIndex: -1, endScreenState: {playerId: playerWithWordsToChoose[0].id, roundIndex: 0, isGuessShowing: false}}
     await Redis.setItem(game.id, game);
     await sendUsersNewGameState(game);
     return game.id;
@@ -62,7 +62,7 @@ const transformUsersPayload = async (game: Game, playerId: string) => {
 };
 
 const chooseWord = async (gameId: string, playerId: string, word: string) => {
-    const game = await Redis.getItem(gameId);
+    const game = await Redis.getItem(gameId.toLowerCase());
     const player: GamePlayer = game.player.find(player => player.id === playerId);
     if (!player.wordsToChose.includes(word)) {
         throw new Error('Chosen word is not valid');
@@ -91,7 +91,7 @@ const nextRound = async (game: Game) => {
 };
 
 const getGame = async (id: string, userId: string) => {
-    const game = await Redis.getItem(id);
+    const game = await Redis.getItem(id.toLowerCase());
     return await transformUsersPayload(game, userId);
 };
 
@@ -132,7 +132,7 @@ const _createRounds = (game: Game) : Array<RoundsPerWord> => {
 };
 
 const submitRound = async (gameId: string, userId: string, payload) => {
-    const game = await Redis.getItem(gameId);
+    const game = await Redis.getItem(gameId.toLowerCase());
     const roundPerWord = game.allRounds.find(roundsPerWord => roundsPerWord.rounds[game.currentRoundIndex].playerId === userId);
     const round: Round = roundPerWord.rounds[game.currentRoundIndex];
     if (round.drawing) {
@@ -161,7 +161,7 @@ const endGame = async (game) => {
 };
 
 const updateEndScreenState = async (id: string, endScreenState: EndScreenState) => {
-    const game: Game = await Redis.getItem(id);
+    const game: Game = await Redis.getItem(id.toLowerCase());
     game.endScreenState = endScreenState;
     await Redis.setItem(game.id, game);
     await sendUsersNewGameState(game);

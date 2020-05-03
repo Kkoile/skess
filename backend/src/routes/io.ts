@@ -9,10 +9,10 @@ export default (io) => {
   io.on('connection', (socket) => {
     socket.on('login', async ({userId, partyId}) => {
       let user: Player = await Redis.getItem(userId);
-      socket.join(`${userId}-${partyId}`);
-      user.activeParties.push(partyId);
+      socket.join(`${userId}-${partyId.toLowerCase()}`);
+      user.activeParties.push(partyId.toLowerCase());
       await Redis.setItem(userId, user);
-      await Redis.setItem(socket.id, {userId, partyId});
+      await Redis.setItem(socket.id, {userId, partyId: partyId.toLowerCase()});
       socket.emit('socketConnectionEstablished');
     });
     socket.on("disconnect", async () => {

@@ -14,8 +14,8 @@ const createNewParty = async (userId) => {
 };
 
 const createNewGame = async (partyId) => {
-    const gameId = await Game.createNewGame(partyId);
-    const party: Party = await Redis.getItem(partyId);
+    const gameId = await Game.createNewGame(partyId.toLowerCase());
+    const party: Party = await Redis.getItem(partyId.toLowerCase());
     party.activeGame = gameId;
     party.games.push(gameId);
     await Redis.setItem(party.id, party);
@@ -25,14 +25,14 @@ const createNewGame = async (partyId) => {
 };
 
 const endGame = async (partyId) => {
-    const party: Party = await Redis.getItem(partyId);
+    const party: Party = await Redis.getItem(partyId.toLowerCase());
     party.activeGame = null;
     await Redis.setItem(party.id, party);
     await sendNewPartyState(party);
 };
 
 const getParty = async (partyId) => {
-    const party: Party = await Redis.getItem(partyId);
+    const party: Party = await Redis.getItem(partyId.toLowerCase());
     if (!party) {
         return null;
     }
@@ -54,7 +54,7 @@ const sendNewPartyState = async (party: Party) => {
 }
 
 const enterParty = async (partyId, userId) => {
-    const party: Party = await Redis.getItem(partyId);
+    const party: Party = await Redis.getItem(partyId.toLowerCase());
     const user: Player = await Redis.getItem(userId);
     if (!party.player.find(player => player.id === user.id)) {
         party.player.push(user);
@@ -64,14 +64,14 @@ const enterParty = async (partyId, userId) => {
 };
 
 const leaveParty = async (partyId: string, userId: string) => {
-    const party: Party = await Redis.getItem(partyId);
+    const party: Party = await Redis.getItem(partyId.toLowerCase());
     party.player = party.player.filter(player => player.id !== userId);
     await Redis.setItem(party.id, party);
     await sendNewPartyState(party);
 };
 
 const updateOptions = async (partyId, options) => {
-    const party: Party = await Redis.getItem(partyId);
+    const party: Party = await Redis.getItem(partyId.toLowerCase());
     party.options = options;
     await Redis.setItem(party.id, party);
     await sendNewPartyState(party);
