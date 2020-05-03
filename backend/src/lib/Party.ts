@@ -78,7 +78,7 @@ const updateOptions = async (partyId, options) => {
 };
 
 const updateUser = async (user: Player) => {
-    for (const {partyId} of user.activeParties) {
+    for (const partyId of user.activeParties) {
         const party: Party = await Redis.getItem(partyId);
         const partyUser = party.player.find(player => player.id === user.id);
         if (partyUser) {

@@ -9,28 +9,22 @@ export default (io) => {
   io.on('connection', (socket) => {
     socket.on('login', async ({userId, partyId}) => {
       let user: Player = await Redis.getItem(userId);
-      user.activeParties.push({partyId, socketId: socket.id});
+      socket.join(`${userId}-${partyId}`);
+      user.activeParties.push(partyId);
       await Redis.setItem(userId, user);
-      await Redis.setItem(socket.id, userId);
+      await Redis.setItem(socket.id, {userId, partyId});
       socket.emit('socketConnectionEstablished');
     });
     socket.on("disconnect", async () => {
-      const userId = await Redis.getItem(socket.id);
-      if (userId) {
+      const socketObject = await Redis.getItem(socket.id);
+      if (socketObject) {
+        const {userId, partyId} = socketObject;
         const user: Player = await Redis.getItem(userId);
-        console.log('disconneting ' + user.name)
-        const partiesWithDisconnectingSocketId = user.activeParties.filter(party => party.socketId === socket.id);
-        user.activeParties = user.activeParties.filter(party => {
-          if (party.socketId === socket.id) {
-            return false;
-          }
-          return !!io.sockets.connected[party.socketId];
-        });
-        for (const activeParty of partiesWithDisconnectingSocketId) {
-          if(activeParty && !user.activeParties.find(party => party.partyId === activeParty.partyId)) {
-            await Party.leaveParty(activeParty.partyId, user.id);
-          }
+        const room = io.sockets.adapter.rooms[`${userId}-${partyId}`];
+        if (!room || room.length === 0) {
+          await Party.leaveParty(partyId, user.id);
         }
+        user.activeParties = user.activeParties.filter(activePartyId => activePartyId !== partyId);
         await Redis.setItem(userId, user);
         await Redis.deleteItem(socket.id);
       }

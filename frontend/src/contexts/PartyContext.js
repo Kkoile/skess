@@ -53,6 +53,11 @@ export const PartyContextProvider = ({id, ...props}) => {
 
     useEffect(() => {
         if (socket) {
+            socket.on('reconnect', () => {
+                if (user.id && id) {
+                    socket.emit('login', {userId: user.id, partyId: id});
+                }
+            })
             socket.on('partyStateChanged', (newState) => {
                 setParty(newState);
             });
@@ -66,7 +71,7 @@ export const PartyContextProvider = ({id, ...props}) => {
         return () => {
             socket.close();
         }
-    }, [socket, id, props.history])
+    }, [socket, user.id, id, props.history])
 
     return (
         <PartyContext.Provider value={{party, createNewParty, updatePartyOption, startNewGame, goToGame, isSocketConnected, socket}}>
