@@ -19,11 +19,18 @@ export default (io) => {
       if (userId) {
         const user: Player = await Redis.getItem(userId);
         console.log('disconneting ' + user.name)
-        const activeParty = user.activeParties.find(party => party.socketId === socket.id);
-        if(activeParty) {
-          await Party.leaveParty(activeParty.partyId, user.id);
+        const partiesWithDisconnectingSocketId = user.activeParties.filter(party => party.socketId === socket.id);
+        user.activeParties = user.activeParties.filter(party => {
+          if (party.socketId === socket.id) {
+            return false;
+          }
+          return !!io.sockets.connected[party.socketId];
+        });
+        for (const activeParty of partiesWithDisconnectingSocketId) {
+          if(activeParty && !user.activeParties.find(party => party.partyId === activeParty.partyId)) {
+            await Party.leaveParty(activeParty.partyId, user.id);
+          }
         }
-        user.activeParties = user.activeParties.filter(party => party.socketId !== socket.id);
         await Redis.setItem(userId, user);
         await Redis.deleteItem(socket.id);
       }
