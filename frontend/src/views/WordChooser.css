@@ -23,3 +23,24 @@
     align-items: center;
     margin-bottom: 4rem;
 }
+
+.WordChooser-playerList {
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.WordChooser-playerItem {
+    margin: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.WordChooser-playerItemName {
+    width: 7rem;
+    flex-wrap: wrap;
+}

@@ -34,7 +34,8 @@ const transformUsersPayload = async (game: Game, playerId: string) => {
         allRounds: undefined,
         currentRound: undefined,
         wordsToChoose: undefined,
-        chosenWord: undefined
+        chosenWord: undefined,
+        waitingForPlayerToSubmit: []
     }
     payload.player = player.map(user => {
         const playerPayload = {id: user.id, name: user.name};
@@ -46,6 +47,8 @@ const transformUsersPayload = async (game: Game, playerId: string) => {
         const playerInfo = player.find(user => user.id === playerId);
         payload.wordsToChoose = playerInfo.wordsToChose;
         payload.chosenWord = playerInfo.chosenWord;
+        payload.waitingForPlayerToSubmit = game.player.filter(player => !player.chosenWord).map(player => player.id);
+
     } else if (game.status === 'RUNNING') {
         const round = game.allRounds.find(roundPerWord => {
             return roundPerWord.rounds[game.currentRoundIndex].playerId === playerId;
@@ -57,6 +60,9 @@ const transformUsersPayload = async (game: Game, playerId: string) => {
         if (payload.currentRound.guessing) {
             payload.currentRound.image = round.rounds[game.currentRoundIndex - 1].image;
         }
+        payload.waitingForPlayerToSubmit = game.allRounds.filter(roundPerWord => {
+            return !roundPerWord.rounds[game.currentRoundIndex].submitted
+        }).map(roundPerWord => roundPerWord.rounds[game.currentRoundIndex].playerId);
     }
     return payload;
 };
@@ -69,6 +75,7 @@ const chooseWord = async (gameId: string, playerId: string, word: string) => {
     }
     player.chosenWord = word;
     await Redis.setItem(game.id, game);
+    await sendUsersNewGameState(game);
     if (game.player.every(player => !!player.chosenWord)) {
         await _startGame(game);
     }
@@ -142,6 +149,9 @@ const submitRound = async (gameId: string, userId: string, payload) => {
     }
     round.submitted = true;
     await Redis.setItem(game.id, game);
+    if (round.guessing) {
+        await sendUsersNewGameState(game);
+    }
     if (game.allRounds.every(roundsPerWord => {
         return !!roundsPerWord.rounds[game.currentRoundIndex].submitted
     })){

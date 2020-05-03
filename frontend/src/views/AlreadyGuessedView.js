@@ -5,10 +5,20 @@ import {GameContext} from "../contexts/GameContext";
 import chosenWordLeft from "../assets/chosenWordLeft.svg";
 import chosenWordRight from "../assets/chosenWordRight.svg";
 import {useTranslation} from "react-i18next";
+import Avatar from "../components/Avatar";
 
 export default function AlreadyGuessedView () {
-    const {game} = useContext(GameContext);
+    const {game, getNameOfPlayer} = useContext(GameContext);
     const {t} = useTranslation('game');
+
+    const renderPlayerToWaitFor = game.waitingForPlayerToSubmit.map(playerId => {
+        return (
+            <div key={playerId} className={'AlreadyGuessedView-playerItem'}>
+                <Avatar value={getNameOfPlayer(playerId)} />
+                <h2  className={'AlreadyGuessedView-playerItemName'}>{getNameOfPlayer(playerId)}</h2>
+            </div>
+        )
+    })
 
     return (
         <div className={'AlreadyGuessedView'}>
@@ -19,6 +29,9 @@ export default function AlreadyGuessedView () {
                 <img src={chosenWordRight} />
             </div>
             <p>{t('alreadyGuessedWaitingText')}</p>
+            <div className={'AlreadyGuessedView-playerList'}>
+                {renderPlayerToWaitFor}
+            </div>
         </div>
     )
 }
