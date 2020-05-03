@@ -22,9 +22,9 @@ services:
     container_name: skess-db
     restart: unless-stopped
     env_file: .env
-    command: --port ${REDIS_PORT}
+    command: --port ${REDIS_PORT} --appendonly yes
     volumes:
-      - dbdata:/data/skess-db
+      - ~/skess/db:/data
     networks:
       - app-network
   skess-frontend:
@@ -42,6 +42,3 @@ services:
 networks:
   app-network:
     driver: bridge
-
-volumes:
-  dbdata: $PWD/db
