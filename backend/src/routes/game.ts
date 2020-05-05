@@ -6,11 +6,15 @@ const router = express.Router();
 
 router.get('/:id', async (req, res, next) => {
   const userId = req.headers['x-user'];
-  const game = await Game.getGame(req.params.id, (userId as string));
-  if (!game) {
-    return res.status(404).send('Game not found');
+  try {
+    const game = await Game.getGame(req.params.id, (userId as string));
+    if (!game) {
+      return res.status(404).send('Game not found');
+    }
+    res.send(game);
+  } catch (err) {
+    res.status(400).send({code: err.message});
   }
-  res.send(game);
 });
 
 router.post('/:id/chooseWord', async (req, res, next) => {

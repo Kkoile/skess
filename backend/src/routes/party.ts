@@ -38,7 +38,10 @@ router.post('/:id/enter', async (req, res, next) => {
   try {
     const userId = req.headers['x-user'];
     const partyId = req.params.id;
-    await Party.enterParty(partyId, userId);
+    const party = await Party.enterParty(partyId, userId);
+    if (!party) {
+      res.status(404).send('Party not found');
+    }
     res.sendStatus(200);
   } catch(err) {
     console.error(err)

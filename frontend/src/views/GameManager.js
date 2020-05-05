@@ -5,6 +5,9 @@ import DrawingRound from "./DrawingRound";
 import GuessingRound from "./GuessingRound";
 import GameEndScreen from "./GameEndScreen";
 import AlreadyGuessedView from "./AlreadyGuessedView";
+import NotPartOfGameView from "./NotPartOfGameView";
+import GameNotExistingView from "./GameNotExistingView";
+import Loading from "../components/Loading";
 
 export default function GameManager (props) {
     const {game} = useContext(GameContext);
@@ -28,6 +31,14 @@ export default function GameManager (props) {
         return <GameEndScreen {...props} />
     }
 
-    return <div>Hallo</div>
+    if (game.status === 'NOT_PART_OF_GAME') {
+        return <NotPartOfGameView {...props} />
+    }
+
+    if (game.status === 'NOT_EXISTING') {
+        return <GameNotExistingView {...props} />
+    }
+
+    return <Loading/>
 
 }

@@ -17,5 +17,8 @@ export default {
     showResults: 'Results',
     goToGame: 'Go to Game',
     en: 'English',
-    de: 'German'
+    de: 'German',
+    goToLobbyButton: 'Go to Lobby',
+    partyNotExistingTitle: 'Party does not exist',
+    partyNotExistingInfoText: 'The party with id "{{partyId}}" does not exist. Go back to lobby in order to create a new one.'
 }

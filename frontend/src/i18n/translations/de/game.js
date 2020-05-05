@@ -14,5 +14,10 @@ export default {
     alreadyGuessedWaitingText: 'Wir warten auf die folgenden Spieler:',
     gameEndTitle: 'Spiel zu Ende! Hier sind die Ergebnisse',
     gameEndPlayAgainButton: 'Nochmal Spielen',
-    gameEndGuessText: '{{userName}} hat geraten:'
+    gameEndGuessText: '{{userName}} hat geraten:',
+    notPartOfGameTitle: 'Du bist nicht bei diesem Spiel dabei',
+    notPartOfGameInfoText: 'Warte in der Lobby bis das Spiel vorbei ist, um ein neues mit den Spielern anzufangen.',
+    goToLobbyButton: 'Zur Lobby',
+    gameNotExistingTitle: 'Das Spiel existiert nicht',
+    gameNotExistingInfoText: 'Das Spiel mit der ID "{{gameId}}" existiert nicht. Gehe zurück zur Lobby, um ein neues zu starten.'
 }

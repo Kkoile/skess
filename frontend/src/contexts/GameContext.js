@@ -15,8 +15,18 @@ export const GameContextProvider = ({id, ...props}) => {
     const [game, setGame] = useState(initialState);
 
     const loadGame = async (id) => {
-        const {data} = await axios.get(`/api/game/${id}`);
-        setGame(data);
+        try {
+            const {data} = await axios.get(`/api/game/${id}`);
+            setGame(data);
+        } catch (err) {
+            if (err.response.status === 404) {
+                setGame(game => ({...game, status: 'NOT_EXISTING'}));
+            } else if (err.response.data.code === 'NOT_PART_OF_GAME') {
+                setGame(game => ({...game, status: 'NOT_PART_OF_GAME'}));
+            } else {
+                alert(err.response.data)
+            }
+        }
     }
 
     const chooseWord = async (word) => {

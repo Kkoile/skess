@@ -12,10 +12,10 @@ const routes = [
         label: 'Lobby'
     },
     {
-        path: '/party/:id',
+        path: '/party/:partyId',
         component: (props) => {
             return (
-                <PartyContextProvider id={props.match.params.id} {...props} >
+                <PartyContextProvider id={props.match.params.partyId} {...props} >
                     <PartyManager {...props} />
                 </PartyContextProvider>
                 )

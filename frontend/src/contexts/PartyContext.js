@@ -3,7 +3,7 @@ import axios from 'axios';
 import socketIOClient from "socket.io-client";
 import {AppContext} from "./AppContext";
 
-const initialState = {id: null, hostId: null, player: [], games: [], activeGame: null, options: {language: 'en', timeToDraw: 60}};
+const initialState = {id: null, hostId: null, player: [], games: [], activeGame: null, options: {language: 'en', timeToDraw: 60}, notExisting: false};
 
 export const PartyContext = createContext(undefined);
 
@@ -23,6 +23,17 @@ export const PartyContextProvider = ({id, ...props}) => {
     const updatePartyOption = async (options) => {
         setParty({...party, options});
         await axios.post(`/api/party/${id}/options`, options);
+    };
+
+    const loadParty = async (id) => {
+        try {
+            const {data} = await axios.get(`/api/party/${id}`)
+            setParty(data);
+        } catch(err) {
+            if (err.response.status === 404) {
+                setParty(party => ({...party, notExisting: true}));
+            }
+        }
     };
 
     const enterParty = async (id) => {
@@ -50,6 +61,10 @@ export const PartyContextProvider = ({id, ...props}) => {
             enterParty(id);
         }
     }, [isSocketConnected, id]);
+
+    useEffect(() => {
+        loadParty(id)
+    }, [id]);
 
     useEffect(() => {
         if (socket) {

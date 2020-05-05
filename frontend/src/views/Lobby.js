@@ -36,7 +36,7 @@ export default function Lobby({history}) {
   return (
     <div className="Lobby" >
         <div className={'Lobby-header'}>
-            <h1>{t('welcomeUser')}</h1><Input className={'Lobby-nameInput'} style={{width: 'auto', maxWidth: `${(user.name.length + 1) * 2}rem`}} ref={nameInput} value={user.name} onChange={onNameChanged} />
+            <h1>{t('welcomeUser')}</h1><Input className={'Lobby-nameInput'} style={{textAlign: 'right', width: 'auto', maxWidth: `${(user.name.length + 1) * 2}rem`}} ref={nameInput} value={user.name} onChange={onNameChanged} />
             <Tooltip title={t('changeName')}>
                 <img className={'Lobby-editNameButton'} onClick={onChangeNameClicked} src={Pencil} />
             </Tooltip>

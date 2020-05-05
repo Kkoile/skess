@@ -9,6 +9,7 @@ import PrimaryButton from "../components/PrimaryButton";
 import Avatar from "../components/Avatar";
 import {useTranslation} from "react-i18next";
 import Pencil from "../assets/pencil.svg";
+import Loading from "../components/Loading";
 
 export default function PartyLobby({history}) {
 
@@ -51,7 +52,7 @@ export default function PartyLobby({history}) {
     }
 
     if (!party.id) {
-        return <div>Loading...</div>
+        return <Loading />
     }
 
     const renderPlayer = party.player.map(player => {

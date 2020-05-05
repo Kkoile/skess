@@ -55,12 +55,16 @@ const sendNewPartyState = async (party: Party) => {
 
 const enterParty = async (partyId, userId) => {
     const party: Party = await Redis.getItem(partyId.toLowerCase());
+    if (!party) {
+        return;
+    }
     const user: Player = await Redis.getItem(userId);
     if (!party.player.find(player => player.id === user.id)) {
         party.player.push(user);
         await Redis.setItem(party.id, party);
     }
     await sendNewPartyState(party);
+    return party;
 };
 
 const leaveParty = async (partyId: string, userId: string) => {
@@ -80,11 +84,13 @@ const updateOptions = async (partyId, options) => {
 const updateUser = async (user: Player) => {
     for (const partyId of user.activeParties) {
         const party: Party = await Redis.getItem(partyId);
-        const partyUser = party.player.find(player => player.id === user.id);
-        if (partyUser) {
-            partyUser.name = user.name;
-            await Redis.setItem(party.id, party);
-            await sendNewPartyState(party);
+        if (party) {
+            const partyUser = party.player.find(player => player.id === user.id);
+            if (partyUser) {
+                partyUser.name = user.name;
+                await Redis.setItem(party.id, party);
+                await sendNewPartyState(party);
+            }
         }
     }
 };

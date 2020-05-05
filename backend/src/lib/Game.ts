@@ -99,6 +99,12 @@ const nextRound = async (game: Game) => {
 
 const getGame = async (id: string, userId: string) => {
     const game = await Redis.getItem(id.toLowerCase());
+    if (!game) {
+        return;
+    }
+    if (!game.player.find(player => player.id === userId)) {
+        throw new Error('NOT_PART_OF_GAME');
+    }
     return await transformUsersPayload(game, userId);
 };
 
