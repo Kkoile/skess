@@ -63,7 +63,9 @@ export const PartyContextProvider = ({id, ...props}) => {
     }, [isSocketConnected, id]);
 
     useEffect(() => {
-        loadParty(id)
+        if (id) {
+            loadParty(id)
+        }
     }, [id]);
 
     useEffect(() => {

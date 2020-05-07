@@ -64,23 +64,29 @@ export default function PartyLobby({history}) {
         )
     })
 
-    const renderPreviousGames = party.games.map(gameId => {
+    const renderPreviousGames = party.games.map(game => {
         return (
-            <div key={gameId} className={'PartyLobby-previousGamesItem'} onClick={() => goToGame(gameId)}>
-                <p>{gameId}</p>
-                {gameId === party.activeGame && (
+            <div key={game.id} className={'PartyLobby-previousGamesItem'} onClick={() => goToGame(game.id)}>
+                <p>{game.id}</p>
+                {['CHOOSING_WORD', 'RUNNING'].includes(game.status) && (
                     <div className={'PartyLobby-activeGame'}>
                         {t('goToGame')}
                     </div>
                 )}
-                {gameId !== party.activeGame && (
+                {game.status === 'FINISHED' && (
                     <div className={'PartyLobby-previousGameGoToResults'}>
                         {t('showResults')}
                     </div>
                 )}
             </div>
         )
-    })
+    }).reduce((acc, current, index, array) => {
+        acc.push(current);
+        if (index < array.length - 1) {
+            acc.push(<div key={`separator-${index}`} className={'PartyLobby-previousGamesSeparator'}/>)
+        }
+        return acc;
+    }, []);
 
     return (
         <div className="PartyLobby">

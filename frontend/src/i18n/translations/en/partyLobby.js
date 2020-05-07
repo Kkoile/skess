@@ -8,7 +8,7 @@ export default {
     seconds: 'seconds',
     playerTitle: 'Player',
     notEnoughPlayerInfoText: 'At least 2 people required to play a game',
-    startGameButton: 'Start Game',
+    startGameButton: 'Start new Game',
     joinGameInfoText: 'There is an ongoing game',
     joinGameButton: 'Join Game',
     leaveParty: 'Leave',

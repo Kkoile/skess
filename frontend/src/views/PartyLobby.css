@@ -162,7 +162,7 @@
 
 .PartyLobby-previousGamesList {
   max-height: 20rem;
-  border: 3px solid rgba(6,22,33,0.5);
+  border: 5px dashed white;
   border-radius: 5px;
   padding: 1rem;
   overflow: auto;
@@ -175,12 +175,19 @@
   justify-content: space-between;
   align-items: center;
   min-width: 15rem;
-  border-bottom: 3px solid rgba(6,22,33,0.5);
+  padding: 1rem;
+  border-radius: 12px;
 }
 
 .PartyLobby-previousGamesItem:hover {
   cursor: pointer;
-  background-color: rgb(128, 157, 169);
+  background-color: #2a99a9;
+}
+
+.PartyLobby-previousGamesSeparator {
+  height: 3px;
+  width: 100%;
+  background-color: rgba(6,22,33,0.5);
 }
 
 .PartyLobby-previousGamesItem > p {
@@ -188,8 +195,10 @@
 }
 
 .PartyLobby-activeGame {
-  border: 3px solid #ff165d;
-  border-radius: 38px;
+  border-radius: 12px;
+  background-color: #ec5b56;
+  color: white;
+  font-weight: bold;
   padding: 0.5rem;
   margin-bottom: 0.5rem;
   margin-top: 0.5rem;
@@ -200,8 +209,10 @@
 }
 
 .PartyLobby-previousGameGoToResults {
-  border: 3px solid rgba(6,22,33,0.5);
-  border-radius: 38px;
+  border-radius: 12px;
+  background-color: rgb(128, 157, 169);
+  color: white;
+  font-weight: bold;
   padding: 0.5rem;
   margin-bottom: 0.5rem;
   margin-top: 0.5rem;

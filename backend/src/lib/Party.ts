@@ -36,20 +36,27 @@ const getParty = async (partyId) => {
     if (!party) {
         return null;
     }
-    return transformToPayload(party);
+    return await transformToPayload(party);
 };
 
-const transformToPayload = (party: Party) => {
+const transformToPayload = async (party: Party) => {
     party.player = party.player.map(player => {
         const {id, name, ...rest} = player
         return {id, name};
     });
     party.games = party.games.reverse();
-    return party;
+    const games = [];
+    for (const gameId of party.games) {
+        const game = await Redis.getItem(gameId);
+        if (game) {
+            games.push({id: game.id, status: game.status})
+        }
+    }
+    return {...party, games};
 }
 
 const sendNewPartyState = async (party: Party) => {
-    const payload = transformToPayload(party);
+    const payload = await transformToPayload(party);
     await Notifier.notifyPlayersOfParty(party.id, 'partyStateChanged', payload);
 }
 
