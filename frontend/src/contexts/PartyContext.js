@@ -11,7 +11,7 @@ export const PartyContextProvider = ({id, ...props}) => {
     const {state} = useContext(AppContext);
     const {user} = state;
     const [party, setParty] = useState(initialState);
-    const [socket] = useState(socketIOClient({path: '/api/socket.io/'}));
+    const [socket, setSocket] = useState(null);
     const [isSocketConnected, setIsSocketConnected] = useState(false);
 
     const createNewParty = async () => {
@@ -51,6 +51,12 @@ export const PartyContextProvider = ({id, ...props}) => {
     };
 
     useEffect(() => {
+        if (id && !socket) {
+            setSocket(socketIOClient({path: '/api/socket.io/'}));
+        }
+    }, [socket, id]);
+
+    useEffect(() => {
         if (socket && user.id && id) {
             socket.emit('login', {userId: user.id, partyId: id});
         }
@@ -84,9 +90,9 @@ export const PartyContextProvider = ({id, ...props}) => {
             socket.on('GAME_STARTED', (gameId) => {
                 props.history.push(`/party/${id}/game/${gameId}`);
             });
-        }
-        return () => {
-            socket.close();
+            return () => {
+                socket.close();
+            }
         }
     }, [socket, user.id, id, props.history])
 
