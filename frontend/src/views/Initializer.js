@@ -1,8 +1,6 @@
-import React, {useContext} from "react";
-import { AppContext } from "../contexts/AppContext";
+import React from "react";
 import { Router, Route, Switch } from "react-router-dom";
 import routes from "../routes";
-import Login from "./Login";
 import Layout from "../layout/Layout";
 import PiwikReactRouter from 'piwik-react-router';
 import history from "../history";
