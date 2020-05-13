@@ -3,6 +3,8 @@
 .DrawingBoard {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .DrawingBoard-canvas {
@@ -59,5 +61,27 @@
 .DrawingBoard-color:hover {
   cursor: pointer;
   background-color: #40a9ff;
+}
+
+@media screen and (orientation:portrait) {
+  .DrawingBoard-canvas {
+    height: 98vw;
+    width: 98vw;
+  }
+
+  .DrawingBoard-brushArea {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  .DrawingBoard-colorArea {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+  }
 }
 

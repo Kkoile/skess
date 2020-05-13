@@ -19,7 +19,17 @@
   flex-direction: row;
   justify-content: center;
   align-items: flex-end;
-  margin-bottom: 4rem;
+  margin-bottom: 2rem;
+}
+
+.PartyLobby-header > h2 {
+  font-size: 1.5rem;
+  margin-bottom: 0;
+  margin-right: 0.5rem;
+}
+
+.PartyLobby-header > h1 {
+  font-size: 2.5rem;
 }
 
 .PartyLobby-header > button {
@@ -34,18 +44,20 @@
 .PartyLobby-nameArea {
   display: flex;
   flex-direction: row;
+  justify-content: flex-start;
   align-items: flex-end;
-  height: 5rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
+  margin-left: 1rem;
 }
 
 .PartyLobby-nameInput {
-  font-size: 3rem;
+  font-size: 2.5rem;
   color: white;
   background-color: transparent;
   border: none;
   font-weight: bold;
   font-family: sans-serif;
+  padding: 0;
 }
 
 .PartyLobby-nameInput:focus {
@@ -53,8 +65,8 @@
 }
 
 .PartyLobby-editNameButton {
-  max-width: 100%;
-  max-height: 100%;
+  max-width: 4rem;
+  max-height: 4rem;
 }
 
 .PartyLobby-editNameButton:hover {
@@ -77,7 +89,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .PartyLobby-playerArea {
@@ -86,6 +98,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  margin-left: 1rem;
 }
 
 .PartyLobby-playerList {
@@ -112,13 +125,15 @@
 .PartyLobby-options {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
 }
 
 .PartyLobby-option {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin: 1rem;
+  margin-left: 1rem;
 }
 
 .PartyLobby-timeOptionSeconds {
@@ -126,6 +141,30 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  height: 100%;
+}
+
+.PartyLobby-timeOptionButtons {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+}
+
+.PartyLobby-timeOptionButton {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  background-color: #ec5b56;
+  color: white;
+  width: 2rem;
+  height: 100%;
+  margin-left: 1px;
+}
+
+.PartyLobby-timeOptionButton:hover {
+  cursor: pointer;
 }
 
 .ant-select-arrow {
@@ -134,22 +173,13 @@
   right: 0;
   margin-top: 0;
   width: 2rem;
-  height: 2rem;
+  height: 100%;
   color: white;
   font-size: 18px;
 }
 
 .ant-input-number-handler-wrap {
-  background-color: #ec5b56;
-  border: none;
-  color: white;
-}
-
-.ant-input-number-handler {
-  background-color: #ec5b56;
-  border: none;
-  color: white;
-  font-size: 18px;
+  visibility: hidden;
 }
 
 .PartyLobby-previousGames {

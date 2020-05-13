@@ -72,7 +72,7 @@ export default function GameEndScreen({history}) {
         <div className={'GameEndScreen'}>
             <div className={'GameEndScreen-header'}>
                 <h1>{t('gameEndTitle')}</h1>
-                <PrimaryButton style={{borderRadius: '10px', marginBottom: '1rem', marginLeft: '2rem'}} value={t('gameEndPlayAgainButton')} onClick={onPlayAgainClicked} />
+                <PrimaryButton style={{borderRadius: '10px', marginBottom: '1rem', marginLeft: '1rem'}} value={t('gameEndPlayAgainButton')} onClick={onPlayAgainClicked} />
             </div>
             <div className={'GameEndScreen-playerList'}>
                 {renderRoundsPerWord}

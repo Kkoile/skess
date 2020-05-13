@@ -3,6 +3,7 @@ import {Input} from "antd";
 import {GameContext} from "../contexts/GameContext";
 import PrimaryButton from "../components/PrimaryButton";
 import {useTranslation} from "react-i18next";
+import './GuessingRound.css';
 
 export default function GuessingRound() {
     const {game, submitGuess, getNameOfPlayer} = useContext(GameContext);
@@ -20,10 +21,10 @@ export default function GuessingRound() {
     }
 
     return (
-        <div className={'GameBoard'}>
-            <div style={{height: '100%', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-                <div className={'GameBoard-header'}>
-                    <div className={'GameBoard-titles'}>
+        <div className={'GuessingRound'}>
+            <div style={{height: '100%', width: '96%', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                <div className={'GuessingRound-header'}>
+                    <div className={'GuessingRound-titles'}>
                         <h1>{t('guessingTitle', {userName: getNameOfPlayer(currentRound.previousPlayerId)})}</h1>
                     </div>
                 </div>

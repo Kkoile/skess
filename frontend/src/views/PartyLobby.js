@@ -2,7 +2,7 @@ import React, {useContext, useRef} from 'react';
 import './PartyLobby.css';
 import {AppContext} from "../contexts/AppContext";
 import {message, Button, Tooltip, Select, InputNumber, Input} from "antd";
-import {CopyOutlined} from '@ant-design/icons'
+import {ArrowDownOutlined, ArrowUpOutlined, CopyOutlined} from '@ant-design/icons'
 import copy from "clipboard-copy";
 import {PartyContext} from "../contexts/PartyContext";
 import PrimaryButton from "../components/PrimaryButton";
@@ -10,6 +10,8 @@ import Avatar from "../components/Avatar";
 import {useTranslation} from "react-i18next";
 import Pencil from "../assets/pencil.svg";
 import Loading from "../components/Loading";
+import DownOutlined from "@ant-design/icons/lib/icons/DownOutlined";
+import UpOutlined from "@ant-design/icons/lib/icons/UpOutlined";
 
 export default function PartyLobby({history}) {
 
@@ -34,6 +36,14 @@ export default function PartyLobby({history}) {
             updatePartyOption({...party.options, timeToDraw: value});
         }
     };
+
+    const onTimeToDrawUpPressed = () => {
+        updatePartyOption({...party.options, timeToDraw: party.options.timeToDraw + 10});
+    }
+
+    const onTimeToDrawDownPressed = () => {
+        updatePartyOption({...party.options, timeToDraw: party.options.timeToDraw - 10});
+    }
 
     const onLeavePartyClicked = () => {
         history.push('/');
@@ -105,7 +115,7 @@ export default function PartyLobby({history}) {
             <div className={'PartyLobby-mainArea'}>
                 <div className={'PartyLobby-mainAreaLeft'}>
                     <div className={'PartyLobby-nameArea'}>
-                        <h2>{t('youAreUser')}</h2><Input className={'PartyLobby-nameInput'} style={{textAlign: 'right', width: 'auto', maxWidth: `${(user.name.length + 1) * 2}rem`}} ref={nameInput} value={user.name} onChange={onNameChanged} />
+                        <h2>{t('youAreUser')}</h2><Input className={'PartyLobby-nameInput'} style={{textAlign: 'right', width: 'auto', maxWidth: `${(user.name.length + 1) * 1.5}rem`}} ref={nameInput} value={user.name} onChange={onNameChanged} />
                         <Tooltip title={t('changeName')}>
                             <img className={'PartyLobby-editNameButton'} onClick={onChangeNameClicked} src={Pencil} />
                         </Tooltip>
@@ -120,7 +130,21 @@ export default function PartyLobby({history}) {
                         <div className={'PartyLobby-option'}>
                             <h2>{t('timeOptionLabel')}</h2>
                             <div className={'PartyLobby-timeOptionSeconds'}>
-                                <InputNumber style={{width: '4rem'}} value={party.options.timeToDraw} onChange={onDrawTimeOptionChanged} disabled={party.hostId !== user.id}/>
+                                <InputNumber style={{width: '5rem'}} value={party.options.timeToDraw} onChange={onDrawTimeOptionChanged} disabled={party.hostId !== user.id}/>
+                                <div className={'PartyLobby-timeOptionButtons'}>
+                                    <div
+                                        className={'PartyLobby-timeOptionButton'}
+                                        onClick={onTimeToDrawUpPressed}
+                                    >
+                                        <UpOutlined color={'white'}/>
+                                    </div>
+                                    <div
+                                        className={'PartyLobby-timeOptionButton'}
+                                        onClick={onTimeToDrawDownPressed}
+                                    >
+                                        <DownOutlined color={'white'}/>
+                                    </div>
+                                </div>
                                 <p style={{marginBottom: 0, marginLeft: '0.5rem'}}>{t('seconds')}</p>
                             </div>
                         </div>
@@ -131,7 +155,7 @@ export default function PartyLobby({history}) {
                             {renderPlayer}
                         </div>
                     </div>
-                    <div style={{display: 'flex', flexDirection: 'row', alignItems: 'flex-end'}}>
+                    <div style={{display: 'flex', flexDirection: 'row', alignItems: 'flex-end', alignSelf: 'center'}}>
                         {(party.hostId === user.id) && (
                             <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
                                 {party.player.length < 2 && <div>{t('notEnoughPlayerInfoText')}</div>}

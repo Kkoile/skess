@@ -15,6 +15,10 @@
   align-items: center;
 }
 
+.GameEndScreen-header > h1 {
+  font-size: 2rem;
+}
+
 .GameEndScreen-playerItem {
   margin: 0.5rem;
   display: flex;
@@ -33,7 +37,6 @@
 }
 
 .GameEndScreen-playerList {
-  margin-bottom: 1rem;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -51,8 +54,8 @@
 
 .GameEndScreen-guessBlock {
   position: absolute;
-  top: -1rem;
-  left: -1rem;
+  top: -0.5rem;
+  left: -0.5rem;
   min-width: 6rem;
   height: 4rem;
   background-color: #254752;
