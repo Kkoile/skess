@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Avatar({value, style={}, size='4rem'}) {
+export default function Avatar({value, style={}, size='4rem', fontSize='3rem'}) {
     const innerStyle = JSON.parse(JSON.stringify(style));
     innerStyle.width = size;
     innerStyle.height = size;
@@ -13,7 +13,7 @@ export default function Avatar({value, style={}, size='4rem'}) {
 
     return (
         <div style={innerStyle}>
-            <h1 style={{margin: 0}}>{value[0]}</h1>
+            <h1 style={{margin: 0, fontSize}}>{value[0]}</h1>
         </div>
     )
 }
