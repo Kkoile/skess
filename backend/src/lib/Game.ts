@@ -74,9 +74,6 @@ const chooseWord = async (gameId: string, playerId: string, word: string) => {
     const lock = await redlock.lock(`locks:${gameId.toLowerCase()}`, 1000);
     const game = await Redis.getItem(gameId.toLowerCase());
     const player: GamePlayer = game.player.find(player => player.id === playerId);
-    if (!player.wordsToChose.includes(word)) {
-        throw new Error('Chosen word is not valid');
-    }
     player.chosenWord = word;
     await Redis.setItem(game.id, game);
     const allPlayersHaveChosen = game.player.every(player => !!player.chosenWord);
