@@ -3,10 +3,12 @@ import './layout.css';
 import {Button, Modal} from "antd";
 import Impressum from "../views/Impressum";
 import logo from '../assets/logo.svg';
+import DataPrivacy from "../views/DataPrivacy";
 
 export default function ({children}) {
 
     const [isImpressumShowing, setIsImpressumShowing] = useState(false);
+    const [isDataPrivacyShowing, setIsDataPrivacyShowing] = useState(false);
 
     return (
         <div className={'layout-main'}>
@@ -23,13 +25,29 @@ export default function ({children}) {
                     <Button type={'primary'} key={'ok'} onClick={() => setIsImpressumShowing(false)}>OK</Button>
                 ]}
             >
-                <div className={'layout-impressum-modal-content'}>
+                <div className={'layout-modal-content'}>
                     <Impressum/>
+                </div>
+            </Modal>
+            <Modal
+                visible={isDataPrivacyShowing}
+                width={'60vw'}
+                style={{top: '0rem', marginTop: '1rem', marginBottom: '1rem'}}
+                onCancel={() => setIsDataPrivacyShowing(false)}
+                footer={[
+                    <Button type={'primary'} key={'ok'} onClick={() => setIsDataPrivacyShowing(false)}>OK</Button>
+                ]}
+            >
+                <div className={'layout-modal-content'}>
+                    <DataPrivacy/>
                 </div>
             </Modal>
             <div className={'layout-footer'}>
                 <div className={'layout-inner-footer'}>
-                    <Button type={'link'} onClick={() => setIsImpressumShowing(true)}>Impressum</Button>
+                    <div className={'layout-footer-links'}>
+                        <Button type={'link'} onClick={() => setIsImpressumShowing(true)}>Impressum</Button>
+                        <Button type={'link'} onClick={() => setIsDataPrivacyShowing(true)}>DataPrivacy</Button>
+                    </div>
                     <p style={{color: '#e6e6e6', fontSize: '0.75rem', fontWeight: 'normal'}}>Made with ♥ by Kkoile</p>
                 </div>
             </div>

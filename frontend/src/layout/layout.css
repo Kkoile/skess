@@ -65,7 +65,12 @@ p {
     margin: 0;
 }
 
-.layout-impressum-modal-content {
+.layout-footer-links {
+    display: flex;
+    flex-direction: row;
+}
+
+.layout-modal-content {
     height: 80vh;
     overflow-x: hidden;
     overflow-x: auto;
