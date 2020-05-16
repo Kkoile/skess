@@ -1,6 +1,7 @@
 import Game from "../lib/Game";
 
 import * as express from "express";
+import Queue from "../lib/Queue";
 
 const router = express.Router();
 
@@ -20,7 +21,7 @@ router.get('/:id', async (req, res, next) => {
 router.post('/:id/chooseWord', async (req, res, next) => {
   try {
     const userId = req.headers['x-user'];
-    await Game.chooseWord(req.params.id, (userId as string), req.body.word);
+    Queue.addToChooseWordQueue(req.params.id, (userId as string), req.body.word);
     res.sendStatus(200);
   } catch(err) {
     console.error(err)
@@ -31,7 +32,7 @@ router.post('/:id/chooseWord', async (req, res, next) => {
 router.post('/:id/submitRound', async (req, res, next) => {
   try {
     const userId = req.headers['x-user'];
-    await Game.submitRound(req.params.id, (userId as string), req.body);
+    Queue.addToSubmitQueue(req.params.id, (userId as string), req.body);
     res.sendStatus(200);
   } catch(err) {
     console.error(err)

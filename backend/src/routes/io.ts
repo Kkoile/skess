@@ -9,7 +9,7 @@ export default (io) => {
   io.on('connection', (socket) => {
     socket.on('login', async ({userId, partyId}) => {
       let user: Player = await Redis.getItem(userId);
-      const party = await Redis.getItem(partyId);
+      const party = await Redis.getItem(partyId.toLowerCase());
       if (!party) {
         return;
       }

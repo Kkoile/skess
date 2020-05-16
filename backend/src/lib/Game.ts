@@ -4,6 +4,9 @@ import {Party} from "../types/party.type";
 import Notifier from "./Notifier";
 import CodeGenerator from "./CodeGenerator";
 import PartyHandler from "./Party";
+import * as Redlock from 'redlock';
+
+const redlock = new Redlock([Redis.getClient()]);
 
 const createNewGame = async (partyId) => {
     const party: Party = await Redis.getItem(partyId.toLowerCase());
@@ -68,15 +71,15 @@ const transformUsersPayload = async (game: Game, playerId: string) => {
 };
 
 const chooseWord = async (gameId: string, playerId: string, word: string) => {
+    const lock = await redlock.lock(`locks:${gameId.toLowerCase()}`, 1000);
     const game = await Redis.getItem(gameId.toLowerCase());
     const player: GamePlayer = game.player.find(player => player.id === playerId);
-    if (!player.wordsToChose.includes(word)) {
-        throw new Error('Chosen word is not valid');
-    }
     player.chosenWord = word;
     await Redis.setItem(game.id, game);
+    const allPlayersHaveChosen = game.player.every(player => !!player.chosenWord);
+    await lock.unlock();
     await sendUsersNewGameState(game);
-    if (game.player.every(player => !!player.chosenWord)) {
+    if (allPlayersHaveChosen) {
         await _startGame(game);
     }
 };
@@ -145,6 +148,7 @@ const _createRounds = (game: Game) : Array<RoundsPerWord> => {
 };
 
 const submitRound = async (gameId: string, userId: string, payload) => {
+    const lock = await redlock.lock(`locks:${gameId.toLowerCase()}`, 1000);
     const game = await Redis.getItem(gameId.toLowerCase());
     const roundPerWord = game.allRounds.find(roundsPerWord => roundsPerWord.rounds[game.currentRoundIndex].playerId === userId);
     const round: Round = roundPerWord.rounds[game.currentRoundIndex];
@@ -155,12 +159,14 @@ const submitRound = async (gameId: string, userId: string, payload) => {
     }
     round.submitted = true;
     await Redis.setItem(game.id, game);
+    const isLastPlayerToSubmit = game.allRounds.every(roundsPerWord => {
+        return !!roundsPerWord.rounds[game.currentRoundIndex].submitted
+    });
+    await lock.unlock();
     if (round.guessing) {
         await sendUsersNewGameState(game);
     }
-    if (game.allRounds.every(roundsPerWord => {
-        return !!roundsPerWord.rounds[game.currentRoundIndex].submitted
-    })){
+    if (isLastPlayerToSubmit){
         if (game.currentRoundIndex < game.numberOfRounds - 1) {
             await nextRound(game);
         } else {

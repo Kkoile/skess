@@ -6,11 +6,13 @@ import chosenWordLeft from '../assets/chosenWordLeft.svg';
 import chosenWordRight from '../assets/chosenWordRight.svg';
 import {useTranslation} from "react-i18next";
 import Avatar from "../components/Avatar";
+import {Input} from "antd";
 
 export default function WordChooser () {
 
     const {game, chooseWord, getNameOfPlayer} = useContext(GameContext);
     const [selectedWord, setSelectedWord] = useState(game.chosenWord);
+    const [customWord, setCustomWord] = useState('');
     const {t} = useTranslation('game');
 
     const renderWordsToChoose = game.wordsToChoose.map((word, i) => {
@@ -18,10 +20,12 @@ export default function WordChooser () {
     });
 
     const onWordClicked = (word) => {
-        setSelectedWord(word);
-        setTimeout(() => {
-            chooseWord(word);
-        }, 1000);
+        if (word.trim().length > 0) {
+            setSelectedWord(word);
+            setTimeout(() => {
+                chooseWord(word);
+            }, 1000);
+        }
     };
 
     if (game.chosenWord || selectedWord) {
@@ -51,12 +55,17 @@ export default function WordChooser () {
     }
     return (
         <div className={'WordChooser'}>
-            <h1>{t('chooseWordTitle')}</h1>
+            <h1 style={{marginBottom: 0}}>{t('chooseWordTitle')}</h1>
+            {game.player.length % 2 === 0 && <h2 style={{marginBottom: '2rem'}}>{t('evenNumberOfPlayersInfoText')}</h2>}
+            {game.player.length % 2 === 1 && <h2 style={{marginBottom: '2rem'}}>{t('oddNumberOfPlayersInfoText')}</h2>}
             <div className={'WordChooser-buttonArea'}>
                 {renderWordsToChoose}
             </div>
-            {game.player.length % 2 === 0 && <h2>{t('evenNumberOfPlayersInfoText')}</h2>}
-            {game.player.length % 2 === 1 && <h2>{t('oddNumberOfPlayersInfoText')}</h2>}
+            <p>{t('customWordInfoText')}</p>
+            <div className={'WordChooser-customWordArea'}>
+                <Input style={{height: '4rem', border: 'none', borderRadius: '2px 0 0 2px', boxShadow: '0 2px 8px 0 rgba(0, 0, 0, 0.2), 0 2px 5px 0 rgba(0, 0, 0, 0.19)'}} onPressEnter={() => onWordClicked(customWord)} placeholder={t('customWordPlaceholder')} value={customWord} autoFocus onChange={(event) => setCustomWord(event.target.value)}/>
+                <PrimaryButton disabled={customWord.trim().length === 0} style={{height: '4rem'}} onClick={() => onWordClicked(customWord)} value={t('customWordSubmit')} />
+            </div>
         </div>
     )
 

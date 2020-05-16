@@ -10,6 +10,10 @@ const clientGetItem = promisify(client.get).bind(client);
 const clientSetItem = promisify(client.set).bind(client);
 const clientDeleteItem = promisify(client.del).bind(client);
 
+const getClient = () => {
+    return client;
+}
+
 const getRedisAdapter = () => {
     return redisAdapter(configuration);
 }
@@ -31,5 +35,6 @@ export default {
     getItem,
     setItem,
     deleteItem,
-    getRedisAdapter
+    getRedisAdapter,
+    getClient
 };
