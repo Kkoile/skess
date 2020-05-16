@@ -10,7 +10,7 @@
 
 .Lobby-header {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
@@ -21,6 +21,13 @@
   margin-bottom: 0;
 }
 
+.Lobby-nameInputArea {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
 .Lobby-nameInput {
   font-size: 3rem;
   color: white;
@@ -28,6 +35,8 @@
   border: none;
   font-weight: bold;
   font-family: sans-serif;
+  text-align: end;
+  width: 300px;
 }
 
 .Lobby-nameInput:focus {
@@ -35,8 +44,8 @@
 }
 
 .Lobby-editNameButton {
-  max-width: 5rem;
-  max-height: 5rem;
+  max-width: 3rem;
+  max-height: 3rem;
 }
 
 .Lobby-editNameButton:hover {
@@ -52,6 +61,7 @@
 }
 
 .Lobby-JoinGameInput {
+  margin-top: 1rem;
   display: flex;
   flex-direction: row;
   justify-content: center;

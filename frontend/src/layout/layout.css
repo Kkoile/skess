@@ -35,7 +35,7 @@ p {
     width: 100vw;
     display: flex;
     flex-direction: column;
-    overflow: hidden;
+    overflow-x: hidden;
 }
 
 .layout-logo {
@@ -47,8 +47,8 @@ p {
 }
 
 .layout-content {
-    height: 100%;
     width: 100%;
+    padding: 4rem 1rem 1rem;
 }
 
 .layout-footer {

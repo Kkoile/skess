@@ -102,20 +102,24 @@ export default function PartyLobby({history}) {
         <div className="PartyLobby">
             <Button type={'danger'} className={'PartyLobby-leaveButton'} onClick={onLeavePartyClicked}>{t('leaveParty')}</Button>
             <div className={'PartyLobby-header'}>
-                <h2>{t('title')} </h2><h1><u>{party.id}</u></h1>
-                <Tooltip title={t('copy')}>
-                    <Button
-                        size={'large'}
-                        onClick={copyUrl}
-                        type={'ghost'}
-                        className={'PartyLobby-copyButton'}
-                        icon={<CopyOutlined />}/>
-                </Tooltip>
+                <h2>{t('title')} </h2>
+                <div className={'PartyLobby-partyIdArea'}>
+                    <h1><u>{party.id}</u></h1>
+                    <Tooltip title={t('copy')}>
+                        <Button
+                            size={'large'}
+                            onClick={copyUrl}
+                            type={'ghost'}
+                            className={'PartyLobby-copyButton'}
+                            icon={<CopyOutlined />}/>
+                    </Tooltip>
+                </div>
             </div>
             <div className={'PartyLobby-mainArea'}>
                 <div className={'PartyLobby-mainAreaLeft'}>
+                    <h2>{t('youAreUser')}</h2>
                     <div className={'PartyLobby-nameArea'}>
-                        <h2>{t('youAreUser')}</h2><Input className={'PartyLobby-nameInput'} style={{textAlign: 'right', width: 'auto', maxWidth: `${(user.name.length + 1) * 1.5}rem`}} ref={nameInput} value={user.name} onChange={onNameChanged} />
+                        <Input className={'PartyLobby-nameInput'} style={{textAlign: 'right', width: 'auto', maxWidth: `${(user.name.length + 1) * 1.5}rem`}} ref={nameInput} value={user.name} onChange={onNameChanged} />
                         <Tooltip title={t('changeName')}>
                             <img className={'PartyLobby-editNameButton'} onClick={onChangeNameClicked} src={Pencil} />
                         </Tooltip>

@@ -1,13 +1,5 @@
 @Import '~antd/dist/antd.css';
 
-.PartyLobby {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
 .PartyLobby-leaveButton {
   position: fixed;
   top: 1rem;
@@ -15,10 +7,11 @@
 }
 
 .PartyLobby-header {
+  width: 100%;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
-  align-items: flex-end;
+  align-items: flex-start;
   margin-bottom: 2rem;
 }
 
@@ -28,13 +21,30 @@
   margin-right: 0.5rem;
 }
 
-.PartyLobby-header > h1 {
-  font-size: 2.5rem;
+.PartyLobby-partyIdArea {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
-.PartyLobby-header > button {
-  align-self: center;
+.PartyLobby-partyIdArea > h1 {
+  line-height: 1;
+  font-size: 2.5rem;
   margin-bottom: 0;
+}
+
+.PartyLobby-partyIdArea > button {
+  margin-bottom: 0;
+}
+
+.ant-btn-icon-only.ant-btn-lg {
+  width: auto;
+  height: auto;
+}
+
+.ant-btn-icon-only.ant-btn-lg > * {
+  font-size: 2rem;
+  margin-left: 1rem;
 }
 
 .PartyLobby-header > h1 {
@@ -47,7 +57,6 @@
   justify-content: flex-start;
   align-items: flex-end;
   margin-bottom: 1rem;
-  margin-left: 1rem;
 }
 
 .PartyLobby-nameInput {
@@ -99,7 +108,6 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-left: 1rem;
 }
 
 .PartyLobby-playerList {
@@ -134,7 +142,6 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-left: 1rem;
 }
 
 .PartyLobby-timeOptionSeconds {

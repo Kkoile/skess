@@ -36,17 +36,20 @@ export default function Lobby({history}) {
   return (
     <div className="Lobby" >
         <div className={'Lobby-header'}>
-            <h1>{t('welcomeUser')}</h1><Input className={'Lobby-nameInput'} style={{textAlign: 'right', width: 'auto', maxWidth: `${(user.name.length + 1) * 2}rem`}} ref={nameInput} value={user.name} onChange={onNameChanged} />
-            <Tooltip title={t('changeName')}>
-                <img className={'Lobby-editNameButton'} onClick={onChangeNameClicked} src={Pencil} />
-            </Tooltip>
+            <h1>{t('welcomeUser')}</h1>
+            <div className={'Lobby-nameInputArea'}>
+                <Input className={'Lobby-nameInput'} ref={nameInput} value={user.name} onChange={onNameChanged} />
+                <Tooltip title={t('changeName')}>
+                    <img className={'Lobby-editNameButton'} onClick={onChangeNameClicked} src={Pencil} />
+                </Tooltip>
+            </div>
         </div>
           <PrimaryButton value={t('createNewGame')} style={{ height: '3rem', padding: '0.5rem 1rem', borderRadius: '10px'}} onClick={onCreateNewGameClicked} />
 
           <div className={'Lobby-JoinGameArea'}>
             <p style={{margin: 0}}>{t('joinGameLabel')}</p>
               <div className={'Lobby-JoinGameInput'}>
-                  <Input className={'Lobby-JoinGameInputInput'} placeholder={t('joinGamePlaceholder')} onPressEnter={onJoinGameClicked} value={partyId} onChange={(event) => setPartyId(event.target.value)}/>
+                <Input className={'Lobby-JoinGameInputInput'} placeholder={t('joinGamePlaceholder')} onPressEnter={onJoinGameClicked} value={partyId} onChange={(event) => setPartyId(event.target.value)}/>
                 <Button className={'Lobby-JoinGameInputButton'} size={'large'} onClick={onJoinGameClicked}>{t('joinGameButton')}</Button>
               </div>
           </div>
