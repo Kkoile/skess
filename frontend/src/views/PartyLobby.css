@@ -54,19 +54,21 @@
 .PartyLobby-nameArea {
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
-  align-items: flex-end;
-  margin-bottom: 1rem;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
 }
 
 .PartyLobby-nameInput {
-  font-size: 2.5rem;
+  font-size: 3rem;
   color: white;
   background-color: transparent;
   border: none;
   font-weight: bold;
   font-family: sans-serif;
   padding: 0;
+  line-height: 1;
+  width: 300px;
 }
 
 .PartyLobby-nameInput:focus {
@@ -74,8 +76,8 @@
 }
 
 .PartyLobby-editNameButton {
-  max-width: 4rem;
-  max-height: 4rem;
+  max-width: 3rem;
+  max-height: 3rem;
 }
 
 .PartyLobby-editNameButton:hover {
@@ -135,13 +137,13 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  margin-bottom: 1rem;
 }
 
 .PartyLobby-option {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  margin-bottom: 2rem;
 }
 
 .PartyLobby-timeOptionSeconds {

@@ -4,6 +4,7 @@ import {PartyContextProvider} from "./contexts/PartyContext";
 import PartyManager from "./views/PartyManager";
 import {GameContextProvider} from "./contexts/GameContext";
 import GameManager from "./views/GameManager";
+import InGameLayout from "./layout/InGameLayout";
 
 const routes = [
     {
@@ -32,7 +33,8 @@ const routes = [
                     </GameContextProvider>
                 </PartyContextProvider>
             )
-        }
+        },
+        layout: InGameLayout
     },
     {
         component: ({history}) => {

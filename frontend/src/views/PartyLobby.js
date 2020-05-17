@@ -119,7 +119,7 @@ export default function PartyLobby({history}) {
                 <div className={'PartyLobby-mainAreaLeft'}>
                     <h2>{t('youAreUser')}</h2>
                     <div className={'PartyLobby-nameArea'}>
-                        <Input className={'PartyLobby-nameInput'} style={{textAlign: 'right', width: 'auto', maxWidth: `${(user.name.length + 1) * 1.5}rem`}} ref={nameInput} value={user.name} onChange={onNameChanged} />
+                        <Input className={'PartyLobby-nameInput'} ref={nameInput} value={user.name} onChange={onNameChanged} />
                         <Tooltip title={t('changeName')}>
                             <img className={'PartyLobby-editNameButton'} onClick={onChangeNameClicked} src={Pencil} />
                         </Tooltip>
@@ -154,7 +154,7 @@ export default function PartyLobby({history}) {
                         </div>
                     </div>
                     <div className={'PartyLobby-playerArea'}>
-                        <h3>{t('playerTitle')} ({party.player.length})</h3>
+                        <h2>{t('playerTitle')} ({party.player.length})</h2>
                         <div className={'PartyLobby-playerList'}>
                             {renderPlayer}
                         </div>
