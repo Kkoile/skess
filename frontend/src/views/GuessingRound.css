@@ -24,12 +24,6 @@
   width: 100%;
 }
 
-.GuessingRound-countdown {
-  width: 5rem;
-  align-self: flex-end;
-  margin-bottom: 1rem;
-}
-
 .GuessingRound-titles {
   width: 100%;
   display: flex;
@@ -42,31 +36,16 @@
   font-size: 2rem;
 }
 
-.GuessingRound-wordAnimated {
-  position: fixed;
-  min-height: 16rem;
-  width: 60vw;
-  top: calc(50% - 8rem);
-  left: calc(50% - 30vw);
-  z-index: 10;
-  background-color: #000000;
-  padding: 2rem 1rem;
+.GuessingRound-image {
+  max-width: 100%;
+  max-height: 100%;
+  width: 65vh;
+  height: 65vh;
 }
 
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 100vw;
-  background-color: lightgrey;
-  opacity: 0.7;
-  z-index: -1;
-}
-
-.GuessingRound-TimeIsUp {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+@media screen and (orientation:portrait) {
+  .GuessingRound-image {
+    width: 100vw;
+    height: 100vw;
+  }
 }

@@ -69,6 +69,7 @@
 }
 
 .Lobby-JoinGameInputInput {
+  font-size: 1.5rem;
   height: 3rem;
   border-radius: 10px 0 0 10px;
 }

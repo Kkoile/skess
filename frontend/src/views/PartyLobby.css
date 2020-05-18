@@ -1,13 +1,21 @@
 @Import '~antd/dist/antd.css';
 
+@media (min-width: 420px) {
+  .PartyLobby {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
 .PartyLobby-leaveButton {
   position: fixed;
   top: 1rem;
   left: 1rem;
+  z-index: 100;
 }
 
 .PartyLobby-header {
-  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -71,6 +79,12 @@
   width: 300px;
 }
 
+@media (max-width: 350px) {
+  .PartyLobby-nameInput {
+    width: 250px;
+  }
+}
+
 .PartyLobby-nameInput:focus {
   border: none;
 }
@@ -95,6 +109,14 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  justify-content: space-around;
+  width: 100%;
+}
+
+@media (max-width: 420px) {
+  .PartyLobby-mainArea {
+    justify-content: space-between;
+  }
 }
 
 .PartyLobby-mainAreaLeft {
@@ -139,11 +161,18 @@
   flex-wrap: wrap;
 }
 
+@media (max-width: 420px) {
+  .PartyLobby-option {
+    width: 100%;
+  }
+}
+
 .PartyLobby-option {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   margin-bottom: 2rem;
+  margin-right: 2rem;
 }
 
 .PartyLobby-timeOptionSeconds {
@@ -197,7 +226,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  margin-left: 5rem;
+  margin-top: 1rem;
 }
 
 .PartyLobby-previousGamesList {
