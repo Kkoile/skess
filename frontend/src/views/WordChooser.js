@@ -16,7 +16,7 @@ export default function WordChooser () {
     const {t} = useTranslation('game');
 
     const renderWordsToChoose = game.wordsToChoose.map((word, i) => {
-        return <PrimaryButton style={{margin: '0 1rem'}} key={i} onClick={() => onWordClicked(word)} value={word}/>
+        return <PrimaryButton style={{margin: '1rem'}} key={i} onClick={() => onWordClicked(word)} value={word}/>
     });
 
     const onWordClicked = (word) => {
@@ -42,7 +42,7 @@ export default function WordChooser () {
                 <h1>{t('chosenWordTitle')}</h1>
                 <div className={'WordChooser-chosenWord'}>
                     <img src={chosenWordLeft} />
-                    <PrimaryButton style={{margin: '2rem'}} value={selectedWord} />
+                    <PrimaryButton style={{margin: '1rem'}} value={selectedWord} />
                     <img src={chosenWordRight} />
                 </div>
                 {game.player.length % 2 === 1 && <p>{t('oddNumberOfPlayersChosenInfoText')}</p>}

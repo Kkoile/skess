@@ -1,30 +1,59 @@
 @Import '~antd/dist/antd.css';
 
-.PartyLobby {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+@media (min-width: 420px) {
+  .PartyLobby {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 }
 
 .PartyLobby-leaveButton {
   position: fixed;
   top: 1rem;
   left: 1rem;
+  z-index: 100;
 }
 
 .PartyLobby-header {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
-  align-items: flex-end;
-  margin-bottom: 4rem;
+  align-items: flex-start;
+  margin-bottom: 2rem;
 }
 
-.PartyLobby-header > button {
-  align-self: center;
+.PartyLobby-header > h2 {
+  font-size: 1.5rem;
   margin-bottom: 0;
+  margin-right: 0.5rem;
+}
+
+.PartyLobby-partyIdArea {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.PartyLobby-partyIdArea > h1 {
+  line-height: 1;
+  font-size: 2.5rem;
+  margin-bottom: 0;
+}
+
+.PartyLobby-partyIdArea > button {
+  margin-bottom: 0;
+}
+
+.ant-btn-icon-only.ant-btn-lg {
+  width: auto;
+  height: auto;
+}
+
+.ant-btn-icon-only.ant-btn-lg > * {
+  font-size: 2rem;
+  margin-left: 1rem;
 }
 
 .PartyLobby-header > h1 {
@@ -34,8 +63,8 @@
 .PartyLobby-nameArea {
   display: flex;
   flex-direction: row;
-  align-items: flex-end;
-  height: 5rem;
+  align-items: center;
+  justify-content: center;
   margin-bottom: 2rem;
 }
 
@@ -46,6 +75,15 @@
   border: none;
   font-weight: bold;
   font-family: sans-serif;
+  padding: 0;
+  line-height: 1;
+  width: 300px;
+}
+
+@media (max-width: 350px) {
+  .PartyLobby-nameInput {
+    width: 250px;
+  }
 }
 
 .PartyLobby-nameInput:focus {
@@ -53,8 +91,8 @@
 }
 
 .PartyLobby-editNameButton {
-  max-width: 100%;
-  max-height: 100%;
+  max-width: 3rem;
+  max-height: 3rem;
 }
 
 .PartyLobby-editNameButton:hover {
@@ -71,13 +109,22 @@
 .PartyLobby-mainArea {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+}
+
+@media (max-width: 420px) {
+  .PartyLobby-mainArea {
+    justify-content: space-between;
+  }
 }
 
 .PartyLobby-mainAreaLeft {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .PartyLobby-playerArea {
@@ -112,13 +159,21 @@
 .PartyLobby-options {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 420px) {
+  .PartyLobby-option {
+    width: 100%;
+  }
 }
 
 .PartyLobby-option {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin: 1rem;
+  margin-bottom: 2rem;
+  margin-right: 2rem;
 }
 
 .PartyLobby-timeOptionSeconds {
@@ -126,6 +181,30 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  height: 100%;
+}
+
+.PartyLobby-timeOptionButtons {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+}
+
+.PartyLobby-timeOptionButton {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  background-color: #ec5b56;
+  color: white;
+  width: 2rem;
+  height: 100%;
+  margin-left: 1px;
+}
+
+.PartyLobby-timeOptionButton:hover {
+  cursor: pointer;
 }
 
 .ant-select-arrow {
@@ -134,22 +213,13 @@
   right: 0;
   margin-top: 0;
   width: 2rem;
-  height: 2rem;
+  height: 100%;
   color: white;
   font-size: 18px;
 }
 
 .ant-input-number-handler-wrap {
-  background-color: #ec5b56;
-  border: none;
-  color: white;
-}
-
-.ant-input-number-handler {
-  background-color: #ec5b56;
-  border: none;
-  color: white;
-  font-size: 18px;
+  visibility: hidden;
 }
 
 .PartyLobby-previousGames {
@@ -157,7 +227,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  margin-left: 5rem;
+  margin-top: 1rem;
 }
 
 .PartyLobby-previousGamesList {

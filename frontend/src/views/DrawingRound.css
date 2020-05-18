@@ -10,15 +10,34 @@
 
 .DrawingRound-header {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 75vh;
+  margin-right: 7.25rem;
+}
+
+@media screen and (orientation:portrait) {
+  .DrawingRound-header {
+    width: 100%;
+    margin-right: 0;
+  }
+}
+
+.DrawingRound-headerBottom {
+  position: relative;
+  width: 100%;
+  height: 6rem;
+  display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .DrawingRound-countdown {
+  position: absolute;
   width: 5rem;
-  align-self: flex-end;
-  margin-bottom: 2rem;
+  left: 0;
+  margin-bottom: 1rem;
 }
 
 .DrawingRound-titles {
@@ -29,12 +48,15 @@
   align-items: center;
 }
 
+.DrawingRound-titles > h1 {
+  font-size: 2rem;
+}
+
 .DrawingRound-wordAnimated {
   position: fixed;
   min-height: 16rem;
-  width: 60vw;
+  min-width: 60vw;
   top: calc(50% - 8rem);
-  left: calc(50% - 30vw);
   z-index: 10;
   background-color: #000000;
   padding: 2rem 1rem;
