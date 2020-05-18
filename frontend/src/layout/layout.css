@@ -55,10 +55,6 @@ p {
 .layout-footer {
     background-color: var(--secondary-background-color);
     width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
 }
 
 .layout-inner-footer {
