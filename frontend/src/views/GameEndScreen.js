@@ -101,7 +101,7 @@ export default function GameEndScreen({history}) {
                     </div>
                 </div>
             }
-            <PrimaryButton style={{borderRadius: '10px', marginTop: '4rem'}} value={t('gameEndPlayAgainButton')} onClick={onPlayAgainClicked} />
+            <PrimaryButton style={{borderRadius: '10px', marginTop: '4rem', marginBottom: '2rem'}} value={t('gameEndPlayAgainButton')} onClick={onPlayAgainClicked} />
         </div>
     );
 }

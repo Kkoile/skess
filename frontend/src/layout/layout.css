@@ -52,6 +52,12 @@ p {
     padding: 4rem 1rem 1rem;
 }
 
+@media (min-width: 420px) {
+    .layout-content {
+        height: calc(100vh - 4rem);
+    }
+}
+
 .layout-footer {
     background-color: var(--secondary-background-color);
     width: 100%;
