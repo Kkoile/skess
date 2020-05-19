@@ -15,6 +15,9 @@ const DrawingBoard = forwardRef((props, ref) => {
         return {
             getFinalImage() {
                 return sketchField.toDataURL()
+            },
+            undo () {
+                return sketchField.canUndo() && sketchField.undo()
             }
         }
     });

@@ -78,3 +78,13 @@
   justify-content: center;
   align-items: center;
 }
+
+.DrawingRound-undo {
+  position: absolute;
+  right: 0;
+  bottom: 1rem;
+}
+
+.DrawingRound-undo:hover {
+  cursor: pointer;
+}

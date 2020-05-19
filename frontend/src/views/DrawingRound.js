@@ -8,6 +8,7 @@ import {buildStyles, CircularProgressbar} from "react-circular-progressbar";
 import 'react-circular-progressbar/dist/styles.css';
 import {useTranslation} from "react-i18next";
 import {useSpring, animated} from 'react-spring'
+import {FaUndo} from "react-icons/fa";
 
 const OVERLAY_DURATION = 4;
 
@@ -105,6 +106,9 @@ export default function DrawingRound() {
                     {currentRound.previousPlayerId && (
                         <h2>{t('drawingRoundGuessOfPlayer', {userName: getNameOfPlayer(currentRound.previousPlayerId)})}</h2>
                     )}
+                    <div className={'DrawingRound-undo'} onClick={() => drawingBoard.current.undo()}>
+                        <FaUndo color={'black'} size={'2rem'}/>
+                    </div>
                 </div>
             </div>
             <DrawingBoard ref={drawingBoard}/>
