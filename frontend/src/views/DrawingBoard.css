@@ -10,8 +10,8 @@
 .DrawingBoard-canvas {
   border-style: solid;
   border-width: 1px;
-  width: 75vh;
-  height: 75vh;
+  width: 60vh;
+  height: 60vh;
 }
 
 .DrawingBoard-toolArea {
