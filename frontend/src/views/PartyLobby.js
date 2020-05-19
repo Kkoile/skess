@@ -149,8 +149,8 @@ export default function PartyLobby({history}) {
                                         <DownOutlined color={'white'}/>
                                     </div>
                                 </div>
-                                <p style={{marginBottom: 0, marginLeft: '0.5rem'}}>{t('seconds')}</p>
                             </div>
+                            <p style={{marginBottom: 0, marginTop: '0.25rem'}}>{t('seconds')}</p>
                         </div>
                     </div>
                     <div className={'PartyLobby-playerArea'}>

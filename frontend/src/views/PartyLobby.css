@@ -162,17 +162,14 @@
   flex-wrap: wrap;
 }
 
-@media (max-width: 420px) {
-  .PartyLobby-option {
-    width: 100%;
-  }
-}
-
 .PartyLobby-option {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   margin-bottom: 2rem;
+}
+
+.PartyLobby-option:not(:last-child) {
   margin-right: 2rem;
 }
 
@@ -216,6 +213,9 @@
   height: 100%;
   color: white;
   font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .ant-input-number-handler-wrap {
