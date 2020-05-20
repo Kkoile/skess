@@ -1,4 +1,5 @@
 export default {
+    back: 'Zurück',
 
     dp1: '1. Datenschutz auf einen Blick',
 

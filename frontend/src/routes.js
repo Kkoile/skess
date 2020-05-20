@@ -4,12 +4,24 @@ import {PartyContextProvider} from "./contexts/PartyContext";
 import PartyManager from "./views/PartyManager";
 import {GameContextProvider} from "./contexts/GameContext";
 import GameManager from "./views/GameManager";
+import Impressum from "./views/Impressum";
+import DataPrivacy from "./views/DataPrivacy";
 
 const routes = [
     {
         path: '/',
         component: Lobby,
         label: 'Lobby'
+    },
+    {
+        path: '/imprint',
+        component: Impressum,
+        label: 'Impressum'
+    },
+    {
+        path: '/dataPrivacyStatement',
+        component: DataPrivacy,
+        label: 'Data Privacy Statement'
     },
     {
         path: '/party/:partyId',

@@ -43,7 +43,7 @@ const RouteWrapper = ({ component: Component, layout: Layout, label, ...rest }) 
       <Route
           {...rest}
           render={props => (
-              <Layout>
+              <Layout history={props.history}>
                 <Component {...props} />
               </Layout>
           )}

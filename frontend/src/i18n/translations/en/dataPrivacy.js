@@ -1,4 +1,5 @@
 export default {
+    back: 'Back',
 
     dp1: '1. Data Protection at a Glance',
 

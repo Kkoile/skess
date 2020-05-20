@@ -1,10 +1,15 @@
 import React from 'react';
 import './Impressum.css';
+import PrimaryButton from "../components/PrimaryButton";
+import {useTranslation} from "react-i18next";
 
-export default function Impressum() {
+export default function Impressum({history}) {
+
+    const {t} = useTranslation('general');
 
   return (
     <div className="Impressum">
+      <PrimaryButton style={{position: 'absolute', margin: '1rem', top: 0, left: 0}} value={t('back')} onClick={() => history.goBack()}/>
       <h1>Impressum</h1>
 
       <h2>Angaben gem&auml;&szlig; &sect; 5 TMG</h2>

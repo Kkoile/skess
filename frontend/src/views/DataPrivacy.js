@@ -1,13 +1,15 @@
 import React from 'react';
 import './DataPrivacy.css';
 import {useTranslation} from "react-i18next";
+import PrimaryButton from "../components/PrimaryButton";
 
-export default function DataPrivacy() {
+export default function DataPrivacy({history}) {
 
     const {t, i18n} = useTranslation('dataPrivacy');
 
     return (
     <div className="DataPrivacy">
+        <PrimaryButton style={{position: 'absolute', margin: '1rem', top: 0, left: 0}} value={t('back')} onClick={() => history.goBack()}/>
         <h2>{t('dp1')}</h2>
 
         <h4>{t('dp2')}</h4>
