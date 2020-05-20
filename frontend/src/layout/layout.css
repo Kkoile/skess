@@ -52,12 +52,6 @@ p {
     padding: 4rem 1rem 1rem;
 }
 
-@media (min-width: 1024px) {
-    .layout-content {
-        height: calc(100vh - 4rem);
-    }
-}
-
 .layout-footer {
     background-color: var(--secondary-background-color);
     width: 100%;
@@ -75,7 +69,12 @@ p {
     margin: 0;
 }
 
-.layout-impressum-modal-content {
+.layout-footer-links {
+    display: flex;
+    flex-direction: row;
+}
+
+.layout-modal-content {
     height: 80vh;
     overflow-x: hidden;
     overflow-x: auto;
