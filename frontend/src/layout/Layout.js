@@ -4,11 +4,14 @@ import {Button, Modal} from "antd";
 import Impressum from "../views/Impressum";
 import logo from '../assets/logo.svg';
 import DataPrivacy from "../views/DataPrivacy";
+import {useTranslation} from "react-i18next";
 
 export default function ({children}) {
 
     const [isImpressumShowing, setIsImpressumShowing] = useState(false);
     const [isDataPrivacyShowing, setIsDataPrivacyShowing] = useState(false);
+
+    const {t} = useTranslation('general');
 
     return (
         <div className={'layout-main'}>
@@ -45,8 +48,8 @@ export default function ({children}) {
             <div className={'layout-footer'}>
                 <div className={'layout-inner-footer'}>
                     <div className={'layout-footer-links'}>
-                        <Button type={'link'} onClick={() => setIsImpressumShowing(true)}>Impressum</Button>
-                        <Button type={'link'} onClick={() => setIsDataPrivacyShowing(true)}>DataPrivacy</Button>
+                        <Button type={'link'} onClick={() => setIsImpressumShowing(true)}>{t('imprint')}</Button>
+                        <Button type={'link'} onClick={() => setIsDataPrivacyShowing(true)}>{t('dataPrivacyStatement')}</Button>
                     </div>
                     <p style={{color: '#e6e6e6', fontSize: '0.75rem', fontWeight: 'normal'}}>Made with ♥ by Kkoile</p>
                 </div>

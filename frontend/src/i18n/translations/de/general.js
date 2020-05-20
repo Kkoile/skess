@@ -1,3 +1,5 @@
 export default {
-    playerName: 'Spieler'
+    playerName: 'Spieler',
+    imprint: 'Impressum',
+    dataPrivacyStatement: 'Datenschutzerklärung'
 }
