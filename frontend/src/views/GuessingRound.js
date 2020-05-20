@@ -32,7 +32,13 @@ export default function GuessingRound() {
                 </div>
                 <div style={{flex: '1 1 auto', maxWidth: '100%', maxHeight: '100%'}}>
                     <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center', width: '100%', marginBottom: '2rem'}}>
-                        <Input style={{height: '4rem', fontSize: '1.5rem', border: 'none', borderRadius: '2px 0 0 2px', boxShadow: '0 2px 8px 0 rgba(0, 0, 0, 0.2), 0 2px 5px 0 rgba(0, 0, 0, 0.19)'}} onPressEnter={onSubmitGuessClicked} value={guess} autoFocus onChange={(event) => setGuess(event.target.value)}/>
+                        <Input
+                            style={{height: '4rem', fontSize: '1.5rem', border: 'none', borderRadius: '2px 0 0 2px', boxShadow: '0 2px 8px 0 rgba(0, 0, 0, 0.2), 0 2px 5px 0 rgba(0, 0, 0, 0.19)'}}
+                            onPressEnter={onSubmitGuessClicked}
+                            value={guess}
+                            autoFocus={typeof window.orientation === "undefined"}
+                            onChange={(event) => setGuess(event.target.value)}
+                        />
                         <PrimaryButton disabled={guess.trim().length === 0} style={{height: '4rem'}} onClick={onSubmitGuessClicked} value={t('submit')} />
                     </div>
                     <img className={'GuessingRound-image'} src={currentRound.image}/>
