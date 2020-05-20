@@ -63,7 +63,14 @@ export default function WordChooser () {
             </div>
             <p>{t('customWordInfoText')}</p>
             <div className={'WordChooser-customWordArea'}>
-                <Input style={{height: '4rem', border: 'none', borderRadius: '2px 0 0 2px', boxShadow: '0 2px 8px 0 rgba(0, 0, 0, 0.2), 0 2px 5px 0 rgba(0, 0, 0, 0.19)'}} onPressEnter={() => onWordClicked(customWord)} placeholder={t('customWordPlaceholder')} value={customWord} autoFocus onChange={(event) => setCustomWord(event.target.value)}/>
+                <Input
+                    style={{height: '4rem', fontSize: '1.5rem', border: 'none', borderRadius: '2px 0 0 2px', boxShadow: '0 2px 8px 0 rgba(0, 0, 0, 0.2), 0 2px 5px 0 rgba(0, 0, 0, 0.19)'}}
+                    onPressEnter={() => onWordClicked(customWord)}
+                    placeholder={t('customWordPlaceholder')}
+                    value={customWord}
+                    autoFocus={typeof window.orientation === "undefined"}
+                    onChange={(event) => setCustomWord(event.target.value)}
+                />
                 <PrimaryButton disabled={customWord.trim().length === 0} style={{height: '4rem'}} onClick={() => onWordClicked(customWord)} value={t('customWordSubmit')} />
             </div>
         </div>
