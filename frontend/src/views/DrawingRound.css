@@ -82,7 +82,7 @@
 .DrawingRound-undo {
   position: absolute;
   right: 0;
-  bottom: 1rem;
+  padding: 1rem;
 }
 
 .DrawingRound-undo:hover {
