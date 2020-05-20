@@ -22,7 +22,7 @@ export default function Lobby({history}) {
     }
 
     const onJoinGameClicked = () => {
-        history.push(`/party/${partyId}`);
+        history.push(`/party/${partyId.trim().toLowerCase()}`);
     }
 
     const onChangeNameClicked = () => {
