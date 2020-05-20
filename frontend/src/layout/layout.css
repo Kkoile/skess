@@ -1,6 +1,13 @@
 @Import '~antd/dist/antd.css';
 @Import './colors.css';
 
+
+@media (max-width: 420px) {
+    html {
+        font-size: 12px;
+    }
+}
+
 h1 {
     color: white;
     font-size: 3rem;
@@ -28,29 +35,32 @@ p {
     width: 100vw;
     display: flex;
     flex-direction: column;
-
+    justify-content: space-between;
+    overflow-x: hidden;
 }
 
 .layout-logo {
     position: absolute;
-    top: 1rem;
-    right: 1rem;
+    top: 0.5rem;
+    right: 0.5rem;
     width: 8rem;
     height: auto;
 }
 
 .layout-content {
-    height: 100%;
     width: 100%;
+    padding: 4rem 1rem 1rem;
+}
+
+@media (min-width: 1024px) {
+    .layout-content {
+        height: calc(100vh - 4rem);
+    }
 }
 
 .layout-footer {
     background-color: var(--secondary-background-color);
     width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
 }
 
 .layout-inner-footer {

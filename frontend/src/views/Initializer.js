@@ -28,6 +28,7 @@ const Initializer = () => {
                     path={route.path}
                     component={route.component}
                     label={route.label}
+                    layout={route.layout || Layout}
                 />
             )
           })}
@@ -37,7 +38,7 @@ const Initializer = () => {
 
 };
 
-const RouteWrapper = ({ component: Component, label, ...rest }) => {
+const RouteWrapper = ({ component: Component, layout: Layout, label, ...rest }) => {
   return (
       <Route
           {...rest}

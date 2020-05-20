@@ -8,6 +8,7 @@ import {buildStyles, CircularProgressbar} from "react-circular-progressbar";
 import 'react-circular-progressbar/dist/styles.css';
 import {useTranslation} from "react-i18next";
 import {useSpring, animated} from 'react-spring'
+import {FaUndo} from "react-icons/fa";
 
 const OVERLAY_DURATION = 4;
 
@@ -82,8 +83,11 @@ export default function DrawingRound() {
 
     return (
         <div className={'DrawingRound'}>
-            <div>
-                <div className={'DrawingRound-header'}>
+            <div className={'DrawingRound-header'}>
+                <div className={'DrawingRound-titles'}>
+                    <h1 style={{margin: 0}}>{t('drawingTitle')}</h1>
+                </div>
+                <div className={'DrawingRound-headerBottom'}>
                     <div className={'DrawingRound-countdown'}>
                         <CircularProgressbar
                             value={countdown}
@@ -98,16 +102,16 @@ export default function DrawingRound() {
                             })}
                         />
                     </div>
-                    <div className={'DrawingRound-titles'}>
-                        <h1 style={{margin: 0}}>{t('drawingTitle')}</h1>
-                        <PrimaryButton style={{marginBottom: '2rem'}} value={currentRound.word}/>
-                        {currentRound.previousPlayerId && (
-                            <h2>{t('drawingRoundGuessOfPlayer', {userName: getNameOfPlayer(currentRound.previousPlayerId)})}</h2>
-                        )}
+                    <PrimaryButton swtyle={{marginBottom: '1rem'}} value={currentRound.word}/>
+                    {currentRound.previousPlayerId && (
+                        <h2>{t('drawingRoundGuessOfPlayer', {userName: getNameOfPlayer(currentRound.previousPlayerId)})}</h2>
+                    )}
+                    <div className={'DrawingRound-undo'} onClick={() => drawingBoard.current.undo()}>
+                        <FaUndo color={'black'} size={'2rem'}/>
                     </div>
                 </div>
-                <DrawingBoard ref={drawingBoard}/>
             </div>
+            <DrawingBoard ref={drawingBoard}/>
             <animated.div style={wordTransition} className={'DrawingRound-wordAnimated'} >
                 <div className={'overlay'} />
                 <h2>{t('drawingTitle')}</h2>
