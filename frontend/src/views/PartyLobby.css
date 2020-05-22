@@ -291,3 +291,31 @@
 .PartyLobby-previousGameGoToResults:hover {
   cursor: pointer;
 }
+
+.PartyLobby-manualImageOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: lightgrey;
+  opacity: 0.7;
+  z-index: 1;
+}
+
+.PartyLobby-manualImage {
+  height: 50vh;
+  z-index: 2;
+  position: fixed;
+  top: calc(50% - 25vh);
+  left: calc(50% - 33vh);
+}
+
+@media(max-width: 420px) {
+  .PartyLobby-manualImage {
+    width: 80vw;
+    height: auto;
+    top: calc(50% - 25vh);
+    left: calc(50% - 40vw);
+  }
+}

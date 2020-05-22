@@ -20,5 +20,6 @@ export default {
     de: 'German',
     goToLobbyButton: 'Go to Lobby',
     partyNotExistingTitle: 'Party does not exist',
-    partyNotExistingInfoText: 'The party with id "{{partyId}}" does not exist. Go back to lobby in order to create a new one.'
+    partyNotExistingInfoText: 'The party with id "{{partyId}}" does not exist. Go back to lobby in order to create a new one.',
+    howDoesItWork: 'How does it work?'
 }

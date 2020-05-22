@@ -4,5 +4,6 @@ export default {
     createNewGame: 'Create new Game',
     joinGameLabel: 'Or join a game',
     joinGamePlaceholder: 'Enter Game ID',
-    joinGameButton: 'GO'
+    joinGameButton: 'GO',
+    howDoesItWork: 'How does it work?'
 }

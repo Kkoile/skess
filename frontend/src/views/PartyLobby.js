@@ -1,4 +1,4 @@
-import React, {useContext, useRef} from 'react';
+import React, {useContext, useRef, useState} from 'react';
 import './PartyLobby.css';
 import {AppContext} from "../contexts/AppContext";
 import {message, Button, Tooltip, Select, InputNumber, Input} from "antd";
@@ -12,12 +12,14 @@ import Pencil from "../assets/pencil.svg";
 import Loading from "../components/Loading";
 import DownOutlined from "@ant-design/icons/lib/icons/DownOutlined";
 import UpOutlined from "@ant-design/icons/lib/icons/UpOutlined";
+import ManualVideo from "../assets/manual.gif";
 
 export default function PartyLobby({history}) {
 
     const {state, changeName} = useContext(AppContext);
     const {user, supportedLanguages} = state;
     const {party, updatePartyOption, startNewGame, goToGame} = useContext(PartyContext);
+    const [isManualModalOpen, setManualModalOpen] = useState(false);
     const nameInput = useRef(null);
     const {t} = useTranslation('partyLobby');
 
@@ -115,6 +117,7 @@ export default function PartyLobby({history}) {
                     </Tooltip>
                 </div>
             </div>
+            <PrimaryButton value={t('howDoesItWork')} style={{ height: '3rem', marginBottom: '1rem', padding: '0.5rem 1rem', borderRadius: '10px', backgroundColor: '#184853'}} onClick={() => setManualModalOpen(true)} />
             <div className={'PartyLobby-mainArea'}>
                 <div className={'PartyLobby-mainAreaLeft'}>
                     <h2>{t('youAreUser')}</h2>
@@ -180,6 +183,13 @@ export default function PartyLobby({history}) {
                     </div>
                 )}
             </div>
+
+            {isManualModalOpen &&
+                <div>
+                    <div className={'PartyLobby-manualImageOverlay'} onClick={() => setManualModalOpen(false)}/>
+                    <img className={'PartyLobby-manualImage'} src={ManualVideo}/>
+                </div>
+            }
         </div>
     );
 }
