@@ -58,7 +58,7 @@ export const GameContextProvider = ({id, ...props}) => {
     }
 
     const updateEndScreenState = async (endScreenState) => {
-        setGame(game => ({...game, endScreenState}))
+        setGame(game => ({...game, endScreenState: {...game.endScreenState, loading: true}}))
         if (party.hostId === user.id) {
             await axios.post(`/api/game/${game.id}/updateEndScreenState`, endScreenState);
         }

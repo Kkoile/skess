@@ -5,6 +5,7 @@ import {GameContext} from "../contexts/GameContext";
 import Avatar from "../components/Avatar";
 import PrimaryButton from "../components/PrimaryButton";
 import {useTranslation} from "react-i18next";
+import Loading from "../components/Loading";
 
 export default function GameEndScreen({history}) {
 
@@ -67,9 +68,10 @@ export default function GameEndScreen({history}) {
     })
 
     const currentRound = currentRoundsPerWord.rounds[game.endScreenState.roundIndex];
-
     return (
         <div className={'GameEndScreen'}>
+            {game.endScreenState.loading && <div className={'GameEndScreen-overlay'} />}
+            {game.endScreenState.loading && <Loading color={'#184853'} />}
             <div className={'GameEndScreen-header'}>
                 <h1>{t('gameEndTitle')}</h1>
             </div>

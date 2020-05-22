@@ -5,6 +5,7 @@
     left: calc(50% - 40px);
     width: 80px;
     height: 80px;
+    z-index: 100;
 }
 .lds-ring div {
     box-sizing: border-box;
