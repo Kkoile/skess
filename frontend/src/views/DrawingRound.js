@@ -116,9 +116,6 @@ export default function DrawingRound() {
                 <div className={'overlay'} />
                 <h2>{t('drawingTitle')}</h2>
                 <PrimaryButton style={{fontSize: '3rem'}} value={currentRound.word}/>
-                {currentRound.previousPlayerId && (
-                    <h2>{t('drawingRoundGuessOfPlayer', {userName: getNameOfPlayer(currentRound.previousPlayerId)})}</h2>
-                )}
             </animated.div>
         </div>
     );
