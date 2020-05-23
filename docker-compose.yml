@@ -5,7 +5,6 @@ services:
     build:
       context: backend
     image: docker-registry.kkoile.de/skess-backend
-    container_name: skess-backend
     restart: unless-stopped
     env_file: .env
     environment:
