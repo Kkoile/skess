@@ -2,7 +2,6 @@ import React, {useContext, useRef, useState} from 'react';
 import './PartyLobby.css';
 import {AppContext} from "../contexts/AppContext";
 import {message, Button, Tooltip, Select, InputNumber, Input} from "antd";
-import {ArrowDownOutlined, ArrowUpOutlined, CopyOutlined} from '@ant-design/icons'
 import copy from "clipboard-copy";
 import {PartyContext} from "../contexts/PartyContext";
 import PrimaryButton from "../components/PrimaryButton";
@@ -10,9 +9,8 @@ import Avatar from "../components/Avatar";
 import {useTranslation} from "react-i18next";
 import Pencil from "../assets/pencil.svg";
 import Loading from "../components/Loading";
-import DownOutlined from "@ant-design/icons/lib/icons/DownOutlined";
-import UpOutlined from "@ant-design/icons/lib/icons/UpOutlined";
 import ManualVideo from "../assets/manual.gif";
+import {FaChevronUp, FaChevronDown, FaCopy} from "react-icons/fa";
 
 export default function PartyLobby({history}) {
 
@@ -113,7 +111,7 @@ export default function PartyLobby({history}) {
                             onClick={copyUrl}
                             type={'ghost'}
                             className={'PartyLobby-copyButton'}
-                            icon={<CopyOutlined />}/>
+                            icon={<FaCopy />}/>
                     </Tooltip>
                 </div>
             </div>
@@ -143,13 +141,13 @@ export default function PartyLobby({history}) {
                                         className={'PartyLobby-timeOptionButton'}
                                         onClick={onTimeToDrawUpPressed}
                                     >
-                                        <UpOutlined color={'white'}/>
+                                        <FaChevronUp color={'white'}/>
                                     </div>
                                     <div
                                         className={'PartyLobby-timeOptionButton'}
                                         onClick={onTimeToDrawDownPressed}
                                     >
-                                        <DownOutlined color={'white'}/>
+                                        <FaChevronDown color={'white'}/>
                                     </div>
                                 </div>
                             </div>
