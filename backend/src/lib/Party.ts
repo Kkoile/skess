@@ -67,7 +67,8 @@ const enterParty = async (partyId, userId) => {
     }
     const user: Player = await Redis.getItem(userId);
     if (!party.player.find(player => player.id === user.id)) {
-        party.player.push(user);
+        const {id, name} = user;
+        party.player.push({id, name});
         await Redis.setItem(party.id, party);
     }
     await sendNewPartyState(party);
