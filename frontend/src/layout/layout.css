@@ -47,6 +47,10 @@ p {
     height: auto;
 }
 
+.layout-logo:hover {
+    cursor: pointer;
+}
+
 .layout-content {
     width: 100%;
     padding: 4rem 1rem 1rem;

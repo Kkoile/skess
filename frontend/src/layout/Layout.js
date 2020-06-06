@@ -8,9 +8,13 @@ export default function ({children, history}) {
 
     const {t} = useTranslation('general');
 
+    const onLogoClicked = () => {
+        history.push('/');
+    };
+
     return (
         <div className={'layout-main'}>
-            <img className={'layout-logo'} src={logo}></img>
+            <img className={'layout-logo'} src={logo} onClick={onLogoClicked}></img>
             <div className={'layout-content'}>
                 {children}
             </div>
