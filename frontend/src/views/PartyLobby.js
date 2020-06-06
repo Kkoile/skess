@@ -138,13 +138,13 @@ export default function PartyLobby({history}) {
                                 <InputNumber style={{width: '5rem'}} value={party.options.timeToDraw} onChange={onDrawTimeOptionChanged} disabled={party.hostId !== user.id}/>
                                 <div className={'PartyLobby-timeOptionButtons'}>
                                     <div
-                                        className={'PartyLobby-timeOptionButton'}
+                                        className={`PartyLobby-timeOptionButton ${party.hostId !== user.id ? 'disabled' : ''}`}
                                         onClick={onTimeToDrawUpPressed}
                                     >
                                         <FaChevronUp color={'white'}/>
                                     </div>
                                     <div
-                                        className={'PartyLobby-timeOptionButton'}
+                                        className={`PartyLobby-timeOptionButton ${party.hostId !== user.id ? 'disabled' : ''}`}
                                         onClick={onTimeToDrawDownPressed}
                                     >
                                         <FaChevronDown color={'white'}/>

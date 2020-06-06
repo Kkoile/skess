@@ -82,8 +82,11 @@ const leaveParty = async (partyId: string, userId: string) => {
     await sendNewPartyState(party);
 };
 
-const updateOptions = async (partyId, options) => {
+const updateOptions = async (partyId, options, userId) => {
     const party: Party = await Redis.getItem(partyId.toLowerCase());
+    if (party.hostId !== userId) {
+        throw new Error('User is not allowed to change party options');
+    }
     party.options = options;
     await Redis.setItem(party.id, party);
     await sendNewPartyState(party);

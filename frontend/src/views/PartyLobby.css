@@ -204,6 +204,10 @@
   cursor: pointer;
 }
 
+.PartyLobby-timeOptionButton:hover.disabled {
+  cursor: not-allowed;
+}
+
 .ant-select-arrow {
   background-color: #ec5b56;
   top: 0;

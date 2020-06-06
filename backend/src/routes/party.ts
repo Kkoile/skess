@@ -51,7 +51,8 @@ router.post('/:id/enter', async (req, res, next) => {
 
 router.post('/:id/options', async (req, res, next) => {
   try {
-    await Party.updateOptions(req.params.id, req.body);
+    const userId = req.headers['x-user'];
+    await Party.updateOptions(req.params.id, req.body, userId);
     res.sendStatus(200);
   } catch(err) {
     console.error(err)

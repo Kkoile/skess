@@ -21,8 +21,10 @@ export const PartyContextProvider = ({id, ...props}) => {
     };
 
     const updatePartyOption = async (options) => {
-        setParty({...party, options});
-        await axios.post(`/api/party/${id}/options`, options);
+        if (user.id === party.hostId) {
+            setParty({...party, options});
+            await axios.post(`/api/party/${id}/options`, options);
+        }
     };
 
     const loadParty = async (id) => {
