@@ -93,7 +93,7 @@ export default function GameEndScreen({history}) {
                         </div>
                         }
                         <img className={'GameEndScreen-image'} src={currentRound.image}/>
-                        <PrimaryButton style={{width: '110%', position: 'absolute', left: '-5%', bottom: '-2rem', textAlign: 'center'}} value={currentRoundsPerWord.word}/>
+                        <PrimaryButton style={{width: '110%', position: 'absolute', left: '-5%', bottom: '-4.3rem', textAlign: 'center'}} value={currentRoundsPerWord.word}/>
                     </div>
                     <div
                         className={'GameEndScreen-nextButton ' + ((game.endScreenState.roundIndex >= currentRoundsPerWord.rounds.length - 1 && game.endScreenState.isGuessShowing) ? '' : 'GameEndScreen-nextButtonEnabled')}
@@ -103,7 +103,7 @@ export default function GameEndScreen({history}) {
                     </div>
                 </div>
             }
-            <PrimaryButton style={{borderRadius: '10px', marginTop: '4rem', marginBottom: '2rem'}} value={t('gameEndPlayAgainButton')} onClick={onPlayAgainClicked} />
+            <PrimaryButton style={{borderRadius: '10px', marginTop: '6rem', marginBottom: '2rem'}} value={t('gameEndPlayAgainButton')} onClick={onPlayAgainClicked} />
         </div>
     );
 }
