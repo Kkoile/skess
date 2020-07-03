@@ -19,6 +19,7 @@ export default {
     gameEndTitle: 'Game ended! Here are the results',
     gameEndPlayAgainButton: 'Play Again',
     gameEndGuessText: '{{userName}} guessed:',
+    gameEndDrawText: 'Drawn by {{userName}}',
     notPartOfGameTitle: 'You are not part of this game',
     notPartOfGameInfoText: 'Wait in the lobby until the game is over. There you can start a new game with the other players.',
     goToLobbyButton: 'Got to Lobby',

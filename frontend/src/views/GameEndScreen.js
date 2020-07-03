@@ -87,10 +87,13 @@ export default function GameEndScreen({history}) {
                         <FaChevronLeft size={'4rem'} color={game.endScreenState.roundIndex < 1 ? 'lightgrey' : 'white'}/>
                     </div>
                     <div className={'GameEndScreen-imageArea'}>
-                        {game.endScreenState.isGuessShowing &&
-                        <div className={'GameEndScreen-guessBlock'}>
-                            <p className={'GameEndScreen-guess'}>{t('gameEndGuessText', {userName: currentRound.guessedBy})} <u>{currentRound.guess}</u></p>
-                        </div>
+                        {game.endScreenState.isGuessShowing ?
+                            <div className={'GameEndScreen-guessBlock'}>
+                                <p className={'GameEndScreen-guess'}>{t('gameEndGuessText', {userName: currentRound.guessedBy})} <u>{currentRound.guess}</u></p>
+                            </div> : 
+                            <div className={'GameEndScreen-guessBlock'}>
+                                <p className={'GameEndScreen-guess'}>{t('gameEndDrawText', {userName: currentRound.drawnBy})}</p>
+                            </div>
                         }
                         <img className={'GameEndScreen-image'} src={currentRound.image}/>
                         <PrimaryButton style={{width: '110%', position: 'absolute', left: '-5%', bottom: '-4.3rem', textAlign: 'center'}} value={currentRoundsPerWord.word}/>
