@@ -24,7 +24,7 @@ export default function ({children, history}) {
                         <Button type={'link'} onClick={() => history.push('/imprint')}>{t('imprint')}</Button>
                         <Button type={'link'} onClick={() => history.push('/dataPrivacyStatement')}>{t('dataPrivacyStatement')}</Button>
                     </div>
-                    <p style={{color: '#e6e6e6', fontSize: '0.75rem', fontWeight: 'normal'}}>Made with ♥ by Kkoile</p>
+                    <p style={{color: '#e6e6e6', fontSize: '0.75rem', fontWeight: 'normal'}}>Made with ♥ by <a href="https://github.com/Kkoile" target="_blank">Kkoile</a></p>
                 </div>
             </div>
         </div>
