@@ -1,13 +1,15 @@
 import React, {forwardRef, useImperativeHandle, useState} from 'react';
 import './DrawingBoard.css';
 import {SketchField, Tools} from 'react-sketch';
-import {FaPaintBrush, FaEraser, FaSplotch} from 'react-icons/fa'
+import {FaPaintBrush, FaEraser, FaSplotch, FaPalette} from 'react-icons/fa'
 import {Button} from "antd";
+import {ChromePicker} from "react-color";
 
 const DrawingBoard = forwardRef((props, ref) => {
 
     const [selectedWidth, setSelectedWidth] = useState(3);
     const [selectedColor, setSelectedColor] = useState('black');
+    const [showColorPicker, setShowColorPicker] = useState(false);
     const [isEraser, setIsEraser] = useState(false);
     const [sketchField, setSketchField] = useState(null);
 
@@ -44,6 +46,14 @@ const DrawingBoard = forwardRef((props, ref) => {
            </div>
        )
     });
+    const onColorPickerClicked = () => {
+        setShowColorPicker(!showColorPicker);
+    }
+    const renderColorPicker = (
+        <div className={'DrawingBoard-color'} onClick={onColorPickerClicked}>
+            <FaPalette color={'black'} size={'2rem'}/>
+        </div>
+    )
 
     return (
         <div className={'DrawingBoard'}>
@@ -67,7 +77,12 @@ const DrawingBoard = forwardRef((props, ref) => {
              </div>
              <div className={'DrawingBoard-colorArea'}>
                  {renderColors}
+                 {renderColorPicker}
              </div>
+            {showColorPicker && (<div className={'DrawingBoard-colorPicker'}>
+                <div className={'DrawingBoard-cover'} onClick={ () => setShowColorPicker(false) }/>
+                <ChromePicker color={selectedColor} onChange={(color) => setSelectedColor(color.hex)}/>
+            </div>)}
         </div>
     );
 });

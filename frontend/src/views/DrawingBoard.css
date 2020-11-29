@@ -63,6 +63,19 @@
   background-color: #40a9ff;
 }
 
+.DrawingBoard-cover {
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+}
+
+.DrawingBoard-colorPicker {
+  position: absolute;
+  z-index: 2;
+}
+
 @media screen and (orientation:portrait) {
   .DrawingBoard-canvas {
     height: 98vw;
