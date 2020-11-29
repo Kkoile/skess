@@ -1,4 +1,4 @@
-import React, {forwardRef, useImperativeHandle, useState} from 'react';
+import React, {forwardRef, useEffect, useImperativeHandle, useState} from 'react';
 import './DrawingBoard.css';
 import {SketchField, Tools} from 'react-sketch';
 import {FaPaintBrush, FaEraser, FaSplotch, FaPalette} from 'react-icons/fa'
@@ -12,10 +12,19 @@ const DrawingBoard = forwardRef((props, ref) => {
     const [showColorPicker, setShowColorPicker] = useState(false);
     const [isEraser, setIsEraser] = useState(false);
     const [sketchField, setSketchField] = useState(null);
+    const [isMouseDown, setIsMouseDown] = useState(false);
 
     useImperativeHandle(ref, () => {
         return {
             getFinalImage() {
+                if (isMouseDown) {
+                    const evt = new MouseEvent("mouseup", {
+                        view: window,
+                        bubbles: true,
+                        cancelable: true
+                    });
+                    sketchField._canvas.dispatchEvent(evt);
+                }
                 return sketchField.toDataURL()
             },
             undo () {
@@ -23,6 +32,16 @@ const DrawingBoard = forwardRef((props, ref) => {
             }
         }
     });
+
+    useEffect(() => {
+        if (sketchField) {
+            const canvas = sketchField._fc
+            if (canvas) {
+                canvas.on('mouse:down', () => setIsMouseDown(true));
+                canvas.on('mouse:up', () => setIsMouseDown(false));
+            }
+        }
+    }, [sketchField])
 
     const brushWidths = [2,3,5,10,20,30];
     const renderBrushes = brushWidths.map(width => {
