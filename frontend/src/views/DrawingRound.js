@@ -45,6 +45,11 @@ export default function DrawingRound() {
 
     const {currentRound, options} = game;
 
+    const submit = () => {
+        const image = drawingBoard.current.getFinalImage();
+        submitImage(image);
+    }
+
     useEffect(() => {
         const timeoutId = setTimeout(() => {
             setZoomWord(false);
@@ -56,8 +61,7 @@ export default function DrawingRound() {
 
     useEffect(() => {
         if (currentRound && !currentRound.submitted && countdown < 1) {
-            const image = drawingBoard.current.getFinalImage();
-            submitImage(image);
+            submit();
         }
     }, [currentRound, countdown, submitImage]);
 
@@ -112,6 +116,7 @@ export default function DrawingRound() {
                 </div>
             </div>
             <DrawingBoard ref={drawingBoard}/>
+            <PrimaryButton style={{fontSize: '1rem', marginTop: '1rem', padding: '0.5rem 1rem'}} value={t('submitEarly')} onClick={submit}/>
             <animated.div style={wordTransition} className={'DrawingRound-wordAnimated'} >
                 <div className={'overlay'} />
                 <h2>{t('drawingTitle')}</h2>

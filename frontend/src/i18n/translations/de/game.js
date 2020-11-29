@@ -13,6 +13,7 @@ export default {
     timeIsUpTitle: 'Die Zeit ist um',
     timeIsUpWaitingText: 'Warte auf die Bilder der anderen Spieler',
     submit: 'Einloggen',
+    submitEarly: 'Früher Abgeben',
     guessingTitle: 'Jetzt rate was {{userName}} gemalt hat',
     alreadyGuessedTitle: 'Du hast geraten',
     alreadyGuessedWaitingText: 'Wir warten auf die folgenden Spieler:',

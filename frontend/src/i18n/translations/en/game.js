@@ -13,6 +13,7 @@ export default {
     timeIsUpTitle: 'Time is up!',
     timeIsUpWaitingText: 'Waiting for the others to submit their drawing',
     submit: 'Submit',
+    submitEarly: 'Submit Early',
     guessingTitle: 'Now guess what {{userName}} drew',
     alreadyGuessedTitle: 'You Guessed',
     alreadyGuessedWaitingText: 'Waiting for the others to guess',
