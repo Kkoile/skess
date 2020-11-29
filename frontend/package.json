@@ -12,6 +12,7 @@
     "random-hash": "^4.0.1",
     "react": "^16.13.1",
     "react-circular-progressbar": "^2.0.3",
+    "react-color": "^2.19.3",
     "react-dom": "^16.13.1",
     "react-i18next": "^11.3.5",
     "react-icons": "^3.9.0",
